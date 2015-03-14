@@ -169,7 +169,7 @@ public class Materias extends javax.swing.JFrame {
     }//GEN-LAST:event_btncancelActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        //Confirmar
+        
         nombre = jTextFieldnombremateria.getText();
         clave = jTextFieldclave.getText();
         semestre = Integer.valueOf((String)jComboBoxSemestre.getSelectedItem());

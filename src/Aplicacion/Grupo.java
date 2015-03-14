@@ -11,11 +11,12 @@ package Aplicacion;
  */
 public class Grupo extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Grupo
-     */
+    String clave, nombre, carrera, salon;
+    int semestre;
     public Grupo() {
         initComponents();
+        ocultarCampos();
+        ocultarBotones();
     }
 
     /**
@@ -37,15 +38,14 @@ public class Grupo extends javax.swing.JFrame {
         jTextFieldclave = new javax.swing.JTextField();
         jTextFieldnombre = new javax.swing.JTextField();
         btnnuevo = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jComboBoxsemestre = new javax.swing.JComboBox();
-        jComboBoxsalon = new javax.swing.JComboBox();
-        jComboBoxcarrera = new javax.swing.JComboBox();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
+        jComboBoxSemestre = new javax.swing.JComboBox();
+        jComboBoxSalon = new javax.swing.JComboBox();
+        jComboBoxCarrera = new javax.swing.JComboBox();
         btneliminar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(800, 600));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -58,6 +58,11 @@ public class Grupo extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jLabel1.setText("Clave grupo:");
@@ -75,18 +80,38 @@ public class Grupo extends javax.swing.JFrame {
         jTextFieldnombre.setText(" ");
 
         btnnuevo.setText("Nuevo registro");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevoActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Cancelar");
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Guardar");
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
 
-        jComboBoxsemestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSemestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
 
-        jComboBoxsalon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxSalon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sal00", "sal01", "sal02", "sal03" }));
 
-        jComboBoxcarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Carrera00", "Carrera01", "Carrera02" }));
 
         btneliminar.setText("Eliminar registro");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,14 +141,14 @@ public class Grupo extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jTextFieldnombre)
                             .addComponent(jTextFieldclave)
-                            .addComponent(jComboBoxsemestre, 0, 200, Short.MAX_VALUE)
-                            .addComponent(jComboBoxsalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBoxcarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jComboBoxSemestre, 0, 200, Short.MAX_VALUE)
+                            .addComponent(jComboBoxSalon, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboBoxCarrera, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(331, 331, 331)
-                        .addComponent(jButton2)
+                        .addComponent(btnCancelar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3)))
+                        .addComponent(btnGuardar)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -143,24 +168,55 @@ public class Grupo extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBoxsalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jComboBoxcarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBoxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3))
+                    .addComponent(btnCancelar)
+                    .addComponent(btnGuardar))
                 .addGap(0, 49, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
+        //habilitar campos (true)
+        habilitarBotones();
+        btneliminar.setEnabled(false);
+        habilitarCampos();
+    }//GEN-LAST:event_btnnuevoActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        //limpiar y ocultar botones
+        ocultarBotones();
+        ocultarCampos();
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        ocultarCampos();
+        habilitarBotones();
+    }//GEN-LAST:event_jTable1MouseClicked
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        //Pedir confirmacion
+        //Eliminar de BD
+        btneliminar.setEnabled(false);
+    }//GEN-LAST:event_btneliminarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        //Pedir Confirmacion
+        //Enviar a BD
+        ocultarBotones();
+        ocultarCampos();
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,13 +254,13 @@ public class Grupo extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnnuevo;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JComboBox jComboBoxcarrera;
-    private javax.swing.JComboBox jComboBoxsalon;
-    private javax.swing.JComboBox jComboBoxsemestre;
+    private javax.swing.JComboBox jComboBoxCarrera;
+    private javax.swing.JComboBox jComboBoxSalon;
+    private javax.swing.JComboBox jComboBoxSemestre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -215,4 +271,47 @@ public class Grupo extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldclave;
     private javax.swing.JTextField jTextFieldnombre;
     // End of variables declaration//GEN-END:variables
+
+    private void ocultarCampos() {
+        //limpiar
+        jTextFieldclave.setText(null);
+        jTextFieldnombre.setText(null);
+        jComboBoxCarrera.setSelectedIndex(0);
+        jComboBoxSalon.setSelectedIndex(0);
+        jComboBoxSemestre.setSelectedIndex(0);
+
+        //ocultar
+        jTextFieldclave.setEnabled(false);
+        jTextFieldnombre.setEnabled(false);
+        /*btneliminar.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        btnCancelar.setEnabled(false);*/
+        jComboBoxCarrera.setEnabled(false);
+        jComboBoxSalon.setEnabled(false);
+        jComboBoxSemestre.setEnabled(false);
+        
+    }
+
+    private void habilitarCampos() {
+        jTextFieldclave.setEnabled(true);
+        jTextFieldnombre.setEnabled(true);
+        /*btneliminar.setEnabled(true);
+        btnGuardar.setEnabled(true);
+        btnCancelar.setEnabled(true);*/
+        jComboBoxCarrera.setEnabled(true);
+        jComboBoxSalon.setEnabled(true);
+        jComboBoxSemestre.setEnabled(true);
+    }
+
+    private void ocultarBotones() {
+        btneliminar.setEnabled(false);
+        btnGuardar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+    }
+
+    private void habilitarBotones() {
+        btneliminar.setEnabled(true);
+        btnGuardar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+    }
 }
