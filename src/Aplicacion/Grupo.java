@@ -102,9 +102,9 @@ public class Grupo extends javax.swing.JFrame {
 
         jComboBoxSemestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
 
-        jComboBoxSalon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "sal00", "sal01", "sal02", "sal03" }));
+        jComboBoxSalon.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Salon", "sal00", "sal01", "sal02", "sal03" }));
 
-        jComboBoxCarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Carrera00", "Carrera01", "Carrera02" }));
+        jComboBoxCarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar Carrera", "Carrera00", "Carrera01", "Carrera02" }));
 
         btneliminar.setText("Eliminar registro");
         btneliminar.addActionListener(new java.awt.event.ActionListener() {
@@ -201,21 +201,41 @@ public class Grupo extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        //Limpiar y ocultar botones
         ocultarCampos();
-        habilitarBotones();
+        ocultarBotones();
+        btneliminar.setEnabled(true);
     }//GEN-LAST:event_jTable1MouseClicked
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         //Pedir confirmacion
         //Eliminar de BD
         btneliminar.setEnabled(false);
+        
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        //Pedir Confirmacion
-        //Enviar a BD
-        ocultarBotones();
-        ocultarCampos();
+        clave = jTextFieldclave.getText();
+        nombre = jTextFieldnombre.getText();
+        semestre = Integer.valueOf((String)jComboBoxSemestre.getSelectedItem());
+        carrera = (String) jComboBoxCarrera.getSelectedItem();
+        salon = (String)jComboBoxSalon.getSelectedItem();
+        
+        if (!nombre.equals("") && !clave.equals("") && !carrera.equals("Seleccionar Carrera") 
+            && !salon.equals("Seleccionar Salon"))
+        {
+            System.out.println(""+nombre+" "+clave+" "+carrera+" "+salon+" "+semestre);
+            //Pedir Confirmacion
+            //Enviar a BD
+            ocultarBotones();
+            ocultarCampos();
+        }
+        else
+        {
+            System.out.println("Error");
+        }
+        
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**

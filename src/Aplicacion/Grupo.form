@@ -212,11 +212,12 @@
     <Component class="javax.swing.JComboBox" name="jComboBoxSalon">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="4">
-            <StringItem index="0" value="sal00"/>
-            <StringItem index="1" value="sal01"/>
-            <StringItem index="2" value="sal02"/>
-            <StringItem index="3" value="sal03"/>
+          <StringArray count="5">
+            <StringItem index="0" value="Seleccionar Salon"/>
+            <StringItem index="1" value="sal00"/>
+            <StringItem index="2" value="sal01"/>
+            <StringItem index="3" value="sal02"/>
+            <StringItem index="4" value="sal03"/>
           </StringArray>
         </Property>
       </Properties>
@@ -224,10 +225,11 @@
     <Component class="javax.swing.JComboBox" name="jComboBoxCarrera">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="3">
-            <StringItem index="0" value="Carrera00"/>
-            <StringItem index="1" value="Carrera01"/>
-            <StringItem index="2" value="Carrera02"/>
+          <StringArray count="4">
+            <StringItem index="0" value="Seleccionar Carrera"/>
+            <StringItem index="1" value="Carrera00"/>
+            <StringItem index="2" value="Carrera01"/>
+            <StringItem index="3" value="Carrera02"/>
           </StringArray>
         </Property>
       </Properties>
