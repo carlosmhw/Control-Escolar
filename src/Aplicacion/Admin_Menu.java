@@ -66,6 +66,7 @@ public class Admin_Menu extends javax.swing.JFrame {
         btnfaltas = new javax.swing.JButton();
         btncalificaciones = new javax.swing.JButton();
         btnhorario = new javax.swing.JButton();
+        btnmaterias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador");
@@ -160,6 +161,8 @@ public class Admin_Menu extends javax.swing.JFrame {
 
         btnhorario.setText("Ver horario");
 
+        btnmaterias.setText("Materias");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -201,11 +204,13 @@ public class Admin_Menu extends javax.swing.JFrame {
                                 .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(62, 62, 62)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(btnfaltas)
-                                    .addComponent(btncalificaciones))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btncalificaciones)
+                                    .addComponent(btnfaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(74, 74, 74)
-                                .addComponent(btnhorario)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnhorario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnmaterias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(60, 60, 60)
@@ -278,7 +283,7 @@ public class Admin_Menu extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 352, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 78, Short.MAX_VALUE))
+                        .addGap(0, 64, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel11)
@@ -308,7 +313,9 @@ public class Admin_Menu extends javax.swing.JFrame {
                             .addComponent(btncalificaciones)
                             .addComponent(btnhorario))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnfaltas)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnfaltas)
+                            .addComponent(btnmaterias))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btncancelar)
@@ -364,6 +371,7 @@ public class Admin_Menu extends javax.swing.JFrame {
     private javax.swing.JButton btnfaltas;
     private javax.swing.JButton btnhecho;
     private javax.swing.JButton btnhorario;
+    private javax.swing.JButton btnmaterias;
     private javax.swing.JButton btnnuevo;
     private javax.swing.JComboBox jComboBoxgrupo;
     private javax.swing.JComboBox jComboBoxsemestre;
