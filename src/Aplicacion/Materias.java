@@ -11,11 +11,12 @@ package Aplicacion;
  */
 public class Materias extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Materias
-     */
+    String nombre, clave, carrera;
+    int semestre;
+    
     public Materias() {
         initComponents();
+        ocultarCampos();
     }
 
     /**
@@ -37,9 +38,12 @@ public class Materias extends javax.swing.JFrame {
         labsemestre = new javax.swing.JLabel();
         jTextFieldnombremateria = new javax.swing.JTextField();
         jTextFieldclave = new javax.swing.JTextField();
-        jTextFieldsemestre = new javax.swing.JTextField();
+        jComboBoxCarrera = new javax.swing.JComboBox();
+        labCarrera = new javax.swing.JLabel();
+        jComboBoxSemestre = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Materias");
         setResizable(false);
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -56,10 +60,25 @@ public class Materias extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         btncancel.setText("Cancelar");
+        btncancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncancelActionPerformed(evt);
+            }
+        });
 
         btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
 
         btnnuevo.setText("Nuevo registro");
+        btnnuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnnuevoActionPerformed(evt);
+            }
+        });
 
         labnombremateria.setText("Nombre materia:");
 
@@ -71,46 +90,56 @@ public class Materias extends javax.swing.JFrame {
 
         jTextFieldclave.setText(" ");
 
-        jTextFieldsemestre.setText(" ");
+        jComboBoxCarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Elegir Carrera", "Ing Sistemas", "Ing Fisica" }));
+
+        labCarrera.setText("Carrera:");
+
+        jComboBoxSemestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9" }));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(320, 320, 320)
-                        .addComponent(btncancel)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnguardar))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(173, 173, 173)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnnuevo)
-                                .addGap(29, 29, 29)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labnombremateria)
-                                    .addComponent(labclave)
-                                    .addComponent(labsemestre))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldnombremateria)
-                                    .addComponent(jTextFieldclave)
-                                    .addComponent(jTextFieldsemestre, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(173, 173, 173)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(15, 15, 15)
+                            .addComponent(btncancel)
+                            .addGap(18, 18, 18)
+                            .addComponent(btnguardar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(labnombremateria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(labclave)
+                                .addComponent(labsemestre)
+                                .addComponent(labCarrera, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jComboBoxCarrera, 0, 180, Short.MAX_VALUE)
+                                .addComponent(jTextFieldnombremateria)
+                                .addComponent(jTextFieldclave)
+                                .addComponent(jComboBoxSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnnuevo)))
                 .addContainerGap(175, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 385, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(31, 31, 31)
+                .addComponent(btnnuevo)
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labCarrera))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labnombremateria)
-                    .addComponent(btnnuevo)
                     .addComponent(jTextFieldnombremateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -119,16 +148,49 @@ public class Materias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labsemestre)
-                    .addComponent(jTextFieldsemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                    .addComponent(jComboBoxSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btncancel)
                     .addComponent(btnguardar))
-                .addGap(35, 35, 35))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnnuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnnuevoActionPerformed
+        habilitarCampos();
+        
+    }//GEN-LAST:event_btnnuevoActionPerformed
+
+    private void btncancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncancelActionPerformed
+        ocultarCampos();
+    }//GEN-LAST:event_btncancelActionPerformed
+
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        //Confirmar
+        nombre = jTextFieldnombremateria.getText();
+        clave = jTextFieldclave.getText();
+        semestre = Integer.valueOf((String)jComboBoxSemestre.getSelectedItem());
+        carrera = (String) jComboBoxCarrera.getSelectedItem();
+        
+        if (!nombre.equals("") && !clave.equals("") && !carrera.equals("Elegir Carrera"))
+        {
+            System.out.println("Carrera: " + carrera + " mat: " + nombre + " clave: " + clave + " Sem: " + semestre);//Prueba
+            //Confirmar contrasenia
+            //Mandar datos a la base de datos
+            //Hacer Update de Tabla
+            ocultarCampos();
+        }
+        else
+        {
+            System.out.println("Error");//Prueba
+        }
+        
+        //Mensaje de error
+        
+    }//GEN-LAST:event_btnguardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -169,13 +231,41 @@ public class Materias extends javax.swing.JFrame {
     private javax.swing.JButton btncancel;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnnuevo;
+    private javax.swing.JComboBox jComboBoxCarrera;
+    private javax.swing.JComboBox jComboBoxSemestre;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextFieldclave;
     private javax.swing.JTextField jTextFieldnombremateria;
-    private javax.swing.JTextField jTextFieldsemestre;
+    private javax.swing.JLabel labCarrera;
     private javax.swing.JLabel labclave;
     private javax.swing.JLabel labnombremateria;
     private javax.swing.JLabel labsemestre;
     // End of variables declaration//GEN-END:variables
+
+    private void ocultarCampos() {
+        /*Limpiar Datos De Los Campos*/
+        jTextFieldnombremateria.setText(null);
+        jTextFieldclave.setText(null);
+        jComboBoxCarrera.setSelectedIndex(0);
+        jComboBoxSemestre.setSelectedIndex(0);
+        
+        
+        /*Ocultar Campos*/
+        jComboBoxCarrera.setEnabled(false);
+        jTextFieldnombremateria.setEnabled(false);
+        jTextFieldclave.setEnabled(false);
+        jComboBoxSemestre.setEnabled(false);
+        btncancel.setEnabled(false);
+        btnguardar.setEnabled(false);
+    }
+
+    private void habilitarCampos() {
+        jComboBoxCarrera.setEnabled(true);
+        jTextFieldnombremateria.setEnabled(true);
+        jTextFieldclave.setEnabled(true);
+        jComboBoxSemestre.setEnabled(true);
+        btncancel.setEnabled(true);
+        btnguardar.setEnabled(true);
+    }
 }
