@@ -226,6 +226,8 @@ public class Grupo extends javax.swing.JFrame {
         {
             System.out.println(""+nombre+" "+clave+" "+carrera+" "+salon+" "+semestre);
             //Pedir Confirmacion
+            ConfirmacionAdmin nuevo = new ConfirmacionAdmin();
+            nuevo.setVisible(true);
             //Enviar a BD
             ocultarBotones();
             ocultarCampos();

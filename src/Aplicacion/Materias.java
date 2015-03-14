@@ -178,7 +178,11 @@ public class Materias extends javax.swing.JFrame {
         if (!nombre.equals("") && !clave.equals("") && !carrera.equals("Elegir Carrera"))
         {
             System.out.println("Carrera: " + carrera + " mat: " + nombre + " clave: " + clave + " Sem: " + semestre);//Prueba
-            //Confirmar contrasenia
+            
+            //Confirmar 
+            ConfirmacionAdmin nuevo = new ConfirmacionAdmin();
+            nuevo.setVisible(true);
+            
             //Mandar datos a la base de datos
             //Hacer Update de Tabla
             ocultarCampos();
