@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * @author CarlosMario
  */
 public class Login extends javax.swing.JFrame {
-        String url = "www.google.com.mx"; //Ingresar la url de ayuda 
+        String url = "http://soportecontrolescolar.esy.es/"; //Ingresar la url de ayuda 
         String usuario; 
         String contrasena;
         String tipoUsuario;
@@ -62,6 +62,8 @@ public class Login extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Control Escolar - Inicio Sesión");
+        setResizable(false);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aplicacion/image/logo.png"))); // NOI18N
 
