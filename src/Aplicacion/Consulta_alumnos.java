@@ -8,8 +8,10 @@ package Aplicacion;
 import Database.BD;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,7 +23,7 @@ public class Consulta_alumnos extends javax.swing.JFrame {
     public Consulta_alumnos() {
         initComponents();
     }
-     public Consulta_alumnos(String matriculaAl) {
+     public Consulta_alumnos (String matriculaAl) {
         initComponents();
         labMatricula.setText(matriculaAl);
         
@@ -38,10 +40,38 @@ public class Consulta_alumnos extends javax.swing.JFrame {
                 labnombre.setText(nombre);
                 labsemestre.setText(""+semestre);
                 labGrupo.setText(grupo);
+                
+            //Inicia llenado tabla Horario 
+                
+                
+                    rs = s.executeQuery("select idMateria as 'Clave Materia', "
+                            + "materia.nombre as 'Materia', horaInicio as 'Hora de inicio', horaFinal as 'Fin de hora' "
+                            + "from grupo join hora using(idGrupo) join materia using(idMateria) "
+                            + "where idGrupo = '"+grupo+"' order by horaInicio;");
+                    DefaultTableModel modelo = new DefaultTableModel();
+                    jTableHorario.setModel(modelo);
+                    ResultSetMetaData rsMd = rs.getMetaData(); //Obtiene los metadatos de la tabla 
+                    int cantidadColumnas = rsMd.getColumnCount(); //Cuenta la cantidad de columnas 
+                    //Para agregar la cantidad de columans utilizamos este for
+                    for(int i = 1 ; i <= cantidadColumnas; i++){
+                        modelo.addColumn(rsMd.getColumnLabel(i));
+                    }
+                    while(rs.next()){
+                        Object[] fila = new Object[cantidadColumnas];
+                        for(int i = 0 ; i < cantidadColumnas; i++){
+                            fila[i] = rs.getObject(i+1);
+                        }
+                        modelo.addRow(fila);
+                    }    
+                
             } catch (SQLException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }
+        
+
     }
+     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -55,7 +85,7 @@ public class Consulta_alumnos extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableHorario = new javax.swing.JTable();
         btncalificaciones = new javax.swing.JButton();
         btnfaltas = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
@@ -68,13 +98,15 @@ public class Consulta_alumnos extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Control Escolar");
         setPreferredSize(new java.awt.Dimension(800, 600));
+        setResizable(false);
 
         jLabel1.setText("Nombre:");
 
         jLabel2.setText("Matricula:");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -85,7 +117,7 @@ public class Consulta_alumnos extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTableHorario);
 
         btncalificaciones.setText("Consultar calificaciones");
         btncalificaciones.addActionListener(new java.awt.event.ActionListener() {
@@ -247,7 +279,7 @@ public class Consulta_alumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableHorario;
     private javax.swing.JLabel labGrupo;
     private javax.swing.JLabel labMatricula;
     private javax.swing.JLabel labnombre;
