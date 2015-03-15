@@ -5,17 +5,42 @@
  */
 package Aplicacion;
 
+import Database.BD;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Alejandro
  */
 public class Consulta_alumnos extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Consulta_alumnos
-     */
+    String nombre, grupo;
+    int semestre;
     public Consulta_alumnos() {
         initComponents();
+    }
+     public Consulta_alumnos(String matriculaAl) {
+        initComponents();
+        labMatricula.setText(matriculaAl);
+        
+        try {
+                BD mysql = new BD();
+                Connection cn = mysql.Conectar ();
+                Statement s = cn.createStatement();
+                ResultSet rs = s.executeQuery ("select * from alumno join grupo using(idGrupo) where matriculaAL = '"+matriculaAl+"';");
+                while(rs.next()){
+                    nombre= rs.getString("nombre");
+                    semestre = rs.getInt("semestre");
+                    grupo = rs.getString("idGrupo");
+                }
+                labnombre.setText(nombre);
+                labsemestre.setText(""+semestre);
+                labGrupo.setText(grupo);
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
     }
 
     /**
@@ -36,9 +61,9 @@ public class Consulta_alumnos extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         labnombre = new javax.swing.JLabel();
-        labmatricula = new javax.swing.JLabel();
+        labMatricula = new javax.swing.JLabel();
         labsemestre = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        labGrupo = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
@@ -75,17 +100,22 @@ public class Consulta_alumnos extends javax.swing.JFrame {
 
         jLabel4.setText("Grupo:");
 
-        labnombre.setText("jLabel6");
+        labnombre.setText("Nombre");
 
-        labmatricula.setText("jLabel7");
+        labMatricula.setText("Matricula");
 
-        labsemestre.setText("labsemestre");
+        labsemestre.setText("Semestre");
 
-        jLabel9.setText("labgrupo");
+        labGrupo.setText("Grupo");
 
         jLabel5.setText("Horario");
 
         jButton1.setText("Cerrar Sesion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,9 +147,9 @@ public class Consulta_alumnos extends javax.swing.JFrame {
                                 .addComponent(labnombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addComponent(labmatricula)
+                            .addComponent(labMatricula)
                             .addComponent(labsemestre)
-                            .addComponent(jLabel9)))))
+                            .addComponent(labGrupo)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +164,7 @@ public class Consulta_alumnos extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(labmatricula))
+                    .addComponent(labMatricula))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -142,7 +172,7 @@ public class Consulta_alumnos extends javax.swing.JFrame {
                 .addGap(5, 5, 5)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jLabel9))
+                    .addComponent(labGrupo))
                 .addGap(18, 18, 18)
                 .addComponent(btncalificaciones)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -164,6 +194,13 @@ public class Consulta_alumnos extends javax.swing.JFrame {
         Calificaciones calif = new Calificaciones("ALUMNO");
         calif.setVisible(true);
     }//GEN-LAST:event_btncalificacionesActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        Login login = new Login();
+        login.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,10 +246,10 @@ public class Consulta_alumnos extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JLabel labmatricula;
+    private javax.swing.JLabel labGrupo;
+    private javax.swing.JLabel labMatricula;
     private javax.swing.JLabel labnombre;
     private javax.swing.JLabel labsemestre;
     // End of variables declaration//GEN-END:variables

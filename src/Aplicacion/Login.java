@@ -26,9 +26,10 @@ import java.util.logging.Logger;
 public class Login extends javax.swing.JFrame {
         String url = "www.google.com.mx"; //Ingresar la url de ayuda 
         String usuario; 
+        String contrasena;
         String tipoUsuario;
-        ResultSet rs;
-        Statement stm;
+        /*ResultSet rs;
+        Statement stm;*/
        
     
     
@@ -184,22 +185,30 @@ public class Login extends javax.swing.JFrame {
         /*BD mysql = new BD();
         Connection cn = mysql.Conectar ();*/ 
         usuario = jTextField1.getText();
+        contrasena = jTextField2.getText();
         if(usuario.substring(0,2).equals("AL")){
-            tipoUsuario = "ALUMNO"; 
-            BD mysql = new BD();
-            Connection cn = mysql.Conectar ();
-            String prueba = null;
+            String usuarioRs = null; 
+            String contrasenaRs = null; 
             try {
-                PreparedStatement pst = cn.prepareStatement("SELECT matriculaAl FROM ALUMNO WHERE matriculaAL = ?");
-                pst.setString(1, usuario);
+                tipoUsuario = "ALUMNO";
+                BD mysql = new BD();
+                Connection cn = mysql.Conectar ();
+                Statement s = cn.createStatement();
+                ResultSet rs = s.executeQuery ("select * from alumno where matriculaAL = '"+usuario+"';");
                 while(rs.next()){
-                    System.out.println("Algo: " +rs.getString(0));
+                    usuarioRs= rs.getString("matriculaAL");
+                    contrasenaRs = rs.getString("contrasena");
                 }
-               
-                
+                if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                    Consulta_alumnos cnAl = new Consulta_alumnos(usuarioRs);
+                   // this.dispose();
+                    this.dispose();
+                    cnAl.setVisible(true);
+                }
             } catch (SQLException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }
+            
         }else if(usuario.substring(5).equals("PR")){
             tipoUsuario = "PROFESOR";
         }else if(usuario.substring(5).equals("AD")){
