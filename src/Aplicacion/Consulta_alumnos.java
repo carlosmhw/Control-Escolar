@@ -63,6 +63,11 @@ public class Consulta_alumnos extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable2);
 
         btncalificaciones.setText("Consultar calificaciones");
+        btncalificaciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btncalificacionesActionPerformed(evt);
+            }
+        });
 
         btnfaltas.setText("Consultar Faltas");
 
@@ -154,6 +159,11 @@ public class Consulta_alumnos extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btncalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalificacionesActionPerformed
+        Calificaciones calif = new Calificaciones("ALUMNO");
+        calif.setVisible(true);
+    }//GEN-LAST:event_btncalificacionesActionPerformed
 
     /**
      * @param args the command line arguments

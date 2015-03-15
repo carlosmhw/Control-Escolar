@@ -5,11 +5,17 @@
  */
 package Aplicacion;
 
+import Database.BD;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,6 +25,11 @@ import java.util.logging.Logger;
  */
 public class Login extends javax.swing.JFrame {
         String url = "www.google.com.mx"; //Ingresar la url de ayuda 
+        String usuario; 
+        String tipoUsuario;
+        ResultSet rs;
+        Statement stm;
+       
     
     
     /**
@@ -106,6 +117,11 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Contraseña: ");
 
         jButton1.setText("Entrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -163,6 +179,33 @@ public class Login extends javax.swing.JFrame {
     private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
         setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
     }//GEN-LAST:event_jLabel6MouseExited
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        /*BD mysql = new BD();
+        Connection cn = mysql.Conectar ();*/ 
+        usuario = jTextField1.getText();
+        if(usuario.substring(0,2).equals("AL")){
+            tipoUsuario = "ALUMNO"; 
+            BD mysql = new BD();
+            Connection cn = mysql.Conectar ();
+            String prueba = null;
+            try {
+                PreparedStatement pst = cn.prepareStatement("SELECT matriculaAl FROM ALUMNO WHERE matriculaAL = ?");
+                pst.setString(1, usuario);
+                while(rs.next()){
+                    System.out.println("Algo: " +rs.getString(0));
+                }
+               
+                
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+        }else if(usuario.substring(5).equals("PR")){
+            tipoUsuario = "PROFESOR";
+        }else if(usuario.substring(5).equals("AD")){
+            tipoUsuario = "ADMINISTRADOR"; 
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
