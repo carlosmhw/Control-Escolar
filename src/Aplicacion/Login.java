@@ -18,6 +18,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -183,36 +184,41 @@ public class Login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         /*BD mysql = new BD();
-        Connection cn = mysql.Conectar ();*/ 
+        Connection cn = mysql.Conectar ();*/        
         usuario = jTextField1.getText();
         contrasena = jTextField2.getText();
-        if(usuario.substring(0,2).equals("AL")){
-            String usuarioRs = null; 
-            String contrasenaRs = null; 
-            try {
-                tipoUsuario = "ALUMNO";
-                BD mysql = new BD();
-                Connection cn = mysql.Conectar ();
-                Statement s = cn.createStatement();
-                ResultSet rs = s.executeQuery ("select * from alumno where matriculaAL = '"+usuario+"';");
-                while(rs.next()){
-                    usuarioRs= rs.getString("matriculaAL");
-                    contrasenaRs = rs.getString("contrasena");
-                }
+        ValidacionLogin validaruser = new ValidacionLogin();
+        if(validaruser.validarUsuario(usuario, contrasena)){
+            if(usuario.substring(0,2).equals("AL")){
+                String usuarioRs = null; 
+                String contrasenaRs = null; 
+                try {
+                    tipoUsuario = "ALUMNO";
+                    BD mysql = new BD();
+                    Connection cn = mysql.Conectar ();
+                    Statement s = cn.createStatement();
+                    ResultSet rs = s.executeQuery ("select * from alumno where matriculaAL = '"+usuario+"';");
+                    while(rs.next()){
+                        usuarioRs= rs.getString("matriculaAL");
+                        contrasenaRs = rs.getString("contrasena");
+                    }
                 if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
                     Consulta_alumnos cnAl = new Consulta_alumnos(usuarioRs);
                    // this.dispose();
                     this.dispose();
                     cnAl.setVisible(true);
-                }
-            } catch (SQLException ex) {
-                System.out.println("Error: " + ex.getMessage());
+                }else{
+                    JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
+                    //System.out.println("Usuario o contraseña incorrecto");
+                }              
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }            
+                }else if(usuario.substring(5).equals("PR")){
+                    tipoUsuario = "PROFESOR";
+                }else if(usuario.substring(5).equals("AD")){
+                    tipoUsuario = "ADMINISTRADOR"; 
             }
-            
-        }else if(usuario.substring(5).equals("PR")){
-            tipoUsuario = "PROFESOR";
-        }else if(usuario.substring(5).equals("AD")){
-            tipoUsuario = "ADMINISTRADOR"; 
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
