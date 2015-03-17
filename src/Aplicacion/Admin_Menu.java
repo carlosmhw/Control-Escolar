@@ -5,6 +5,8 @@ public final class Admin_Menu extends javax.swing.JFrame {
     String nombre, apPaterno, apMaterno, calle, colonia, telCasa, telMovil, corrInst, corrPers,
            contrasena;
     int numero;
+    int cont = 0; //contador para validar caracteres ingresados 
+    
     
     public void guardarTextFildVar(){
         nombre = jTextFieldNombre.getText();
@@ -22,6 +24,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
     
     //Funcion para deshabilitar jTextField
     public void Deshabilitar(){
+        jTextFieldMatricula.setEnabled(false);
         jTextFieldNombre.setEnabled(false);
         jTextFieldApellidoPaterno.setEnabled(false);
         jTextFieldApellidoMaterno.setEnabled(false);
@@ -38,6 +41,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
         
     }
     public void Habilitar(){
+            jTextFieldMatricula.setEnabled(true);
             jTextFieldNombre.setEnabled(true);
             jTextFieldApellidoPaterno.setEnabled(true);
             jTextFieldApellidoMaterno.setEnabled(true);
@@ -53,6 +57,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
             jComboBoxgrupo.setEnabled(true);        
     }
     public void Limpiar(){
+        jTextFieldMatricula.setText("");
         jTextFieldNombre.setText("");
         jTextFieldApellidoPaterno.setText("");
         jTextFieldApellidoMaterno.setText("");
@@ -129,11 +134,11 @@ public final class Admin_Menu extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jTextFieldMatricula = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador");
-        setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -271,6 +276,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldApellidoPaternoKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldApellidoPaternoKeyTyped(evt);
+            }
         });
 
         jTextFieldApellidoMaterno.setText(" ");
@@ -283,6 +291,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
         jTextFieldApellidoMaterno.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldApellidoMaternoKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldApellidoMaternoKeyTyped(evt);
             }
         });
 
@@ -308,6 +319,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldTelCasaKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldTelCasaKeyTyped(evt);
+            }
         });
 
         jTextFieldTelMovill.setText(" ");
@@ -316,6 +330,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldTelMovillKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldTelMovillKeyTyped(evt);
+            }
         });
 
         jTextFieldCorreoInstitucional.setText(" ");
@@ -323,6 +340,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
         jTextFieldCorreoInstitucional.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldCorreoInstitucionalKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCorreoInstitucionalKeyTyped(evt);
             }
         });
 
@@ -341,6 +361,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
         jTextFieldContrasena.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldContrasenaKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldContrasenaKeyTyped(evt);
             }
         });
 
@@ -396,6 +419,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldColoniaKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldColoniaKeyTyped(evt);
+            }
         });
 
         jTextFieldNumero.setNextFocusableComponent(jTextFieldTelCasa);
@@ -416,6 +442,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldCorreoPersonalKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldCorreoPersonalKeyTyped(evt);
+            }
         });
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -425,6 +454,15 @@ public final class Admin_Menu extends javax.swing.JFrame {
 
         jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setText("Matricula: ");
+
+        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel21.setText("Matricula: ");
+
+        jTextFieldMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextFieldMatriculaKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -464,64 +502,69 @@ public final class Admin_Menu extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel19)
                             .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel10)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jLabel7)
-                                        .addComponent(jLabel8))
-                                    .addComponent(jLabel9))
-                                .addComponent(jLabel5)
-                                .addComponent(jLabel6))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldApellidoPaterno)
-                                .addComponent(jTextFieldNombre)
-                                .addComponent(jTextFieldCalle)
-                                .addComponent(jTextFieldColonia)
-                                .addComponent(jTextFieldApellidoMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel12)
-                                .addComponent(jLabel14)
-                                .addComponent(jLabel17)
-                                .addComponent(jLabel13))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextFieldTelCasa)
-                                .addComponent(jTextFieldTelMovill)
-                                .addComponent(jTextFieldCorreoInstitucional)
-                                .addComponent(jTextFieldContrasena)
-                                .addComponent(jTextFieldCorreoPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jLabel15)
-                                .addComponent(jLabel16))
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGap(43, 43, 43)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(165, 165, 165)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnhecho, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(12, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addGap(169, 169, 169)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btncerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(btnhecho, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel10)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel7)
+                                                .addComponent(jLabel8))
+                                            .addComponent(jLabel9))
+                                        .addComponent(jLabel5)
+                                        .addComponent(jLabel6)
+                                        .addComponent(jLabel21))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldApellidoPaterno)
+                                        .addComponent(jTextFieldNombre)
+                                        .addComponent(jTextFieldCalle)
+                                        .addComponent(jTextFieldColonia)
+                                        .addComponent(jTextFieldApellidoMaterno, javax.swing.GroupLayout.DEFAULT_SIZE, 225, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel11)
+                                        .addComponent(jLabel12)
+                                        .addComponent(jLabel14)
+                                        .addComponent(jLabel17)
+                                        .addComponent(jLabel13))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldTelCasa)
+                                        .addComponent(jTextFieldTelMovill)
+                                        .addComponent(jTextFieldCorreoInstitucional)
+                                        .addComponent(jTextFieldContrasena)
+                                        .addComponent(jTextFieldCorreoPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jLabel15)
+                                        .addComponent(jLabel16))
+                                    .addGap(14, 14, 14)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jComboBoxsemestre, 0, 225, Short.MAX_VALUE)
+                                        .addComponent(jComboBoxgrupo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -538,12 +581,21 @@ public final class Admin_Menu extends javax.swing.JFrame {
                             .addComponent(jLabel20))
                         .addGap(32, 32, 32)
                         .addComponent(jLabel1)
-                        .addGap(9, 9, 9)
+                        .addGap(7, 7, 7)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(jLabel4)
+                                .addComponent(jLabel21)
+                                .addComponent(jTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel2)))
+                    .addComponent(btneliminar)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnNuevo)
+                        .addComponent(btneditar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jTextFieldPorNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldPorApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -558,12 +610,6 @@ public final class Admin_Menu extends javax.swing.JFrame {
                                 .addComponent(btnfaltas)
                                 .addComponent(btnmaterias))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btneliminar)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(btnNuevo)
-                                .addComponent(btneditar)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
                             .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -621,7 +667,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
                             .addComponent(btnCancelar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btncerrar)))
-                .addContainerGap(138, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("ghf");
@@ -669,6 +715,10 @@ public final class Admin_Menu extends javax.swing.JFrame {
 
     private void jTextFieldCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCalleKeyTyped
         // TODO add your handling code here:
+        if(jTextFieldCalle.getText().length() == 50){
+            evt.consume();
+        }
+        
     }//GEN-LAST:event_jTextFieldCalleKeyTyped
 
     private void jTextFieldCalleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCalleKeyPressed
@@ -709,7 +759,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         Habilitar();
         btnCancelar.setEnabled(true);        
-        jTextFieldNombre.requestFocusInWindow();
+        jTextFieldMatricula.requestFocusInWindow();
         //btnhecho.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
@@ -767,9 +817,9 @@ public final class Admin_Menu extends javax.swing.JFrame {
         // TODO add your handling code here:
         //System.out.println("Key: " + evt.getKeyChar());
         char caracter = evt.getKeyChar();
-        if(((caracter < '0') || (caracter > '9')) &&(caracter != KeyEvent.VK_BACK_SPACE)){
-            evt.consume();
-        }
+            if(((caracter < '0') || (caracter > '9')) &&(caracter != KeyEvent.VK_BACK_SPACE) || jTextFieldNumero.getText().length() == 4){
+                evt.consume();
+            }               
     }//GEN-LAST:event_jTextFieldNumeroKeyTyped
 
     private void jTextFieldColoniaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldColoniaKeyPressed
@@ -841,7 +891,73 @@ public final class Admin_Menu extends javax.swing.JFrame {
 
     private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
         // TODO add your handling code here:
+        if(jTextFieldNombre.getText().length() == 50){
+            evt.consume();
+        }
     }//GEN-LAST:event_jTextFieldNombreKeyTyped
+
+    private void jTextFieldMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatriculaKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldMatricula.getText().length() == 7){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldMatriculaKeyTyped
+
+    private void jTextFieldApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoPaternoKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldApellidoPaterno.getText().length() == 50){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldApellidoPaternoKeyTyped
+
+    private void jTextFieldApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoMaternoKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldApellidoMaterno.getText().length() == 50){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldApellidoMaternoKeyTyped
+
+    private void jTextFieldColoniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldColoniaKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldColonia.getText().length() == 50){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldColoniaKeyTyped
+
+    private void jTextFieldTelCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelCasaKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldTelCasa.getText().length() == 15){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldTelCasaKeyTyped
+
+    private void jTextFieldTelMovillKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelMovillKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldTelMovill.getText().length() == 15){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldTelMovillKeyTyped
+
+    private void jTextFieldCorreoInstitucionalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCorreoInstitucionalKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldCorreoInstitucional.getText().length() == 50){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldCorreoInstitucionalKeyTyped
+
+    private void jTextFieldCorreoPersonalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCorreoPersonalKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldCorreoPersonal.getText().length() == 50){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldCorreoPersonalKeyTyped
+
+    private void jTextFieldContrasenaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldContrasena.getText().length() == 30){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldContrasenaKeyTyped
 
     /**
      * @param args the command line arguments
@@ -902,6 +1018,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -918,6 +1035,7 @@ public final class Admin_Menu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldContrasena;
     private javax.swing.JTextField jTextFieldCorreoInstitucional;
     private javax.swing.JTextField jTextFieldCorreoPersonal;
+    private javax.swing.JTextField jTextFieldMatricula;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldNumero;
     private javax.swing.JTextField jTextFieldPorApellido;
