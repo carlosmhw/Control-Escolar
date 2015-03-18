@@ -25,7 +25,7 @@ import javax.swing.JOptionPane;
  * @author CarlosMario
  */
 public class Login extends javax.swing.JFrame {
-        String url = "http://soportecontrolescolar.esy.es/"; //Ingresar la url de ayuda 
+         
         String usuario; 
         String contrasena;
         String tipoUsuario;
@@ -167,6 +167,7 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
+            String url = "http://soportecontrolescolar.esy.es/"; //Ingresar la url de ayuda
             try {
                 Desktop.getDesktop().browse(new URI(url));
             } catch (URISyntaxException ex) {
@@ -219,8 +220,34 @@ public class Login extends javax.swing.JFrame {
                 }else if(usuario.substring(5).equals("PR")){
                     tipoUsuario = "PROFESOR";
                 }else if(usuario.substring(5).equals("AD")){
-                    tipoUsuario = "ADMINISTRADOR"; 
-            }
+                    System.out.println("Administrador");
+                   /* String usuarioRs = null; 
+                    String contrasenaRs = null; 
+                    
+                try {
+                    tipoUsuario = "ADMINISTRADOR";
+                    BD mysql = new BD();
+                    Connection cn = mysql.Conectar ();
+                    Statement s = cn.createStatement();
+                    ResultSet rs = s.executeQuery ("select * from administrador where matriculaAdm = '"+usuario+"';");
+                    while(rs.next()){
+                        usuarioRs= rs.getString("matriculaAdm");
+                        contrasenaRs = rs.getString("contrasena");
+                    }
+                if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                    System.out.println("ok");
+                   /* Consulta_alumnos cnAl = new Consulta_alumnos(usuarioRs);
+                   // this.dispose();
+                    this.dispose();
+                    cnAl.setVisible(true);
+                }else{
+                    JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
+                    //System.out.println("Usuario o contraseña incorrecto");
+                }              
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                } */
+                }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

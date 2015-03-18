@@ -1,5 +1,10 @@
 package Aplicacion;
+import java.awt.Cursor;
+import java.awt.Desktop;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import javax.swing.JOptionPane;
 public final class AdministradorPrincipal extends javax.swing.JFrame {
     String nombre, apPaterno, apMaterno, calle, colonia, telCasa, telMovil, corrInst, corrPers,
@@ -113,6 +118,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     public AdministradorPrincipal() {
         initComponents();
+        btnLimpiar.setEnabled(false);
         jTextFieldMatricula.requestFocusInWindow();
         jTableBusquedaUser.setEnabled(false);
         btnCancelar.setEnabled(false);
@@ -144,6 +150,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         btncalificaciones = new javax.swing.JButton();
         btnhorario = new javax.swing.JButton();
         btnmaterias = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
         jLabel21 = new javax.swing.JLabel();
@@ -181,6 +188,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         btneliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxUsuarioNuevo = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador Principal");
@@ -203,7 +212,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         });
 
         jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel19.setText("Matricula");
+        jLabel19.setText("Empleado");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setText("Usuario:");
@@ -291,6 +300,13 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         btnmaterias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnmaterias.setText("Materias");
 
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanelBusquedaLayout = new javax.swing.GroupLayout(jPanelBusqueda);
         jPanelBusqueda.setLayout(jPanelBusquedaLayout);
         jPanelBusquedaLayout.setHorizontalGroup(
@@ -307,13 +323,15 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                             .addComponent(jLabel22))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFieldPorNombre)
                             .addGroup(jPanelBusquedaLayout.createSequentialGroup()
-                                .addGroup(jPanelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextFieldPorMatricula, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jComboBoxTipoUser, javax.swing.GroupLayout.Alignment.LEADING, 0, 101, Short.MAX_VALUE))
+                                .addGroup(jPanelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jComboBoxTipoUser, 0, 130, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldPorMatricula))
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jTextFieldPorApellido)))
+                            .addComponent(jTextFieldPorApellido)
+                            .addComponent(jTextFieldPorNombre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnLimpiar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelBusquedaLayout.createSequentialGroup()
                         .addGap(0, 49, Short.MAX_VALUE)
                         .addGroup(jPanelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -350,7 +368,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelPorApellido)
-                    .addComponent(jTextFieldPorApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldPorApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnLimpiar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 258, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -756,6 +775,22 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                 .addGap(59, 59, 59))
         );
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aplicacion/image/ayuda.png"))); // NOI18N
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel3MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel3MouseExited(evt);
+            }
+        });
+
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel4.setText("Carrera");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -765,16 +800,21 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btncerrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel19)
-                            .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btncerrar)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel4))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -782,18 +822,22 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel3)
+                        .addComponent(btncerrar, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(labuser)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel19))
-                    .addComponent(btncerrar))
+                        .addComponent(jLabel19)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel4)
+                .addGap(1, 1, 1)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         getAccessibleContext().setAccessibleName("ghf");
@@ -1103,19 +1147,23 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
     private void jComboBoxTipoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoUserActionPerformed
         // TODO add your handling code here:
         jTextFieldPorMatricula.requestFocusInWindow();
+        btnLimpiar.setEnabled(true);
         String tipoUser;
         tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
         if(tipoUser.equals("Administrador")){
             jLabelPorMatriula.setText("Empleado");
+            jTextFieldPorMatricula.setText("ADM");
             enableBusqueda();
             disableButtons();
         }else if(tipoUser.equals("Profesor")){
+            jTextFieldPorMatricula.setText("PR");
             jLabelPorMatriula.setText("Empleado");
             enableBusqueda();
             disableButtons();
             btnhorario.setEnabled(true);
             btnmaterias.setEnabled(true);
         }else if(tipoUser.equals("Alumno")){
+            jTextFieldPorMatricula.setText("AL");
             enableBusqueda();
             jLabelPorMatriula.setText("Matricula");
             enableButtons();
@@ -1129,6 +1177,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     private void jTextFieldPorMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorMatriculaKeyTyped
         // TODO add your handling code here:
+        jTextFieldPorNombre.setText("");
+        jTextFieldPorApellido.setText("");
         if(jTextFieldPorMatricula.getText().length() == 7){
             evt.consume();
         }
@@ -1136,6 +1186,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     private void jTextFieldPorNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorNombreKeyTyped
         // TODO add your handling code here:
+        jTextFieldPorMatricula.setText("");
+        jTextFieldPorApellido.setText("");
         if(jTextFieldPorNombre.getText().length() == 50){
             evt.consume();
         }
@@ -1143,10 +1195,41 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     private void jTextFieldPorApellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorApellidoKeyTyped
         // TODO add your handling code here:
+        jTextFieldPorNombre.setText("");
+        jTextFieldPorMatricula.setText("");
         if(jTextFieldPorApellido.getText().length() == 50){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldPorApellidoKeyTyped
+
+    private void jLabel3MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseEntered
+        // TODO add your handling code here:
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+    }//GEN-LAST:event_jLabel3MouseEntered
+
+    private void jLabel3MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseExited
+        // TODO add your handling code here:
+        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    }//GEN-LAST:event_jLabel3MouseExited
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        // TODO add your handling code here:
+        String url = "http://soportecontrolescolar.esy.es/"; //Ingresar la url de ayuda
+            try {
+                Desktop.getDesktop().browse(new URI(url));
+            } catch (URISyntaxException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            } catch (IOException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+    }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+        jTextFieldPorMatricula.setText("");
+        jTextFieldPorNombre.setText("");
+        jTextFieldPorApellido.setText("");
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1184,6 +1267,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btncalificaciones;
     private javax.swing.JButton btncerrar;
@@ -1210,6 +1294,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
