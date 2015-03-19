@@ -53,7 +53,7 @@ public class Login extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        componenteAyuda1 = new Aplicacion.ComponenteAyuda();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -70,19 +70,6 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Institución Academica ");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Aplicacion/image/ayuda.png"))); // NOI18N
-        jLabel6.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel6MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel6MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel6MouseExited(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -94,20 +81,20 @@ public class Login extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jLabel2)
-                        .addContainerGap(102, Short.MAX_VALUE))
+                        .addContainerGap(97, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel6)
+                        .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel6)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel2)
                         .addComponent(jLabel1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -166,25 +153,6 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked
-            String url = "http://soportecontrolescolar.esy.es/"; //Ingresar la url de ayuda
-            try {
-                Desktop.getDesktop().browse(new URI(url));
-            } catch (URISyntaxException ex) {
-                System.out.println("Error: " + ex.getMessage());
-            } catch (IOException ex) {
-                System.out.println("Error: " + ex.getMessage());
-            }
-    }//GEN-LAST:event_jLabel6MouseClicked
-
-    private void jLabel6MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseEntered
-        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-    }//GEN-LAST:event_jLabel6MouseEntered
-
-    private void jLabel6MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseExited
-        setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
-    }//GEN-LAST:event_jLabel6MouseExited
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         /*BD mysql = new BD();
         Connection cn = mysql.Conectar ();*/        
@@ -210,43 +178,17 @@ public class Login extends javax.swing.JFrame {
                    // this.dispose();
                     this.dispose();
                     cnAl.setVisible(true);
-                }else{
+                }/*else{
                     JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
                     //System.out.println("Usuario o contraseña incorrecto");
-                }              
+                }     */         
                 } catch (SQLException ex) {
                     System.out.println("Error: " + ex.getMessage());
                 }            
                 }else if(usuario.substring(5).equals("PR")){
                     tipoUsuario = "PROFESOR";
                 }else if(usuario.substring(5).equals("AD")){
-                    System.out.println("Administrador");
-                   /* String usuarioRs = null; 
-                    String contrasenaRs = null; 
-                    
-                try {
                     tipoUsuario = "ADMINISTRADOR";
-                    BD mysql = new BD();
-                    Connection cn = mysql.Conectar ();
-                    Statement s = cn.createStatement();
-                    ResultSet rs = s.executeQuery ("select * from administrador where matriculaAdm = '"+usuario+"';");
-                    while(rs.next()){
-                        usuarioRs= rs.getString("matriculaAdm");
-                        contrasenaRs = rs.getString("contrasena");
-                    }
-                if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
-                    System.out.println("ok");
-                   /* Consulta_alumnos cnAl = new Consulta_alumnos(usuarioRs);
-                   // this.dispose();
-                    this.dispose();
-                    cnAl.setVisible(true);
-                }else{
-                    JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
-                    //System.out.println("Usuario o contraseña incorrecto");
-                }              
-                } catch (SQLException ex) {
-                    System.out.println("Error: " + ex.getMessage());
-                } */
                 }
         }
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -287,12 +229,12 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private Aplicacion.ComponenteAyuda componenteAyuda1;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField1;
