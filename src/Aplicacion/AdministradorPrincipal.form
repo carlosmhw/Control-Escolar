@@ -925,6 +925,9 @@
       </Properties>
     </Component>
     <Component class="Aplicacion.ComponenteAyuda" name="componenteAyuda1">
+      <Properties>
+        <Property name="url" type="java.lang.String" value="www.google.com"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
