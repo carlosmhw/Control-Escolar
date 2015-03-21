@@ -5,6 +5,12 @@
  */
 package Aplicacion;
 
+import Database.BD;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 /**
  *
  * @author Alejandro
@@ -20,6 +26,19 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }
     public PantallaProfesor(String matriculaPR){
         initComponents();
+        labmatricula.setText(matriculaPR);
+        
+        try {
+                BD mysql = new BD();
+                Connection cn = mysql.Conectar ();
+                Statement s = cn.createStatement();
+                ResultSet rs = s.executeQuery ("select * from profesor where matriculaPR = '"+matriculaPR+"';");
+                while(rs.next()){
+                    labnombree.setText(rs.getString("nombre")+" "+rs.getString("apellidoPaterno")+" "+rs.getString("apellidoMAterno"));
+                }
+        }catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
         
     }
 
