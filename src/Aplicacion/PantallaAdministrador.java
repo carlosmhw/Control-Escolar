@@ -17,7 +17,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 public final class PantallaAdministrador extends javax.swing.JFrame {
     String matricula = null, nombre = null, apPaterno = null, apMaterno = null, calle = null, colonia = null, telCasa = null, telMovil = null, corrInst = null, corrPers = null,
-           contrasena = null, especialidad = null;
+           contrasena = null, especialidad = null, carrera = null, grupo = null;
+    
     int numero = 0;
     int cont = 0; //contador para validar caracteres ingresados 
     
@@ -35,7 +36,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         corrInst = jTextFieldCorreoInstitucional.getText();
         corrPers = jTextFieldCorreoPersonal.getText();
         contrasena = jTextFieldContrasena.getText();
-        numero = Integer.parseInt(jTextFieldNumero.getText());        
+        numero = Integer.parseInt(jTextFieldNumero.getText());    
+        especialidad = jTextFieldEspecialidad.getText();
+        carrera = (String) jComboBoxCarrera.getSelectedItem();
+        grupo = (String) jComboBoxgrupo.getSelectedItem();
     }
     
     public void disableBusqueda(){
@@ -71,7 +75,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldCorreoPersonal.setEnabled(false);
         jTextFieldContrasena.setEnabled(false);
         jTextFieldEspecialidad.setEnabled(false);
-        jComboBoxsemestre.setEnabled(false);
+        jComboBoxCarrera.setEnabled(false);
         jComboBoxgrupo.setEnabled(false);
         
     }
@@ -90,7 +94,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldCorreoPersonal.setEnabled(true);
             jTextFieldContrasena.setEnabled(true);
             jTextFieldEspecialidad.setEnabled(true);
-            jComboBoxsemestre.setEnabled(true);
+            jComboBoxCarrera.setEnabled(true);
             jComboBoxgrupo.setEnabled(true);        
     }
     public void Limpiar(){
@@ -106,6 +110,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldCorreoInstitucional.setText("");
         jTextFieldCorreoPersonal.setText("");
         jTextFieldContrasena.setText("");
+        jTextFieldEspecialidad.setText("");
         /*jComboBoxsemestre.(true);
         jComboBoxgrupo.setEnabled(true);*/        
     }
@@ -157,6 +162,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         disableButtons();
         jLabelMatriculaEmpTop.setText(matriculaAdm);
         String nombreAdm = null;
+        jComboBoxCarrera.removeAllItems();
                
                 try{
                     BD mysql = new BD();
@@ -166,7 +172,12 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     while(rs.next()){
                     nombreAdm= rs.getString("nombre");   
                     labuser.setText(nombreAdm);
-                }
+                    }
+                    rs = s.executeQuery ("SELECT idCarrera FROM CARRERA;");
+                    while(rs.next()){
+                        rs.getString("idCarrera");
+                        jComboBoxCarrera.addItem(rs.getString("idCarrera"));
+                    } 
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
                 }
@@ -223,8 +234,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldCorreoPersonal = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         jTextFieldContrasena = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jComboBoxsemestre = new javax.swing.JComboBox();
         jLabel16 = new javax.swing.JLabel();
         jComboBoxgrupo = new javax.swing.JComboBox();
         btnhecho = new javax.swing.JButton();
@@ -236,6 +245,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jComboBoxUsuarioNuevo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldEspecialidad = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxCarrera = new javax.swing.JComboBox();
         componenteAyuda1 = new Aplicacion.ComponenteAyuda();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -601,7 +612,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel13.setText("Contraseña:");
 
         jTextFieldContrasena.setText(" ");
-        jTextFieldContrasena.setNextFocusableComponent(jComboBoxsemestre);
         jTextFieldContrasena.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldContrasenaFocusGained(evt);
@@ -618,16 +628,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldContrasenaKeyTyped(evt);
-            }
-        });
-
-        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel15.setText("Semestre:");
-
-        jComboBoxsemestre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1", "2", "3", "4", "5", "6", "7" }));
-        jComboBoxsemestre.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                jComboBoxsemestreKeyPressed(evt);
             }
         });
 
@@ -685,6 +685,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Especialidad:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel4.setText("Carrera:");
+
+        jComboBoxCarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBoxCarrera.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxCarreraActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -715,7 +725,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                             .addComponent(jLabelMatriculaEmp, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldNombre)
@@ -727,16 +739,21 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                             .addComponent(jTextFieldTelMovill)
                             .addComponent(jTextFieldCorreoInstitucional)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jComboBoxUsuarioNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jTextFieldCorreoPersonal)
-                                    .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
-                                    .addComponent(jTextFieldEspecialidad))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jComboBoxUsuarioNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextFieldCorreoPersonal)
+                                        .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                        .addComponent(jTextFieldEspecialidad))
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jComboBoxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(btnhecho, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 48, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -744,18 +761,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                                 .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(82, 82, 82)
+                                .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnhecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -824,15 +834,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     .addComponent(jTextFieldEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel15)
-                    .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4)
+                    .addComponent(jComboBoxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnhecho))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addGap(26, 26, 26))
+                .addContainerGap(49, Short.MAX_VALUE))
         );
 
         componenteAyuda1.setUrl("www.google.com");
@@ -993,7 +1003,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldPorMatricula.requestFocusInWindow();
             jComboBoxUsuarioNuevo.setSelectedIndex(0);
             jComboBoxgrupo.setSelectedIndex(0);
-            jComboBoxsemestre.setSelectedIndex(0);
+            jComboBoxCarrera.setSelectedIndex(0);
             jComboBoxUsuarioNuevo.setEnabled(false);
         } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
@@ -1042,6 +1052,73 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setString(10,corrPers);
                 pst.setString(11,corrInst);
                 pst.setString(12,contrasena);
+                int n = pst.executeUpdate();
+                if(n>0){
+                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
+                    Limpiar();
+                    Deshabilitar();
+                    descoloriarCorreo();
+                    jComboBoxUsuarioNuevo.setSelectedIndex(0);
+                }                
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
+        }
+        else if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Profesor")){
+            guardarTextFildVar();
+            String sQl = null;
+            sQl = "insert into profesor values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            BD mysql = new BD();
+            Connection cn = mysql.Conectar();
+            try{
+                PreparedStatement pst = cn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                pst.setString(2,nombre);
+                pst.setString(3,apPaterno);
+                pst.setString(4,apMaterno);
+                pst.setString(5,telMovil);
+                pst.setString(6,telCasa);
+                pst.setString(7,calle);
+                pst.setString(8,colonia);
+                pst.setInt(9,numero);
+                pst.setString(10,corrPers);
+                pst.setString(11,corrInst);
+                pst.setString(12,especialidad);
+                pst.setString(13,contrasena);
+                int n = pst.executeUpdate();
+                if(n>0){
+                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
+                    Limpiar();
+                    Deshabilitar();
+                    descoloriarCorreo();
+                    jComboBoxUsuarioNuevo.setSelectedIndex(0);
+                }                
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
+        }
+        else if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Alumno")){
+            guardarTextFildVar();
+            String sQl = null;
+            sQl = "insert into alumno values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            BD mysql = new BD();
+            Connection cn = mysql.Conectar();
+            try{
+                PreparedStatement pst = cn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                pst.setString(2,nombre);
+                pst.setString(3,apPaterno);
+                pst.setString(4,apMaterno);
+                pst.setString(5,telMovil);
+                pst.setString(6,telCasa);
+                pst.setString(7,calle);
+                pst.setString(8,colonia);
+                pst.setInt(9,numero);
+                pst.setString(10,corrPers);
+                pst.setString(11,corrInst);
+                pst.setString(12,contrasena);
+                pst.setString(13,carrera);
+                pst.setString(14,grupo);
                 int n = pst.executeUpdate();
                 if(n>0){
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
@@ -1115,20 +1192,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void jTextFieldContrasenaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10 || evt.getKeyCode()==9){
-            jComboBoxsemestre.requestFocusInWindow();
+            jComboBoxCarrera.requestFocusInWindow();
         }
     }//GEN-LAST:event_jTextFieldContrasenaKeyPressed
 
     private void jTextFieldContrasenaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldContrasenaActionPerformed
-
-    private void jComboBoxsemestreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxsemestreKeyPressed
-        // TODO add your handling code here:
-         if(evt.getKeyCode()==10 || evt.getKeyCode()==9){
-            jComboBoxgrupo.requestFocusInWindow();
-        }
-    }//GEN-LAST:event_jComboBoxsemestreKeyPressed
 
     private void jComboBoxgrupoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jComboBoxgrupoKeyPressed
         // TODO add your handling code here:
@@ -1292,14 +1362,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldMatricula.setText("ADM");
             jLabelMatriculaEmp.setText("Empleado");
             jComboBoxgrupo.setEnabled(false);
-            jComboBoxsemestre.setEnabled(false);
+            jComboBoxCarrera.setEnabled(false);
             jTextFieldEspecialidad.setEnabled(false);
             jTextFieldCorreoInstitucional.setText("");
         }else if(tipoUser.equals("Profesor")){            
             Habilitar();
             jTextFieldMatricula.setText("PR");
             jComboBoxgrupo.setEnabled(false);
-            jComboBoxsemestre.setEnabled(false);
+            jComboBoxCarrera.setEnabled(false);
         }else if(tipoUser.equals("Alumno")){
             Habilitar();
             jTextFieldMatricula.setText("AL");
@@ -1344,6 +1414,24 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldPorNombre.setText("");
         jTextFieldPorApellido.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void jComboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCarreraActionPerformed
+        String carrera2 = (String) jComboBoxCarrera.getSelectedItem();
+        System.out.println(carrera2);
+        jComboBoxgrupo.removeAllItems();
+        try{
+                    BD mysql2 = new BD();
+                    Connection cn = mysql2.Conectar ();
+                    Statement s1 = cn.createStatement();
+                    ResultSet rs1 = s1.executeQuery ("SELECT idGrupo FROM GRUPO1 WHERE carrera = '" + carrera2 + "';");
+                    while(rs1.next()){
+                        System.out.println(rs1.getString("idGrupo"));
+                        jComboBoxgrupo.addItem(rs1.getString("idGrupo"));
+                    } 
+                }catch(Exception ex){
+                    System.out.println("Error: " + ex.getMessage());
+                }
+    }//GEN-LAST:event_jComboBoxCarreraActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1398,22 +1486,22 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnhorario;
     private javax.swing.JButton btnmaterias;
     private Aplicacion.ComponenteAyuda componenteAyuda1;
+    private javax.swing.JComboBox jComboBoxCarrera;
     private javax.swing.JComboBox jComboBoxTipoUser;
     private javax.swing.JComboBox jComboBoxUsuarioNuevo;
     private javax.swing.JComboBox jComboBoxgrupo;
-    private javax.swing.JComboBox jComboBoxsemestre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
