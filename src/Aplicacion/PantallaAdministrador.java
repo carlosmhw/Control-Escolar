@@ -1,4 +1,5 @@
 package Aplicacion;
+import Database.BD;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -6,18 +7,24 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
-public final class AdministradorPrincipal extends javax.swing.JFrame {
-    String nombre, apPaterno, apMaterno, calle, colonia, telCasa, telMovil, corrInst, corrPers,
-           contrasena;
-    int numero;
+public final class PantallaAdministrador extends javax.swing.JFrame {
+    String matricula = null, nombre = null, apPaterno = null, apMaterno = null, calle = null, colonia = null, telCasa = null, telMovil = null, corrInst = null, corrPers = null,
+           contrasena = null, especialidad = null;
+    int numero = 0;
     int cont = 0; //contador para validar caracteres ingresados 
     
+   
     
     public void guardarTextFildVar(){
+        matricula = jTextFieldMatricula.getText();
         nombre = jTextFieldNombre.getText();
         apPaterno = jTextFieldApellidoPaterno.getText();
         apMaterno = jTextFieldApellidoMaterno.getText();
@@ -126,7 +133,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         
     }
 
-    public AdministradorPrincipal() {
+    public PantallaAdministrador() {
         initComponents();
         btnLimpiar.setEnabled(false);
         jTextFieldMatricula.requestFocusInWindow();
@@ -137,13 +144,42 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         disableBusqueda();
         disableButtons();
     }
+     //Inicia constructor 
+    public PantallaAdministrador(String matriculaAdm){
+        initComponents();
+        btnLimpiar.setEnabled(false);
+        jTextFieldMatricula.requestFocusInWindow();
+        jTableBusquedaUser.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        btnhecho.setEnabled(false);
+        Deshabilitar();     
+        disableBusqueda();
+        disableButtons();
+        jLabelMatriculaEmpTop.setText(matriculaAdm);
+        String nombreAdm = null;
+               
+                try{
+                    BD mysql = new BD();
+                    Connection cn = mysql.Conectar ();
+                    Statement s = cn.createStatement();
+                    ResultSet rs = s.executeQuery ("select * from administrador  where matriculaAdm = '"+matriculaAdm+"';");
+                    while(rs.next()){
+                    nombreAdm= rs.getString("nombre");   
+                    labuser.setText(nombreAdm);
+                }
+                }catch(Exception ex){
+                    System.out.println("Error: " + ex.getMessage());
+                }
+
+    }
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         labuser = new javax.swing.JLabel();
         btncerrar = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
+        jLabelMatriculaEmpTop = new javax.swing.JLabel();
         jPanelBusqueda = new javax.swing.JPanel();
         jLabel22 = new javax.swing.JLabel();
         jComboBoxTipoUser = new javax.swing.JComboBox();
@@ -200,7 +236,6 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         jComboBoxUsuarioNuevo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldEspecialidad = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         componenteAyuda1 = new Aplicacion.ComponenteAyuda();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -223,8 +258,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel19.setText("Empleado");
+        jLabelMatriculaEmpTop.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabelMatriculaEmpTop.setText("Empleado");
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setText("Usuario:");
@@ -800,9 +835,6 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                 .addGap(26, 26, 26))
         );
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel4.setText("Carrera");
-
         componenteAyuda1.setUrl("www.google.com");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -820,8 +852,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel19)
-                            .addComponent(jLabel4))
+                            .addComponent(jLabelMatriculaEmpTop))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btncerrar)
                         .addGap(1, 1, 1)
@@ -838,13 +869,11 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                             .addComponent(labuser)
                             .addComponent(btncerrar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel19))
+                        .addComponent(jLabelMatriculaEmpTop))
                     .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -963,6 +992,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             btnhecho.setEnabled(false);
             jTextFieldPorMatricula.requestFocusInWindow();
             jComboBoxUsuarioNuevo.setSelectedIndex(0);
+            jComboBoxgrupo.setSelectedIndex(0);
+            jComboBoxsemestre.setSelectedIndex(0);
             jComboBoxUsuarioNuevo.setEnabled(false);
         } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
@@ -990,7 +1021,39 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         // TODO add your handling code here:
-        guardarTextFildVar();   
+        guardarTextFildVar();  
+        if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Administrador")){
+            guardarTextFildVar();
+            String sQl = null;
+            sQl = "insert into administrador values (?,?,?,?,?,?,?,?,?,?,?,?)";
+            BD mysql = new BD();
+            Connection cn = mysql.Conectar();
+            try{
+                PreparedStatement pst = cn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                pst.setString(2,nombre);
+                pst.setString(3,apPaterno);
+                pst.setString(4,apMaterno);
+                pst.setString(5,telMovil);
+                pst.setString(6,telCasa);
+                pst.setString(7,calle);
+                pst.setString(8,colonia);
+                pst.setInt(9,numero);
+                pst.setString(10,corrPers);
+                pst.setString(11,corrInst);
+                pst.setString(12,contrasena);
+                int n = pst.executeUpdate();
+                if(n>0){
+                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
+                    Limpiar();
+                    Deshabilitar();
+                    descoloriarCorreo();
+                    jComboBoxUsuarioNuevo.setSelectedIndex(0);
+                }                
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
+        }
     }//GEN-LAST:event_btnhechoActionPerformed
 
     private void jTextFieldContrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaFocusGained
@@ -1299,20 +1362,26 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdministradorPrincipal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PantallaAdministrador.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AdministradorPrincipal().setVisible(true);
+            new PantallaAdministrador().setVisible(true);
         });
     }
 
@@ -1342,17 +1411,16 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
-    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JLabel jLabelMatriculaEmp;
+    private javax.swing.JLabel jLabelMatriculaEmpTop;
     private javax.swing.JLabel jLabelPorApellido;
     private javax.swing.JLabel jLabelPorMatriula;
     private javax.swing.JLabel jLabelPorNombre;

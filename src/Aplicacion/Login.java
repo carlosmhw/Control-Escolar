@@ -193,15 +193,44 @@ public class Login extends javax.swing.JFrame {
                 } catch (SQLException ex) {
                     System.out.println("Error: " + ex.getMessage());
                 }         
-                }else if(usuario.substring(0,2).equals("PR")){
-                    tipoUsuario = "PROFESOR";
+                }else if(usuario.substring(0,2).equals("PR")){                    
                     System.out.println("Profesor");
+                //Inicia conexion con la base de datos 
+                    
+                    String usuarioRs = null; 
+                    String contrasenaRs = null; 
+                try {
+                    tipoUsuario = "PROFESOR";
+                    BD mysql = new BD();
+                    Connection cn = mysql.Conectar ();
+                    Statement s = cn.createStatement();
+                    ResultSet rs = s.executeQuery ("select * from profesor where matriculaPr = '"+usuario+"';");
+                    while(rs.next()){
+                        usuarioRs= rs.getString("matriculaPr");
+                        contrasenaRs = rs.getString("contrasena");
+                    }
+                if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                    PantallaProfesor pantProfesor = new PantallaProfesor(usuario);
+                   // this.dispose();
+                    this.dispose();
+                    pantProfesor.setVisible(true);
+                }        
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }         
+                    
+                    //Termina conexion con la base dedatos 
+                    
+                    
+                    
+                    
+                    
                 }else if(usuario.substring(0,2).equals("AD")){
                     tipoUsuario = "ADMINISTRADOR";
                     System.out.println("Administrador");
                     //Inicia conexion con la base de datos 
                     
-                    String usuarioRs = null; 
+                String usuarioRs = null; 
                 String contrasenaRs = null; 
                 try {
                     tipoUsuario = "ALUMNO";
@@ -214,7 +243,7 @@ public class Login extends javax.swing.JFrame {
                         contrasenaRs = rs.getString("contrasena");
                     }
                 if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
-                     AdministradorPrincipal admPrinc = new AdministradorPrincipal();
+                     PantallaAdministrador admPrinc = new PantallaAdministrador(usuarioRs);
                    // this.dispose();
                     this.dispose();
                     admPrinc.setVisible(true);
