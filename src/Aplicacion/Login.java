@@ -168,6 +168,7 @@ public class Login extends javax.swing.JFrame {
         ValidacionLogin validaruser = new ValidacionLogin();
         if(validaruser.validarUsuario(usuario, contrasena)){
             if(usuario.substring(0,2).equals("AL")){
+                System.out.println("Alumno");
                 String usuarioRs = null; 
                 String contrasenaRs = null; 
                 try {
@@ -191,11 +192,40 @@ public class Login extends javax.swing.JFrame {
                 }     */         
                 } catch (SQLException ex) {
                     System.out.println("Error: " + ex.getMessage());
-                }            
-                }else if(usuario.substring(5).equals("PR")){
+                }         
+                }else if(usuario.substring(0,2).equals("PR")){
                     tipoUsuario = "PROFESOR";
-                }else if(usuario.substring(5).equals("AD")){
+                    System.out.println("Profesor");
+                }else if(usuario.substring(0,2).equals("AD")){
                     tipoUsuario = "ADMINISTRADOR";
+                    System.out.println("Administrador");
+                    //Inicia conexion con la base de datos 
+                    
+                    String usuarioRs = null; 
+                String contrasenaRs = null; 
+                try {
+                    tipoUsuario = "ALUMNO";
+                    BD mysql = new BD();
+                    Connection cn = mysql.Conectar ();
+                    Statement s = cn.createStatement();
+                    ResultSet rs = s.executeQuery ("select * from administrador where matriculaAdm = '"+usuario+"';");
+                    while(rs.next()){
+                        usuarioRs= rs.getString("matriculaAdm");
+                        contrasenaRs = rs.getString("contrasena");
+                    }
+                if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                     AdministradorPrincipal admPrinc = new AdministradorPrincipal();
+                   // this.dispose();
+                    this.dispose();
+                    admPrinc.setVisible(true);
+                }        
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }         
+                    
+                    //Termina conexion con la base dedatos 
+                    
+                    
                 }
         }
     }//GEN-LAST:event_jButton1ActionPerformed

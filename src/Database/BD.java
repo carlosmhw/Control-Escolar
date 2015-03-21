@@ -19,7 +19,7 @@ public BD(){
          // Carga el dirver MySQL:
          //Class.forName("org.gjt.mm.mysql.Driver");      
          Class.forName("com.mysql.jdbc.Driver");
-         conexion = (java.sql.Connection)DriverManager.getConnection("jdbc:mysql://localhost/ControlEscolar", "root","SYSTEM");
+         conexion = (java.sql.Connection)DriverManager.getConnection("jdbc:mysql://localhost/mydb", "root","system");
             System.out.println("Conectado");
                
          
