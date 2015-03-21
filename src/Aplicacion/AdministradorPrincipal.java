@@ -1,10 +1,14 @@
 package Aplicacion;
+import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 public final class AdministradorPrincipal extends javax.swing.JFrame {
     String nombre, apPaterno, apMaterno, calle, colonia, telCasa, telMovil, corrInst, corrPers,
@@ -59,6 +63,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         jTextFieldCorreoInstitucional.setEnabled(false);
         jTextFieldCorreoPersonal.setEnabled(false);
         jTextFieldContrasena.setEnabled(false);
+        jTextFieldEspecialidad.setEnabled(false);
         jComboBoxsemestre.setEnabled(false);
         jComboBoxgrupo.setEnabled(false);
         
@@ -77,6 +82,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             jTextFieldCorreoInstitucional.setEnabled(true);
             jTextFieldCorreoPersonal.setEnabled(true);
             jTextFieldContrasena.setEnabled(true);
+            jTextFieldEspecialidad.setEnabled(true);
             jComboBoxsemestre.setEnabled(true);
             jComboBoxgrupo.setEnabled(true);        
     }
@@ -95,6 +101,10 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         jTextFieldContrasena.setText("");
         /*jComboBoxsemestre.(true);
         jComboBoxgrupo.setEnabled(true);*/        
+    }
+    public void descoloriarCorreo(){
+        jTextFieldCorreoPersonal.setBorder(BorderFactory.createEmptyBorder());
+        jTextFieldCorreoInstitucional.setBorder(BorderFactory.createEmptyBorder());
     }
     
     // Desabilitar botones debajo de tabla
@@ -153,7 +163,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         btnLimpiar = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jPanel1 = new javax.swing.JPanel();
-        jLabel21 = new javax.swing.JLabel();
+        jLabelMatriculaEmp = new javax.swing.JLabel();
         jTextFieldMatricula = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
@@ -188,6 +198,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
         btneliminar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jComboBoxUsuarioNuevo = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        jTextFieldEspecialidad = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         componenteAyuda1 = new Aplicacion.ComponenteAyuda();
 
@@ -381,8 +393,8 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jLabel21.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel21.setText("Matricula:");
+        jLabelMatriculaEmp.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelMatriculaEmp.setText("Matricula:");
 
         jTextFieldMatricula.setNextFocusableComponent(jTextFieldNombre);
         jTextFieldMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -635,6 +647,9 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel3.setText("Especialidad:");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -662,11 +677,10 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                                     .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING))
                             .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel21, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabelMatriculaEmp, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel13, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jTextFieldNombre)
@@ -682,24 +696,31 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                                     .addComponent(jTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jTextFieldNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jComboBoxUsuarioNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.Alignment.LEADING, 0, 130, Short.MAX_VALUE)
-                                            .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnhecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnCancelar, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)))
                                     .addComponent(jTextFieldCorreoPersonal)
-                                    .addComponent(jTextFieldContrasena))
+                                    .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.DEFAULT_SIZE, 230, Short.MAX_VALUE)
+                                    .addComponent(jTextFieldEspecialidad))
                                 .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btneditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btneliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel15, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel16, javax.swing.GroupLayout.Alignment.TRAILING))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnhecho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -710,14 +731,14 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                     .addComponent(btnNuevo)
                     .addComponent(btneditar)
                     .addComponent(btneliminar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jComboBoxUsuarioNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel21))
+                    .addComponent(jLabelMatriculaEmp))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -764,6 +785,10 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                     .addComponent(jTextFieldContrasena, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel15)
                     .addComponent(jComboBoxsemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnhecho))
@@ -772,7 +797,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addGap(59, 59, 59))
+                .addGap(26, 26, 26))
         );
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -794,13 +819,10 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel19))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel19)
                             .addComponent(jLabel4))
-                        .addGap(319, 319, 319)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btncerrar)
                         .addGap(1, 1, 1)
                         .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -916,8 +938,9 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
-        Habilitar();
-        btnCancelar.setEnabled(true);        
+        //Habilitar();
+        btnCancelar.setEnabled(true);  
+        jComboBoxUsuarioNuevo.setEnabled(true);
         jComboBoxUsuarioNuevo.requestFocusInWindow();
         //btnhecho.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
@@ -935,9 +958,12 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             System.out.println("Yes button clicked");
             Limpiar();
             Deshabilitar();
+            descoloriarCorreo();
             btnCancelar.setEnabled(false);
             btnhecho.setEnabled(false);
             jTextFieldPorMatricula.requestFocusInWindow();
+            jComboBoxUsuarioNuevo.setSelectedIndex(0);
+            jComboBoxUsuarioNuevo.setEnabled(false);
         } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
         }        
@@ -1099,13 +1125,42 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
 
     private void jTextFieldCorreoInstitucionalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCorreoInstitucionalKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldCorreoInstitucional.getText().length() == 50){
-            evt.consume();
-        }
+        Pattern plantilla = null;
+        Matcher resultado = null;
+        Matcher matchArroba = null;
+        Pattern arroba  = null;
+        arroba = Pattern.compile("@");
+        plantilla = Pattern.compile("[a-zA-Z0-9]+[a-zA-Z0-9_-]*@[a-zA-Z]+\\p{Punct}[a-zA-Z]+");
+        resultado = plantilla.matcher(jTextFieldCorreoInstitucional.getText());
+        if (resultado.find() == true){  
+            jTextFieldCorreoInstitucional.setBorder(BorderFactory.createLineBorder(Color.green));
+        }else{
+            jTextFieldCorreoInstitucional.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        }  
+        if(jTextFieldCorreoInstitucional.getText().length() == 50){     
+            evt.consume();        
+        }        
+            
+        
+        
+        
     }//GEN-LAST:event_jTextFieldCorreoInstitucionalKeyTyped
 
     private void jTextFieldCorreoPersonalKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCorreoPersonalKeyTyped
-        // TODO add your handling code here:
+        // TODO add your handling code here:   
+        Pattern plantilla = null;
+        Matcher resultado = null;
+        Matcher matchArroba = null;
+        Pattern arroba  = null;
+        arroba = Pattern.compile("@");
+        plantilla = Pattern.compile("[a-zA-Z0-9]+[a-zA-Z0-9_-]*@[a-zA-Z]+\\p{Punct}[a-zA-Z]+");
+        resultado = plantilla.matcher(jTextFieldCorreoPersonal.getText());
+        if (resultado.find() == true){  
+            jTextFieldCorreoPersonal.setBorder(BorderFactory.createLineBorder(Color.green));
+        }else{
+            jTextFieldCorreoPersonal.setBorder(BorderFactory.createLineBorder(Color.yellow));
+        }
+        
         if(jTextFieldCorreoPersonal.getText().length() == 50){
             evt.consume();
         }
@@ -1156,12 +1211,41 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
             enableBusqueda();
             jLabelPorMatriula.setText("Matricula");
             enableButtons();
+        }else if(tipoUser.equals("")){
+            disableBusqueda();
+            disableButtons();
+            btnLimpiar.setEnabled(false);
+            
         }
     }//GEN-LAST:event_jComboBoxTipoUserActionPerformed
 
     private void jComboBoxUsuarioNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioNuevoActionPerformed
         // TODO add your handling code here:
+        String tipoUser;
+        tipoUser = (String) jComboBoxUsuarioNuevo.getSelectedItem();
         jTextFieldMatricula.requestFocusInWindow();
+        if(tipoUser.equals("Administrador")){
+            Habilitar();
+            jTextFieldMatricula.setText("ADM");
+            jLabelMatriculaEmp.setText("Empleado");
+            jComboBoxgrupo.setEnabled(false);
+            jComboBoxsemestre.setEnabled(false);
+            jTextFieldEspecialidad.setEnabled(false);
+            jTextFieldCorreoInstitucional.setText("");
+        }else if(tipoUser.equals("Profesor")){            
+            Habilitar();
+            jTextFieldMatricula.setText("PR");
+            jComboBoxgrupo.setEnabled(false);
+            jComboBoxsemestre.setEnabled(false);
+        }else if(tipoUser.equals("Alumno")){
+            Habilitar();
+            jTextFieldMatricula.setText("AL");
+            jTextFieldEspecialidad.setEnabled(false);
+ 
+        }else if(tipoUser.equals("")){
+            Deshabilitar();
+            jComboBoxUsuarioNuevo.setEnabled(true);
+        }
     }//GEN-LAST:event_jComboBoxUsuarioNuevoActionPerformed
 
     private void jTextFieldPorMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorMatriculaKeyTyped
@@ -1260,14 +1344,15 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelMatriculaEmp;
     private javax.swing.JLabel jLabelPorApellido;
     private javax.swing.JLabel jLabelPorMatriula;
     private javax.swing.JLabel jLabelPorNombre;
@@ -1283,6 +1368,7 @@ public final class AdministradorPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldContrasena;
     private javax.swing.JTextField jTextFieldCorreoInstitucional;
     private javax.swing.JTextField jTextFieldCorreoPersonal;
+    private javax.swing.JTextField jTextFieldEspecialidad;
     private javax.swing.JTextField jTextFieldMatricula;
     private javax.swing.JTextField jTextFieldNombre;
     private javax.swing.JTextField jTextFieldNumero;
