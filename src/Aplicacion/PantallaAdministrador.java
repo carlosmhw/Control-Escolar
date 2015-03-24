@@ -162,6 +162,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         disableButtons();
         jLabelMatriculaEmpTop.setText(matriculaAdm);
         String nombreAdm = null;
+        String apellidoPaterno = null;
+        String apellidoMaterno = null;
         jComboBoxCarrera.removeAllItems();
                
                 try{
@@ -170,8 +172,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Statement s = cn.createStatement();
                     ResultSet rs = s.executeQuery ("select * from administrador  where matriculaAdm = '"+matriculaAdm+"';");
                     while(rs.next()){
-                    nombreAdm= rs.getString("nombre");   
-                    labuser.setText(nombreAdm);
+                    nombreAdm= rs.getString("nombre"); 
+                    apellidoPaterno= rs.getString("apellidoPaterno");
+                    apellidoMaterno = rs.getString("apellidoMaterno");
+                    
+                    labuser.setText(nombreAdm + " " + apellidoPaterno + " " + apellidoMaterno);
                     }
                     rs = s.executeQuery ("SELECT idCarrera FROM CARRERA;");
                     while(rs.next()){
@@ -455,7 +460,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Nombre:");
 
-        jTextFieldNombre.setText(" ");
         jTextFieldNombre.setNextFocusableComponent(jTextFieldApellidoPaterno);
         jTextFieldNombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -492,7 +496,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Apellido materno:");
 
-        jTextFieldApellidoMaterno.setText(" ");
         jTextFieldApellidoMaterno.setNextFocusableComponent(jTextFieldCalle);
         jTextFieldApellidoMaterno.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -511,7 +514,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Calle:");
 
-        jTextFieldCalle.setText(" ");
         jTextFieldCalle.setNextFocusableComponent(jTextFieldColonia);
         jTextFieldCalle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -556,7 +558,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Telefono casa:");
 
-        jTextFieldTelCasa.setText(" ");
         jTextFieldTelCasa.setNextFocusableComponent(jTextFieldTelMovill);
         jTextFieldTelCasa.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -570,7 +571,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel12.setText("Telefono celular:");
 
-        jTextFieldTelMovill.setText(" ");
         jTextFieldTelMovill.setNextFocusableComponent(jTextFieldCorreoInstitucional);
         jTextFieldTelMovill.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -584,7 +584,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("Correo Institucional:");
 
-        jTextFieldCorreoInstitucional.setText(" ");
         jTextFieldCorreoInstitucional.setNextFocusableComponent(jTextFieldCorreoPersonal);
         jTextFieldCorreoInstitucional.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -611,7 +610,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("Contraseña:");
 
-        jTextFieldContrasena.setText(" ");
         jTextFieldContrasena.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 jTextFieldContrasenaFocusGained(evt);
@@ -1092,6 +1090,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Deshabilitar();
                     descoloriarCorreo();
                     jComboBoxUsuarioNuevo.setSelectedIndex(0);
+                    btnhecho.setEnabled(false);
                 }                
             }catch(Exception ex){
                 System.out.println("Error: " + ex.getMessage());

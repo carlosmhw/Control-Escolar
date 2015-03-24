@@ -585,7 +585,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldNombre">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldApellidoPaterno"/>
             </Property>
@@ -626,7 +625,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldApellidoMaterno">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldCalle"/>
             </Property>
@@ -647,7 +645,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCalle">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldColonia"/>
             </Property>
@@ -706,7 +703,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelCasa">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldTelMovill"/>
             </Property>
@@ -726,7 +722,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldTelMovill">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldCorreoInstitucional"/>
             </Property>
@@ -746,7 +741,6 @@
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldCorreoInstitucional">
           <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldCorreoPersonal"/>
             </Property>
@@ -784,12 +778,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextFieldContrasena">
-          <Properties>
-            <Property name="text" type="java.lang.String" value=" "/>
-            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="default"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextFieldContrasenaFocusGained"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldContrasenaActionPerformed"/>
