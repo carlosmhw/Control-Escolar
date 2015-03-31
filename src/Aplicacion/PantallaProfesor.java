@@ -4,8 +4,6 @@
  * and open the template in the editor.
  */
 package Aplicacion;
-
-import Database.BD;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -29,7 +27,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
         initComponents();
         labmatricula.setText(matriculaPR);
         
-        try {
+       /* try {
                 BD mysql = new BD();
                 Connection cn = mysql.Conectar ();
                 Statement s = cn.createStatement();
@@ -39,7 +37,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 }
         }catch (SQLException ex) {
                 System.out.println("Error: " + ex.getMessage());
-        }
+        }*/
         
     }
 

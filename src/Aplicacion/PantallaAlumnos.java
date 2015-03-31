@@ -5,12 +5,13 @@
  */
 package Aplicacion;
 
-import Database.BD;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -27,7 +28,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         initComponents();
         labMatricula.setText(matriculaAl);
         
-        try {
+       /* try {
                 BD mysql = new BD();
                 Connection cn = mysql.Conectar ();
                 Statement s = cn.createStatement();
@@ -66,7 +67,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                 
             } catch (SQLException ex) {
                 System.out.println("Error: " + ex.getMessage());
-            }
+            }*/
         
 
     }
@@ -219,9 +220,20 @@ public class PantallaAlumnos extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
+         int mensajeConfirmacion;
+        mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de cerrar sesión?", "Confirmación", 
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        /*Limpiar();
+        Deshabilitar();*/
+        if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
+            System.out.println("No button clicked");
+        } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
+            this.dispose();
+            Login login = new Login();       
+            login.setVisible(true);
+        } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
+            System.out.println("JOptionPane closed");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

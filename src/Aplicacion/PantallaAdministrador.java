@@ -1,5 +1,5 @@
 package Aplicacion;
-import Database.BD;
+import Database.OracleBD;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
@@ -18,12 +18,8 @@ import javax.swing.JOptionPane;
 public final class PantallaAdministrador extends javax.swing.JFrame {
     String matricula = null, nombre = null, apPaterno = null, apMaterno = null, calle = null, colonia = null, telCasa = null, telMovil = null, corrInst = null, corrPers = null,
            contrasena = null, especialidad = null, carrera = null, grupo = null;
-    
-    int numero = 0;
-    int cont = 0; //contador para validar caracteres ingresados 
-    
-   
-    
+    int numero;
+
     public void guardarTextFildVar(){
         matricula = jTextFieldMatricula.getText();
         nombre = jTextFieldNombre.getText();
@@ -165,28 +161,27 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         String apellidoPaterno = null;
         String apellidoMaterno = null;
         jComboBoxCarrera.removeAllItems();
+        OracleBD OracleConection = new OracleBD();
                
                 try{
-                    BD mysql = new BD();
-                    Connection cn = mysql.Conectar ();
-                    Statement s = cn.createStatement();
-                    ResultSet rs = s.executeQuery ("select * from administrador  where matriculaAdm = '"+matriculaAdm+"';");
+                    OracleConection.conectar();                
+                    Connection conn = OracleConection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Administrador  WHERE matriculaAdm = '"+matriculaAdm+"'");
                     while(rs.next()){
                     nombreAdm= rs.getString("nombre"); 
                     apellidoPaterno= rs.getString("apellidoPaterno");
-                    apellidoMaterno = rs.getString("apellidoMaterno");
-                    
+                    apellidoMaterno = rs.getString("apellidoMaterno");                    
                     labuser.setText(nombreAdm + " " + apellidoPaterno + " " + apellidoMaterno);
                     }
-                    rs = s.executeQuery ("SELECT idCarrera FROM CARRERA;");
+                    /*rs = stmt.executeQuery ("SELECT idCarrera FROM CARRERA;");
                     while(rs.next()){
                         rs.getString("idCarrera");
                         jComboBoxCarrera.addItem(rs.getString("idCarrera"));
-                    } 
+                    } */
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
                 }
-
     }
     
     @SuppressWarnings("unchecked")
@@ -1000,6 +995,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             btnhecho.setEnabled(false);
             jTextFieldPorMatricula.requestFocusInWindow();
             jComboBoxUsuarioNuevo.setSelectedIndex(0);
+            jComboBoxUsuarioNuevo.setEnabled(false);
             jComboBoxgrupo.setSelectedIndex(0);
             jComboBoxCarrera.setSelectedIndex(0);
             jComboBoxUsuarioNuevo.setEnabled(false);
@@ -1030,7 +1026,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         // TODO add your handling code here:
         guardarTextFildVar();  
-        if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Administrador")){
+        /*if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Administrador")){
             guardarTextFildVar();
             String sQl = null;
             sQl = "insert into administrador values (?,?,?,?,?,?,?,?,?,?,?,?)";
@@ -1129,7 +1125,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }catch(Exception ex){
                 System.out.println("Error: " + ex.getMessage());
             }
-        }
+        }*/
     }//GEN-LAST:event_btnhechoActionPerformed
 
     private void jTextFieldContrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaFocusGained
@@ -1415,7 +1411,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void jComboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCarreraActionPerformed
-        String carrera2 = (String) jComboBoxCarrera.getSelectedItem();
+        /*String carrera2 = (String) jComboBoxCarrera.getSelectedItem();
         System.out.println(carrera2);
         jComboBoxgrupo.removeAllItems();
         try{
@@ -1429,7 +1425,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     } 
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
-                }
+                }*/
     }//GEN-LAST:event_jComboBoxCarreraActionPerformed
 
     /**
