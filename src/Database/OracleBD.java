@@ -56,6 +56,7 @@ public class OracleBD {
             String cadenaConexion = "jdbc:oracle:thin:@" + HOST + ":" + PUERTO + ":" + SID;
             registrarDriver();
             connection = DriverManager.getConnection(cadenaConexion, USUARIO, PASS);
+            System.out.println("Conectado");
         }
     }
 
