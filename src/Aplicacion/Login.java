@@ -93,6 +93,9 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setText("Contraseña: ");
 
         jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextField1KeyTyped(evt);
             }
@@ -106,6 +109,9 @@ public class Login extends javax.swing.JFrame {
         });
 
         jPasswordField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jPasswordField1KeyPressed(evt);
+            }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jPasswordField1KeyTyped(evt);
             }
@@ -160,23 +166,25 @@ public class Login extends javax.swing.JFrame {
                 System.out.println(tipoUsuario);
                 String usuarioRs = null; 
                 String contrasenaRs = null; 
-                OracleBD OracleConection= new OracleBD();
+                OracleBD OracleConection = new OracleBD();
                 try {
                     OracleConection.conectar();
                     Connection conn = OracleConection.getConnection();
                     Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Alumno WHERE matriculaAl = ' "+usuario+"'");
+                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Alumno WHERE matriculaAl = '"+usuario+"'");
                     while(rs.next()){
-                        usuarioRs= rs.getString("matriculaAL");
+                        usuarioRs= rs.getString("matriculaAl");                            
                         contrasenaRs = rs.getString("contrasena");
                     }
+                    stmt.close();
+                    OracleConection.cerrar();
                     if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
                         PantallaAlumnos cnAl = new PantallaAlumnos(usuarioRs);
                         this.dispose();
                         cnAl.setVisible(true);
                     }else{
                         JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
-                    }        
+                    }      
                 }catch (SQLException ex) {
                     System.out.println("Error: " + ex.getMessage());
                 }         
@@ -191,7 +199,7 @@ public class Login extends javax.swing.JFrame {
                     OracleConection.conectar();
                     Connection conn = OracleConection.getConnection();
                     Statement stmt = conn.createStatement();
-                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Profesor WHER matriculaPR = '"+usuario+"'");
+                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Profesor WHERE matriculaPR = '"+usuario+"'");
                     while(rs.next()){
                         usuarioRs= rs.getString("matriculaPr");
                         contrasenaRs = rs.getString("contrasena");
@@ -259,6 +267,114 @@ public class Login extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_jPasswordField1KeyTyped
+
+    private void jPasswordField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10){
+            usuario = jTextField1.getText().toUpperCase();
+            contrasena = jPasswordField1.getText();
+            ValidacionLogin validaruser = new ValidacionLogin();
+            if(validaruser.validarUsuario(usuario, contrasena)){
+                if(usuario.substring(0,2).equals("AL")){
+                    tipoUsuario = "ALUMNO";
+                    System.out.println(tipoUsuario);
+                    String usuarioRs = null; 
+                    String contrasenaRs = null; 
+                    OracleBD OracleConection = new OracleBD();
+                try {
+                    OracleConection.conectar();
+                    Connection conn = OracleConection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Alumno WHERE matriculaAl = '"+usuario+"'");
+                    while(rs.next()){
+                        usuarioRs= rs.getString("matriculaAl");                            
+                        contrasenaRs = rs.getString("contrasena");
+                    }
+                    stmt.close();
+                    OracleConection.cerrar();
+                    if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                        PantallaAlumnos cnAl = new PantallaAlumnos(usuarioRs);
+                        this.dispose();
+                        cnAl.setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
+                    }      
+                }catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }         
+            }else if(usuario.substring(0,2).equals("PR")){ 
+                    tipoUsuario = "PROFESOR";
+                    System.out.println(tipoUsuario);
+                    //Inicia conexion con la base de datos                     
+                    String usuarioRs = null; 
+                    String contrasenaRs = null;
+                    OracleBD OracleConection = new OracleBD();
+                try {
+                    OracleConection.conectar();
+                    Connection conn = OracleConection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Profesor WHERE matriculaPR = '"+usuario+"'");
+                    while(rs.next()){
+                        usuarioRs= rs.getString("matriculaPr");
+                        contrasenaRs = rs.getString("contrasena");
+                    }
+                    if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                        PantallaProfesor pantProfesor = new PantallaProfesor(usuario);
+                        this.dispose();
+                        pantProfesor.setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
+                    }  
+                    stmt.close();
+                    OracleConection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }   
+                //Termina conexion base de datos 
+            }else if(usuario.substring(0,2).equals("AD")){
+                tipoUsuario = "ADMINISTRADOR";
+                System.out.println(tipoUsuario);                    
+                //Inicia conexion con la base de datos                     
+                String usuarioRs = null; 
+                String contrasenaRs = null; 
+                OracleBD OracleConection = new OracleBD();
+                try{
+                    OracleConection.conectar();
+                    Connection conn = OracleConection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT * FROM Administrador WHERE matriculaAdm = '"+usuario+"'");
+                    while (rs.next()) {
+                        usuarioRs = rs.getString("matriculaAdm");
+                        contrasenaRs = rs.getString("contrasena");
+                    }
+                    if(usuario.equals(usuarioRs) && contrasena.equals(contrasenaRs)){
+                        PantallaAdministrador pantAdministrador = new PantallaAdministrador(usuario);
+                        this.dispose();
+                        pantAdministrador.setVisible(true);
+                    }else{
+                        JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
+                    } 
+                    stmt.close();
+                    OracleConection.cerrar();
+                        
+                }catch(SQLException ex){
+                     System.out.println("Error: " + ex.getMessage());                       
+                        
+                }           
+                //Termina conexion con la base dedatos                                       
+            }else{
+                JOptionPane.showMessageDialog(null,"Usuario o contraseña incorrectos","Información", JOptionPane.INFORMATION_MESSAGE);
+            }
+            }
+        }
+    }//GEN-LAST:event_jPasswordField1KeyPressed
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10){
+            jPasswordField1.requestFocusInWindow();
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
 
     /**
      * @param args the command line arguments

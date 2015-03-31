@@ -174,11 +174,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     apellidoMaterno = rs.getString("apellidoMaterno");                    
                     labuser.setText(nombreAdm + " " + apellidoPaterno + " " + apellidoMaterno);
                     }
-                    /*rs = stmt.executeQuery ("SELECT idCarrera FROM CARRERA;");
+                    rs = stmt.executeQuery ("SELECT idCarrera FROM CARRERA");
                     while(rs.next()){
                         rs.getString("idCarrera");
                         jComboBoxCarrera.addItem(rs.getString("idCarrera"));
-                    } */
+                    } 
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
                 }
@@ -1005,8 +1005,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void btncerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncerrarActionPerformed
-        // TODO add your handling code here:
-           
+        // TODO add your handling code here:           
         int mensajeConfirmacion;
         mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de cerrar sesión?", "Confirmación", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
@@ -1026,14 +1025,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         // TODO add your handling code here:
         guardarTextFildVar();  
-        /*if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Administrador")){
+        if(jComboBoxUsuarioNuevo.getSelectedItem().equals("Administrador")){
             guardarTextFildVar();
             String sQl = null;
             sQl = "insert into administrador values (?,?,?,?,?,?,?,?,?,?,?,?)";
-            BD mysql = new BD();
-            Connection cn = mysql.Conectar();
+            OracleBD OracleConnection = new OracleBD();
+            Connection conn = OracleConnection.getConnection();
             try{
-                PreparedStatement pst = cn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                OracleConnection.conectar();
+                PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
                 pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
                 pst.setString(2,nombre);
                 pst.setString(3,apPaterno);
@@ -1062,10 +1062,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             guardarTextFildVar();
             String sQl = null;
             sQl = "insert into profesor values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            BD mysql = new BD();
-            Connection cn = mysql.Conectar();
+            OracleBD OracleConnection = new OracleBD();
+            Connection conn = OracleConnection.getConnection();
             try{
-                PreparedStatement pst = cn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                OracleConnection.conectar();
+                PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
                 pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
                 pst.setString(2,nombre);
                 pst.setString(3,apPaterno);
@@ -1077,8 +1078,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setInt(9,numero);
                 pst.setString(10,corrPers);
                 pst.setString(11,corrInst);
-                pst.setString(12,especialidad);
-                pst.setString(13,contrasena);
+                pst.setString(12,contrasena);
                 int n = pst.executeUpdate();
                 if(n>0){
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
@@ -1096,10 +1096,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             guardarTextFildVar();
             String sQl = null;
             sQl = "insert into alumno values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            BD mysql = new BD();
-            Connection cn = mysql.Conectar();
+            OracleBD OracleConnection = new OracleBD();
+            Connection conn = OracleConnection.getConnection();
             try{
-                PreparedStatement pst = cn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                OracleConnection.conectar();
+                PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
                 pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
                 pst.setString(2,nombre);
                 pst.setString(3,apPaterno);
@@ -1125,7 +1126,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }catch(Exception ex){
                 System.out.println("Error: " + ex.getMessage());
             }
-        }*/
+        }
     }//GEN-LAST:event_btnhechoActionPerformed
 
     private void jTextFieldContrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaFocusGained
@@ -1411,21 +1412,22 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void jComboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCarreraActionPerformed
-        /*String carrera2 = (String) jComboBoxCarrera.getSelectedItem();
+        String carrera2 = (String) jComboBoxCarrera.getSelectedItem();
         System.out.println(carrera2);
         jComboBoxgrupo.removeAllItems();
+        OracleBD OracleConnection = new OracleBD();
         try{
-                    BD mysql2 = new BD();
-                    Connection cn = mysql2.Conectar ();
-                    Statement s1 = cn.createStatement();
-                    ResultSet rs1 = s1.executeQuery ("SELECT idGrupo FROM GRUPO1 WHERE carrera = '" + carrera2 + "';");
+                    OracleConnection.conectar();
+                    Connection conn = OracleConnection.getConnection();
+                    Statement s1 = conn.createStatement();
+                    ResultSet rs1 = s1.executeQuery ("SELECT idGrupo FROM GRUPO WHERE idCarrera = '" + carrera2 + "'");
                     while(rs1.next()){
                         System.out.println(rs1.getString("idGrupo"));
                         jComboBoxgrupo.addItem(rs1.getString("idGrupo"));
                     } 
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
-                }*/
+                }
     }//GEN-LAST:event_jComboBoxCarreraActionPerformed
 
     /**
