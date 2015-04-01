@@ -28,18 +28,17 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public void guardarTextFildVar(){
         //matricula = jTextFieldMatricula.getText();
-        nombre = jTextFieldNombre.getText();
-        apPaterno = jTextFieldApellidoPaterno.getText();
-        apMaterno = jTextFieldApellidoMaterno.getText();
-        calle = jTextFieldCalle.getText();
-        colonia = jTextFieldColonia.getText();
+        nombre = jTextFieldNombre.getText().toUpperCase();
+        apPaterno = jTextFieldApellidoPaterno.getText().toUpperCase();
+        apMaterno = jTextFieldApellidoMaterno.getText().toUpperCase();
+        calle = jTextFieldCalle.getText().toUpperCase();
+        colonia = jTextFieldColonia.getText().toUpperCase();
         telCasa = jTextFieldTelCasa.getText();
         telMovil = jTextFieldTelMovill.getText();
-        corrInst = jTextFieldCorreoInstitucional.getText();
-        corrPers = jTextFieldCorreoPersonal.getText();
+        corrInst = jTextFieldCorreoInstitucional.getText().toUpperCase();
+        corrPers = jTextFieldCorreoPersonal.getText().toUpperCase();
         contrasena = jTextFieldContrasena.getText();
         numero = Integer.parseInt(jTextFieldNumero.getText());    
-        especialidad = jTextFieldEspecialidad.getText();
         carrera = (String) jComboBoxCarrera.getSelectedItem();
         grupo = (String) jComboBoxgrupo.getSelectedItem();
     }
@@ -48,17 +47,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldPorMatricula.setEnabled(false);
         jTextFieldPorApellido.setEnabled(false);
         jTextFieldPorNombre.setEnabled(false);
-        /*jLabelPorMatriula.setEnabled(false);
-        jLabelPorNombre.setEditable(false);
-        jLabelPorApellido.setVisible(false);*/
     }
     public void enableBusqueda(){
         jTextFieldPorMatricula.setEnabled(true);
         jTextFieldPorApellido.setEnabled(true);
         jTextFieldPorNombre.setEnabled(true);
-        /*LabelPorMatriula.setVisible(true);
-        jLabelPorNombre.setVisible(true);
-        jLabelPorApellido.setVisible(true);*/
     }
     
     //Funcion para deshabilitar jTextField
@@ -100,7 +93,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxgrupo.setEnabled(true);        
     }
     public void Limpiar(){
-        //jTextFieldMatricula.setText("");
         jTextFieldNombre.setText("");
         jTextFieldApellidoPaterno.setText("");
         jTextFieldApellidoMaterno.setText("");
@@ -112,9 +104,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldCorreoInstitucional.setText("");
         jTextFieldCorreoPersonal.setText("");
         jTextFieldContrasena.setText("");
-        jTextFieldEspecialidad.setText("");
-        /*jComboBoxsemestre.(true);
-        jComboBoxgrupo.setEnabled(true);*/        
+        jTextFieldEspecialidad.setText("");       
     }
     public void descoloriarCorreo(){
         jTextFieldCorreoPersonal.setBorder(BorderFactory.createEmptyBorder());
@@ -123,8 +113,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     
     // Desabilitar botones debajo de tabla
     
-    public void disableButtons(){
-        
+    public void disableButtons(){        
         btncalificaciones.setEnabled(false);
         btnhorario.setEnabled(false);
         btnfaltas.setEnabled(false);
@@ -142,11 +131,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public PantallaAdministrador() {
         initComponents();
-        //llenarModelos();
-        //jTableBusquedaUser.setModel(null);//modelo grafico copia a la tabla de datos
         btnLimpiar.setEnabled(false);
         jTextFieldMatricula.requestFocusInWindow();
-        jTableBusquedaUser.setEnabled(false);
+        //jTableBusquedaUser.setEnabled(false);
+        jTableBusquedaUser.getTableHeader().setReorderingAllowed(false);
         btnCancelar.setEnabled(false);
         btnhecho.setEnabled(false);
         Deshabilitar();     
@@ -157,13 +145,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
      //Inicia constructor 
     public PantallaAdministrador(String matriculaAdm){
         initComponents();
-        //jTableBusquedaUser.setModel(null);//modelo grafico copia a la tabla de datos 
-        //llenarModelos();
-        /*jTextFieldMatricula.setEnabled(false); 
-        jTextFieldMatricula.setEditable(false);  */ 
+        jTableBusquedaUser.getTableHeader().setReorderingAllowed(false);
         btnLimpiar.setEnabled(false);
         jTextFieldNombre.requestFocusInWindow();
-        jTableBusquedaUser.setEnabled(false);
+        //jTableBusquedaUser.setEnabled(false);
         btnCancelar.setEnabled(false);
         btnhecho.setEnabled(false);
         Deshabilitar();     
@@ -310,10 +295,12 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldPorNombre.setText(" ");
         jTextFieldPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldPorNombreKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPorNombreKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldPorNombreKeyTyped(evt);
@@ -356,7 +343,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableBusquedaUser);
 
         btnfaltas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -640,7 +635,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setText("Grupo:");
 
-        jComboBoxgrupo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "GRUP000", "GRUP001" }));
         jComboBoxgrupo.setNextFocusableComponent(jComboBoxgrupo);
         jComboBoxgrupo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -694,7 +688,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Carrera:");
 
-        jComboBoxCarrera.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCarreraActionPerformed(evt);
@@ -907,7 +900,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jTextFieldNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombreActionPerformed
         // TODO add your handling code here:
-         //jTextFieldNombre.transferFocus();
     }//GEN-LAST:event_jTextFieldNombreActionPerformed
 
     private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
@@ -926,7 +918,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jTextFieldApellidoMaternoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldApellidoMaternoActionPerformed
         // TODO add your handling code here:
-        //jTextFielCalle.transferFocus();
     }//GEN-LAST:event_jTextFieldApellidoMaternoActionPerformed
 
     private void jTextFieldCalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldCalleActionPerformed
@@ -982,12 +973,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPorApellidoKeyPressed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
-        //Habilitar();
+
         btnCancelar.setEnabled(true);  
         jComboBoxUsuarioNuevo.setEnabled(true);
         jComboBoxUsuarioNuevo.requestFocusInWindow();
-        //btnhecho.setEnabled(true);
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -995,8 +984,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         int mensajeConfirmacion;
         mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de cancelar?", "Confirmación", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        /*Limpiar();
-        Deshabilitar();*/
         if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
             System.out.println("No button clicked");
         } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
@@ -1022,8 +1009,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         int mensajeConfirmacion;
         mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de cerrar sesión?", "Confirmación", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-        /*Limpiar();
-        Deshabilitar();*/
         if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
             System.out.println("No button clicked");
         } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
@@ -1062,11 +1047,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 int n = pst.executeUpdate();
                 if(n>0){
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
-                    mensajeAdm();
                     Limpiar();
                     Deshabilitar();
                     btnhecho.setEnabled(false);
-                    //jComboBoxUsuarioNuevo.setEditable(false);
                     descoloriarCorreo();
                     jComboBoxUsuarioNuevo.setSelectedIndex(0);
                     
@@ -1155,8 +1138,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldContrasenaFocusGained
 
     private void jTextFieldNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumeroKeyTyped
-        // TODO add your handling code here:
-        //System.out.println("Key: " + evt.getKeyChar());
+
         char caracter = evt.getKeyChar();
             if(((caracter < '0') || (caracter > '9')) &&(caracter != KeyEvent.VK_BACK_SPACE) || jTextFieldNumero.getText().length() == 4){
                 evt.consume();
@@ -1336,41 +1318,65 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             
         }
     }//GEN-LAST:event_jTextFieldMatriculaKeyPressed
-    /*public void llenarModelos(){
-        modelo1.addColumn("Empleado");
-        modelo1.addColumn("Nombre");
-        modelo1.addColumn("Apellido Paterno");
-        modelo1.addColumn("Apellido Materno");         
-        modelo2.addColumn("Matricula");
-        modelo2.addColumn("Nombre");
-        modelo2.addColumn("Apellido Paterno");
-        modelo2.addColumn("Apellido Materno");
-    }*/
-    
-    /*public void cargarModelo(String user){
-        if(user.equals("Alumno")){
-            //llenarModelos();
-            jTableBusquedaUser.setModel(modelo2);
+
+    public void llenarTableBorrar(String tabla, String user, String movimiento){
+        DefaultTableModel modelo = new DefaultTableModel();        
+        if(tabla.equals("Administrador")||tabla.equals("Profesor")){
+            modelo.addColumn("Empleado");
+            
         }else{
-            //llenarModelos();
-            jTableBusquedaUser.setModel(modelo1);
+            modelo.addColumn("Matricula");
+        }        
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido Paterno");
+        modelo.addColumn("Apellido Materno");
+        jTableBusquedaUser.setModel(modelo);
+        OracleBD OracleConnection = new OracleBD();
+        if(movimiento.equals("Llenar")){
+            try {
+            OracleConnection.conectar();
+            Connection conn = OracleConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("SELECT "+user+ ", nombre, apellidoPaterno,"
+                    + "apellidoMaterno from "+tabla);  
+            while(rset.next()){
+                System.out.println(rset.getString(2));
+                Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                           
+                       }
+                       modelo.addRow(fila);
+            }
+            stmt.close();
+            OracleConnection.cerrar();
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+        }else{
+            for (int i = 0; i < jTableBusquedaUser.getRowCount(); i++) {
+                modelo.removeRow(i);
+                i-=1;
+            }
         }
-    }*/
+        
+        
+    }
     private void jComboBoxTipoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoUserActionPerformed
-        // TODO add your handling code here: 
+        // TODO add your handling code here:
         
         jTextFieldPorMatricula.requestFocusInWindow();
         btnLimpiar.setEnabled(true);
         String tipoUser;
         tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
-        if(tipoUser.equals("Administrador")){          
-            //cargarModelo("Administrador");
+        if(tipoUser.equals("Administrador")){  
+            llenarTableBorrar(tipoUser, "matriculaAdm", "Llenar");
             jLabelPorMatriula.setText("Empleado");
             jTextFieldPorMatricula.setText("ADM");
             enableBusqueda();
             disableButtons();
         }else if(tipoUser.equals("Profesor")){
-            //cargarModelo("Profesor");
+            llenarTableBorrar(tipoUser, "matriculaPr", "Llenar");
             jTextFieldPorMatricula.setText("PR");
             jLabelPorMatriula.setText("Empleado");
             enableBusqueda();
@@ -1378,15 +1384,20 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             btnhorario.setEnabled(true);
             btnmaterias.setEnabled(true);
         }else if(tipoUser.equals("Alumno")){
-            //cargarModelo("Alumno");
+            llenarTableBorrar(tipoUser , "matriculaAl", "Llenar");
             jTextFieldPorMatricula.setText("AL");
             enableBusqueda();
             jLabelPorMatriula.setText("Matricula");
             enableButtons();
         }else if(tipoUser.equals("")){
+            llenarTableBorrar("", "", "Borrar");
+            jLabelMatriculaEmp.setText("Matricula");
+            jTextFieldPorMatricula.setText("");
             disableBusqueda();
             disableButtons();
+            jTableBusquedaUser.setEnabled(false);
             btnLimpiar.setEnabled(false);
+            
             
         }
     }//GEN-LAST:event_jComboBoxTipoUserActionPerformed
@@ -1422,7 +1433,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxCarrera.setEnabled(false);
             jTextFieldEspecialidad.setEnabled(false);
             jTextFieldCorreoInstitucional.setText("");
-            //OracleBD OracleConnection = new OracleBD();
         }else if(tipoUser.equals("Profesor")){  
             OracleBD OracleConnection = new OracleBD();
             try {
@@ -1466,7 +1476,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             Habilitar();
             jTextFieldMatricula.setEnabled(false);
             jLabelMatriculaEmp.setText("Matricula");
-            //jTextFieldMatricula.setText("AL");
             jTextFieldEspecialidad.setEnabled(false);
  
         }else if(tipoUser.equals("")){
@@ -1486,36 +1495,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPorMatriculaKeyTyped
 
     private void jTextFieldPorNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorNombreKeyTyped
-        // TODO add your handling code here:
-       
-        /*String buscar = null;         
-        String tipoUser = null;
-        tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
-        buscar = jTextFieldPorNombre.getText();  */            
-        jTextFieldPorMatricula.setText("");
-        jTextFieldPorApellido.setText("");
-        if(jTextFieldPorNombre.getText().length() == 50){
-            evt.consume();
-        }
-        /*OracleBD OracleConnection = new OracleBD();
-        try {
-            OracleConnection.conectar();
-            Connection conn = OracleConnection.getConnection();
-            Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("SELECT matriculaPr, nombre, apellidoPaterno,"
-                    + "apellidoMaterno from "+tipoUser+" WHERE nombre like '%"+buscar+"%'" );  
-            while(rset.next()){
-                Object[] fila = new Object[4];
-                       for (int i = 0; i <= 3; i++){
-                           fila[i]=rset.getObject(i+1);
-                       }
-                       modelo1.addRow(fila);
-            }
-            stmt.close();
-            OracleConnection.cerrar();
-        } catch (SQLException ex) {
-            System.out.println("Error: " + ex.getMessage());
-        }*/
+        // TODO add your handling code here:          
+        
+
         
     }//GEN-LAST:event_jTextFieldPorNombreKeyTyped
 
@@ -1529,15 +1511,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPorApellidoKeyTyped
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:        
+        // TODO add your handling code here:   
+        llenarTableBorrar("", "", "Borrar");
         jTextFieldPorMatricula.setText("");
         jTextFieldPorNombre.setText("");
         jTextFieldPorApellido.setText("");
+        jComboBoxTipoUser.setSelectedIndex(0);
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void jComboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCarreraActionPerformed
         String carrera2 = (String) jComboBoxCarrera.getSelectedItem();
-        //System.out.println(carrera2);
         jComboBoxgrupo.removeAllItems();
         OracleBD OracleConnection = new OracleBD();
         try{
@@ -1546,13 +1529,24 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Statement s1 = conn.createStatement();
                     ResultSet rs1 = s1.executeQuery ("SELECT idGrupo FROM GRUPO WHERE idCarrera = '" + carrera2 + "'");
                     while(rs1.next()){
-                        //System.out.println(rs1.getString("idGrupo"));
                         jComboBoxgrupo.addItem(rs1.getString("idGrupo"));
                     } 
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
                 }
     }//GEN-LAST:event_jComboBoxCarreraActionPerformed
+
+    private void jTextFieldPorNombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorNombreKeyReleased
+        // TODO add your handling code here:
+        jTextFieldPorMatricula.setText("");
+        jTextFieldPorApellido.setText("");
+        if(jTextFieldPorNombre.getText().length() == 50){
+            evt.consume();
+        }
+        buscarNombre(jTextFieldPorNombre.getText().toUpperCase());
+
+
+    }//GEN-LAST:event_jTextFieldPorNombreKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1657,19 +1651,29 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel labuser;
     // End of variables declaration//GEN-END:variables
 
-    private void mensajeAdm() {
-        String matricula = null;
+
+    private void buscarNombre(String buscar) {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("Empleado");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido Paterno");
+        modelo.addColumn("Apellido Materno");
+        jTableBusquedaUser.setModel(modelo);
         OracleBD OracleConnection = new OracleBD();
         try {
             OracleConnection.conectar();
             Connection conn = OracleConnection.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("SELECT * FROM Administrador");
-            while (rset.next()) {
-                matricula = rset.getString("matriculaAdm");                
+            ResultSet rset = stmt.executeQuery("SELECT matriculaPr, nombre, apellidoPaterno,"
+                    + "apellidoMaterno from Profesor WHERE nombre like '%"+buscar+"%'" );  
+            while(rset.next()){
+                System.out.println(rset.getString(2));
+                Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
             }
-            JOptionPane.showMessageDialog(null, "La matricula que se genero automaticamente para el administrador \nque acaba "
-            + "de ingresar es: " + matricula);
             stmt.close();
             OracleConnection.cerrar();
         } catch (SQLException ex) {
