@@ -6,7 +6,7 @@ public class Calificaciones extends javax.swing.JFrame {
     String usuario;
     boolean flag_habilitar = false;
     
-    public Calificaciones(String tipoUsuario){
+    public Calificaciones(String tipoUsuario, String matriculaAL){
         this.usuario = tipoUsuario;  
         initComponents(); 
         if(usuario.equals("ALUMNO")){

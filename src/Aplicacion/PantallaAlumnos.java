@@ -194,7 +194,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btncalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalificacionesActionPerformed
-        Calificaciones calif = new Calificaciones("ALUMNO");
+        Calificaciones calif = new Calificaciones("ALUMNO",labMatricula.getText());
         calif.setVisible(true);
     }//GEN-LAST:event_btncalificacionesActionPerformed
 
