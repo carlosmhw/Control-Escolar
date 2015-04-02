@@ -729,7 +729,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Termina edición");
+        jButton1.setText("Finalizar edición");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -785,7 +785,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButton1))
+                                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                             .addComponent(jComboBoxSemestre, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -870,17 +870,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     .addComponent(jComboBoxCarrera, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnhecho))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel15)
-                        .addComponent(jComboBoxSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel15)
+                    .addComponent(jComboBoxSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
                     .addComponent(jComboBoxgrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
-                .addContainerGap(66, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         componenteAyuda1.setUrl("www.google.com");
@@ -1600,11 +1599,12 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jComboBoxSemestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSemestreActionPerformed
         // TODO add your handling code here:
-        String idCarrera = (String) jComboBoxCarrera.getSelectedItem();
-        String semestre = (String) jComboBoxSemestre.getSelectedItem();
-        jComboBoxgrupo.removeAllItems();
-        OracleBD OracleConnection = new OracleBD();
-        try{
+        if(jComboBoxSemestre.getItemCount()!=0){
+            String idCarrera = (String) jComboBoxCarrera.getSelectedItem();
+            String semestre = (String) jComboBoxSemestre.getSelectedItem();
+            jComboBoxgrupo.removeAllItems();
+            OracleBD OracleConnection = new OracleBD();
+            try{
                     OracleConnection.conectar();
                     Connection conn = OracleConnection.getConnection();
                     Statement stmt1 = conn.createStatement();
@@ -1614,9 +1614,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     } 
                     rest1.close();
                     OracleConnection.cerrar();
-        }catch(Exception ex){
+            }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
-                }     
+           }     
+        }
+        
         
     }//GEN-LAST:event_jComboBoxSemestreActionPerformed
 
