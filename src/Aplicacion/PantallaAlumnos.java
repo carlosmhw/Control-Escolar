@@ -6,6 +6,7 @@
 package Aplicacion;
 
 
+import Database.OracleBD;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -19,7 +20,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Alejandro
  */
 public class PantallaAlumnos extends javax.swing.JFrame {
-    String nombre, grupo;
+    String nombre, paterno, materno, carrera;
     int semestre;
     public PantallaAlumnos() {
         initComponents();
@@ -28,46 +29,25 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         initComponents();
         labMatricula.setText(matriculaAl);
         
-       /* try {
-                BD mysql = new BD();
-                Connection cn = mysql.Conectar ();
-                Statement s = cn.createStatement();
-                ResultSet rs = s.executeQuery ("select * from alumno join grupo using(idGrupo) where matriculaAL = '"+matriculaAl+"';");
-                while(rs.next()){
-                    nombre= rs.getString("nombre");
-                    semestre = rs.getInt("semestre");
-                    grupo = rs.getString("idGrupo");
-                }
-                labnombre.setText(nombre);
-                labsemestre.setText("Semestre: "+semestre);
-                labGrupo.setText(grupo);
-                
-            //Inicia llenado tabla Horario 
-                
-                
-                    rs = s.executeQuery("select idMateria as 'Clave Materia', "
-                            + "materia.nombre as 'Materia', horaInicio as 'Hora de inicio', horaFinal as 'Fin de hora' "
-                            + "from grupo join hora using(idGrupo) join materia using(idMateria) "
-                            + "where idGrupo = '"+grupo+"' order by horaInicio;");
-                    DefaultTableModel modelo = new DefaultTableModel();
-                    jTableHorario.setModel(modelo);
-                    ResultSetMetaData rsMd = rs.getMetaData(); //Obtiene los metadatos de la tabla 
-                    int cantidadColumnas = rsMd.getColumnCount(); //Cuenta la cantidad de columnas 
-                    //Para agregar la cantidad de columans utilizamos este for
-                    for(int i = 1 ; i <= cantidadColumnas; i++){
-                        modelo.addColumn(rsMd.getColumnLabel(i));
-                    }
+        OracleBD OracleConection = new OracleBD();
+               
+                try{
+                    OracleConection.conectar();                
+                    Connection conn = OracleConection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery ("SELECT * FROM Alumno  WHERE matriculaAL = '"+matriculaAl+"'");
                     while(rs.next()){
-                        Object[] fila = new Object[cantidadColumnas];
-                        for(int i = 0 ; i < cantidadColumnas; i++){
-                            fila[i] = rs.getObject(i+1);
-                        }
-                        modelo.addRow(fila);
-                    }    
-                
-            } catch (SQLException ex) {
-                System.out.println("Error: " + ex.getMessage());
-            }*/
+                    nombre= rs.getString("nombre"); 
+                    paterno = rs.getString("apellidoPaterno");
+                    materno = rs.getString("apellidoMaterno");                    
+                    carrera = rs.getString("idCarrera");    
+                    labnombre.setText(nombre + " " + paterno + " " + materno);
+                    labCarrera.setText(carrera);
+                    }
+                }catch(Exception ex){
+                    System.out.println("Error: " + ex.getMessage());
+                }
+       
         
 
     }
@@ -89,8 +69,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         btnfaltas = new javax.swing.JButton();
         labnombre = new javax.swing.JLabel();
         labMatricula = new javax.swing.JLabel();
-        labsemestre = new javax.swing.JLabel();
-        labGrupo = new javax.swing.JLabel();
+        labCarrera = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         componenteAyuda1 = new Aplicacion.ComponenteAyuda();
@@ -122,6 +101,11 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         });
 
         btnfaltas.setText("Consultar Faltas");
+        btnfaltas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnfaltasActionPerformed(evt);
+            }
+        });
 
         labnombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labnombre.setText("Nombre");
@@ -129,11 +113,8 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         labMatricula.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labMatricula.setText("Matricula");
 
-        labsemestre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labsemestre.setText("Semestre");
-
-        labGrupo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labGrupo.setText("Grupo");
+        labCarrera.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        labCarrera.setText("Grupo");
 
         jLabel5.setText("Horario");
 
@@ -149,6 +130,30 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labMatricula)
+                                .addGap(18, 18, 18)
+                                .addComponent(labnombre)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jButton1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jSeparator1)
+                                .addGap(47, 47, 47))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(labCarrera)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btncalificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnfaltas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap(724, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(169, 169, 169)
@@ -156,50 +161,25 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(353, 353, 353)
                         .addComponent(jLabel5)))
-                .addGap(0, 256, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labnombre)
-                            .addComponent(labMatricula)
-                            .addComponent(labsemestre)
-                            .addComponent(labGrupo))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jSeparator1)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btncalificaciones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnfaltas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap())))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(labnombre)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(labMatricula))
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(labsemestre)
-                        .addGap(5, 5, 5)
-                        .addComponent(labGrupo))
-                    .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(labCarrera)))
+                .addGap(9, 9, 9)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btncalificaciones)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnfaltas)
@@ -207,7 +187,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(116, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
 
         pack();
@@ -235,6 +215,10 @@ public class PantallaAlumnos extends javax.swing.JFrame {
             System.out.println("JOptionPane closed");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnfaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfaltasActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnfaltasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,9 +265,8 @@ public class PantallaAlumnos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTable jTableHorario;
-    private javax.swing.JLabel labGrupo;
+    private javax.swing.JLabel labCarrera;
     private javax.swing.JLabel labMatricula;
     private javax.swing.JLabel labnombre;
-    private javax.swing.JLabel labsemestre;
     // End of variables declaration//GEN-END:variables
 }
