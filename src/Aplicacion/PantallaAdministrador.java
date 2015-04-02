@@ -1601,20 +1601,22 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void jComboBoxSemestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxSemestreActionPerformed
         // TODO add your handling code here:
         String idCarrera = (String) jComboBoxCarrera.getSelectedItem();
-        int semestre = Integer.parseInt((String) jComboBoxSemestre.getSelectedItem());
+        String semestre = (String) jComboBoxSemestre.getSelectedItem();
         jComboBoxgrupo.removeAllItems();
         OracleBD OracleConnection = new OracleBD();
         try{
                     OracleConnection.conectar();
                     Connection conn = OracleConnection.getConnection();
-                    Statement s1 = conn.createStatement();
-                    ResultSet rs1 = s1.executeQuery ("SELECT nombre from Grupo WHERE idCarrera = '"+idCarrera+"' AND Semestre = "+semestre);
-                    while(rs1.next()){
-                        jComboBoxgrupo.addItem(rs1.getString("nombre"));
+                    Statement stmt1 = conn.createStatement();
+                    ResultSet rest1 = stmt1.executeQuery ("SELECT nombre from Grupo WHERE idCarrera = '"+idCarrera+"' AND Semestre = '"+semestre+"'");
+                    while(rest1.next()){
+                        jComboBoxgrupo.addItem(rest1.getString("nombre"));
                     } 
-                }catch(Exception ex){
+                    rest1.close();
+                    OracleConnection.cerrar();
+        }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
-                }
+                }     
         
     }//GEN-LAST:event_jComboBoxSemestreActionPerformed
 
