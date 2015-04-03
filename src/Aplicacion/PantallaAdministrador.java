@@ -2064,7 +2064,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = jTableBusquedaUser.getSelectedRow();
         matriculaSeleccionTabla = jTableBusquedaUser.getValueAt(row, 0).toString();
-        System.out.println(matricula);
+        System.out.println("matricula selec: "+matriculaSeleccionTabla);
     }//GEN-LAST:event_jTableBusquedaUserMouseClicked
 
     /**

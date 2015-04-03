@@ -16,33 +16,48 @@ public class Calificaciones extends javax.swing.JFrame {
     boolean flag_habilitar = false;
     public DefaultTableModel modelo = new DefaultTableModel(){
 
-    @Override
-    public boolean isCellEditable(int row, int column) {
-       //all cells false
-       return false;
-    }
-};;
+        @Override
+        public boolean isCellEditable(int row, int column) {
+           //all cells false
+           return false;
+        }
+    };;
     
     
     public Calificaciones(String tipoUsuario, String matriculaAL){
+        initComponents();
         this.matricula=matriculaAL;
+        String query = "select idmateria,semestre, M.nombre, parcial1,parcial2,parcial3,promedio " + 
+                    " from alumno\n" +
+                    "join kardex K using(matriculaAL)\n" +
+                    "join calificaciones C using(idkardex)\n" +
+                    "join materia M using(idMateria)\n" +
+                    "where matriculaAL='"+matriculaAL+"' order by semestre,idmateria";
         modelo.addColumn("ID");
         modelo.addColumn("Semestre");
         modelo.addColumn("Materia");
         modelo.addColumn("Parcial 1");
-        modelo.addColumn("Parcial 1");
-        modelo.addColumn("Parcial 1");
+        modelo.addColumn("Parcial 2");
+        modelo.addColumn("Parcial 3");
         modelo.addColumn("Promedio");
         this.usuario = tipoUsuario; 
         System.out.println(matriculaAL);
         System.out.println(usuario);
-        initComponents();
+        jTableCalificaciones.getTableHeader().setReorderingAllowed(false);
         if(usuario.equals("ALUMNO")){
             ocultarCampos();
             ocultarBotones();
             //Conexcion de solo materias que este cursando el morro
-            
-        }else{
+            jTableCalificaciones.setSize(400, 300);
+            this.setSize(600, 350);
+            query = "select idmateria,M.semestre, M.nombre, parcial1,parcial2,parcial3,promedio" + 
+                    " from alumno " +
+                    "join grupo G using(idgrupo)" +
+                    "join kardex K using(matriculaAL)" +
+                    "join calificaciones C using(idkardex)\n" +
+                    "join materia M using(idMateria)\n" +
+                    "where matriculaAL='"+matriculaAL+"' and G.semestre = M.semestre order by idmateria"; 
+        }
             habilitarBotones(flag_habilitar);
             habilitarCampos(flag_habilitar);
             OracleBD OracleConnection = new OracleBD();
@@ -53,15 +68,11 @@ public class Calificaciones extends javax.swing.JFrame {
                 ResultSet rset0 = stmt.executeQuery("select nombre, apellidoPaterno, apellidoMaterno from Alumno where matriculaAL='"+matriculaAL+"'");
                 while(rset0.next()){
                     //this.nombre=rset0.getString(0);
-                    jLabelMatriculaYNombre.setText(matriculaAL +" "+rset0.getString(1)+rset0.getString(2)+rset0.getString(3));
+                    jLabelMatriculaYNombre.setText(matriculaAL +" "+rset0.getString(1)+" "+rset0.getString(2)+" "+rset0.getString(3));
                 }
                 ResultSet rset = stmt.executeQuery(
-                    "select idmateria,semestre, M.nombre, parcial1,parcial2,parcial3,promedio,status "
-                    + "from alumno\n" +
-                    "join kardex K using(matriculaAL)\n" +
-                    "join calificaciones C using(idkardex)\n" +
-                    "join materia M using(idMateria)\n" +
-                    "where matriculaAL='"+matriculaAL+"'" );  
+                        query
+                );  
                 while(rset.next()){
                     Object[] fila = new Object[7];
                            for (int i = 0; i <= 6; i++){
@@ -75,7 +86,7 @@ public class Calificaciones extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }
-        }
+        
         
     }
     public Calificaciones() {
@@ -103,7 +114,6 @@ public class Calificaciones extends javax.swing.JFrame {
         lblCalif = new javax.swing.JLabel();
         btnConfirmarCalif = new javax.swing.JButton();
         componenteAyuda1 = new Aplicacion.ComponenteAyuda();
-        jButton1 = new javax.swing.JButton();
         jLabelMatriculaYNombre = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -147,7 +157,8 @@ public class Calificaciones extends javax.swing.JFrame {
         });
 
         jComboBoxCalificacion.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
-        jComboBoxCalificacion.setPreferredSize(new java.awt.Dimension(42, 20));
+        jComboBoxCalificacion.setMinimumSize(new java.awt.Dimension(47, 20));
+        jComboBoxCalificacion.setPreferredSize(new java.awt.Dimension(47, 20));
         jComboBoxCalificacion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCalificacionActionPerformed(evt);
@@ -185,13 +196,6 @@ public class Calificaciones extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Cerrar Sesion");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         jLabelMatriculaYNombre.setText("Matricula y Nombre del Alumno");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -201,8 +205,8 @@ public class Calificaciones extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelMatriculaYNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabelMatriculaYNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 496, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 576, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -227,14 +231,8 @@ public class Calificaciones extends javax.swing.JFrame {
                                         .addGap(9, 9, 9)))))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnEditar)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jButton1)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEditar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 95, Short.MAX_VALUE)
                         .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
         layout.setVerticalGroup(
@@ -248,9 +246,7 @@ public class Calificaciones extends javax.swing.JFrame {
                             .addGap(18, 18, 18)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(jButton1)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btnEditar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -364,12 +360,6 @@ public class Calificaciones extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxCalificacionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        this.dispose();
-        Login login = new Login();
-        login.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -411,7 +401,6 @@ public class Calificaciones extends javax.swing.JFrame {
     private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnguardar;
     private Aplicacion.ComponenteAyuda componenteAyuda1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBoxCalificacion;
     private javax.swing.JComboBox jComboBoxDecimal;
     private javax.swing.JComboBox jComboBoxParcial;
