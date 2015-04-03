@@ -390,6 +390,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        jTableBusquedaUser.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTableBusquedaUser);
 
         btnfaltas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -1505,7 +1506,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldPorMatricula.setText("");
             disableBusqueda();
             disableButtons();
-            jTableBusquedaUser.setEnabled(false);
+            //jTableBusquedaUser.setEnabled(false);
             btnCancelarLimpiar.setEnabled(false);
             
             
@@ -1569,6 +1570,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxSemestre.setEnabled(false);
             //jComboBoxTipoUser.setEnabled(false);
         }else if(tipoUser.equals("Alumno")){
+            jComboBoxSemestre.setEnabled(false);
             OracleBD OracleConnection = new OracleBD();
             try {
                 OracleConnection.conectar();
