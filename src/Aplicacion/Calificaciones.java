@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.table.DefaultTableModel;
 
-public class Calificaciones extends javax.swing.JFrame {
+public class Calificaciones extends javax.swing.JDialog {
     String usuario;
     public String matricula, nombre;
     boolean flag_habilitar = false;

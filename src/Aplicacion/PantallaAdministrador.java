@@ -1846,7 +1846,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         Calificaciones pantCalif = new Calificaciones("Administrador", matriculaSeleccionTabla);
         //this.setEnabled(false);
         pantCalif.setVisible(true);
-        pantCalif.setAlwaysOnTop(true);
+        //pantCalif.setAlwaysOnTop(true);
     }//GEN-LAST:event_btncalificacionesActionPerformed
 
     private void jTextFieldPorMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPorMatriculaActionPerformed
