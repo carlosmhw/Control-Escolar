@@ -360,6 +360,9 @@
                   <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTableBusquedaUserMouseClicked"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -514,7 +517,6 @@
                               <Component id="jTextFieldApellidoMaterno" max="32767" attributes="0"/>
                               <Component id="jTextFieldCalle" max="32767" attributes="0"/>
                               <Component id="jTextFieldColonia" max="32767" attributes="0"/>
-                              <Component id="jTextFieldTelCasa" max="32767" attributes="0"/>
                               <Component id="jTextFieldTelMovill" max="32767" attributes="0"/>
                               <Component id="jTextFieldCorreoInstitucional" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
@@ -543,8 +545,9 @@
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="6" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="jTextFieldTelCasaLada" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="102" alignment="1" attributes="0">
@@ -612,7 +615,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFieldTelCasa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldTelCasaLada" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -652,7 +655,7 @@
                       <Component id="jComboBoxGrupo" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="19" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -787,7 +790,7 @@
         <Component class="javax.swing.JTextField" name="jTextFieldNumero">
           <Properties>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="jTextFieldTelCasa"/>
+              <ComponentRef name="jTextFieldTelCasaLada"/>
             </Property>
           </Properties>
           <Events>
@@ -803,15 +806,15 @@
             <Property name="text" type="java.lang.String" value="Telefono casa:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFieldTelCasa">
+        <Component class="javax.swing.JTextField" name="jTextFieldTelCasaLada">
           <Properties>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="jTextFieldTelMovill"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldTelCasaKeyPressed"/>
-            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldTelCasaKeyTyped"/>
+            <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldTelCasaLadaKeyPressed"/>
+            <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextFieldTelCasaLadaKeyTyped"/>
           </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">

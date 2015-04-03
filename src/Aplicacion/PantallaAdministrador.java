@@ -16,9 +16,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javafx.scene.web.PromptData;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.jdesktop.xswingx.PromptSupport;
 public final class PantallaAdministrador extends javax.swing.JFrame {
     String matricula = null, nombre = null, apPaterno = null, apMaterno = null, calle = null, colonia = null, telCasa = null, telMovil = null, corrInst = null, corrPers = null,
            contrasena = null, especialidad = null, carrera = null, grupo = null;
@@ -33,7 +35,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         apMaterno = jTextFieldApellidoMaterno.getText().toUpperCase();
         calle = jTextFieldCalle.getText().toUpperCase();
         colonia = jTextFieldColonia.getText().toUpperCase();
-        telCasa = jTextFieldTelCasa.getText();
+        telCasa = jTextFieldTelCasaLada.getText();
         telMovil = jTextFieldTelMovill.getText();
         corrInst = jTextFieldCorreoInstitucional.getText().toUpperCase();
         corrPers = jTextFieldCorreoPersonal.getText().toUpperCase();
@@ -76,7 +78,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldCalle.setEnabled(false);
         jTextFieldColonia.setEnabled(false);
         jTextFieldNumero.setEnabled(false);
-        jTextFieldTelCasa.setEnabled(false);
+        jTextFieldTelCasaLada.setEnabled(false);
         jTextFieldTelMovill.setEnabled(false);
         jTextFieldCorreoInstitucional.setEnabled(false);
         jTextFieldCorreoPersonal.setEnabled(false);
@@ -96,7 +98,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldCalle.setEnabled(true);
             jTextFieldColonia.setEnabled(true);
             jTextFieldNumero.setEnabled(true);
-            jTextFieldTelCasa.setEnabled(true);
+            jTextFieldTelCasaLada.setEnabled(true);
             jTextFieldTelMovill.setEnabled(true);
             jTextFieldCorreoInstitucional.setEnabled(true);
             jTextFieldCorreoPersonal.setEnabled(true);
@@ -114,7 +116,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldCalle.setText("");
         jTextFieldColonia.setText("");
         jTextFieldNumero.setText("");
-        jTextFieldTelCasa.setText("");
+        jTextFieldTelCasaLada.setText("");
         jTextFieldTelMovill.setText("");
         jTextFieldCorreoInstitucional.setText("");
         jTextFieldCorreoPersonal.setText("");
@@ -145,11 +147,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public PantallaAdministrador() {
         initComponents();
-        
+        //jTextFieldTelCasaLada.setToolTipText("Ingresa el numero de casa");
     }
      //Inicia constructor 
     public PantallaAdministrador(String matriculaAdm){
         initComponents();
+        PromptSupport.setPrompt("(123)-456-78-91", jTextFieldTelCasaLada);
+        PromptSupport.setPrompt("(123)-456-78-91", jTextFieldTelMovill);
+        jTextFieldTelCasaLada.setToolTipText("Ingresa el numero de casa");
+        //Prompt
         setLocationRelativeTo(null);
         disablejComboBoxBusqueda();
         jTextFieldMatricula.requestFocusInWindow();
@@ -247,7 +253,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         jTextFieldNumero = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jTextFieldTelCasa = new javax.swing.JTextField();
+        jTextFieldTelCasaLada = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldTelMovill = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
@@ -391,6 +397,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
         jTableBusquedaUser.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTableBusquedaUser.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableBusquedaUserMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableBusquedaUser);
 
         btnfaltas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -632,7 +643,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Numero:");
 
-        jTextFieldNumero.setNextFocusableComponent(jTextFieldTelCasa);
+        jTextFieldNumero.setNextFocusableComponent(jTextFieldTelCasaLada);
         jTextFieldNumero.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldNumeroKeyPressed(evt);
@@ -645,13 +656,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel11.setText("Telefono casa:");
 
-        jTextFieldTelCasa.setNextFocusableComponent(jTextFieldTelMovill);
-        jTextFieldTelCasa.addKeyListener(new java.awt.event.KeyAdapter() {
+        jTextFieldTelCasaLada.setNextFocusableComponent(jTextFieldTelMovill);
+        jTextFieldTelCasaLada.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                jTextFieldTelCasaKeyPressed(evt);
+                jTextFieldTelCasaLadaKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextFieldTelCasaKeyTyped(evt);
+                jTextFieldTelCasaLadaKeyTyped(evt);
             }
         });
 
@@ -831,7 +842,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                             .addComponent(jTextFieldApellidoMaterno)
                             .addComponent(jTextFieldCalle)
                             .addComponent(jTextFieldColonia)
-                            .addComponent(jTextFieldTelCasa)
                             .addComponent(jTextFieldTelMovill)
                             .addComponent(jTextFieldCorreoInstitucional)
                             .addGroup(jPanel1Layout.createSequentialGroup()
@@ -854,7 +864,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(btnhecho, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(btnActualizar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 6, Short.MAX_VALUE))
+                            .addComponent(jTextFieldTelCasaLada)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnNuevo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -907,7 +918,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
-                    .addComponent(jTextFieldTelCasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldTelCasaLada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
@@ -939,7 +950,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         componenteAyuda1.setUrl("www.google.com");
@@ -1264,16 +1275,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void jTextFieldNumeroKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumeroKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10 || evt.getKeyCode()==9){
-            jTextFieldTelCasa.requestFocusInWindow();
+            jTextFieldTelCasaLada.requestFocusInWindow();
         }
     }//GEN-LAST:event_jTextFieldNumeroKeyPressed
 
-    private void jTextFieldTelCasaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelCasaKeyPressed
+    private void jTextFieldTelCasaLadaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelCasaLadaKeyPressed
         // TODO add your handling code here:
         if(evt.getKeyCode()==10 || evt.getKeyCode()==9){
             jTextFieldTelMovill.requestFocusInWindow();
         }
-    }//GEN-LAST:event_jTextFieldTelCasaKeyPressed
+    }//GEN-LAST:event_jTextFieldTelCasaLadaKeyPressed
 
     private void jTextFieldTelMovillKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelMovillKeyPressed
         // TODO add your handling code here:
@@ -1349,12 +1360,12 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldColoniaKeyTyped
 
-    private void jTextFieldTelCasaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelCasaKeyTyped
+    private void jTextFieldTelCasaLadaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelCasaLadaKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldTelCasa.getText().length() == 15){
+        if(jTextFieldTelCasaLada.getText().length() == 15){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextFieldTelCasaKeyTyped
+    }//GEN-LAST:event_jTextFieldTelCasaLadaKeyTyped
 
     private void jTextFieldTelMovillKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelMovillKeyTyped
         // TODO add your handling code here:
@@ -1832,9 +1843,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void btncalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalificacionesActionPerformed
         // TODO add your handling code here:
-        Calificaciones pantCalif = new Calificaciones("Administrador", "AL00001");
-        //this.setVisible(false);
+        Calificaciones pantCalif = new Calificaciones("Administrador", matriculaSeleccionTabla);
+        //this.setEnabled(false);
         pantCalif.setVisible(true);
+        pantCalif.setAlwaysOnTop(true);
     }//GEN-LAST:event_btncalificacionesActionPerformed
 
     private void jTextFieldPorMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPorMatriculaActionPerformed
@@ -2047,6 +2059,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jTextFieldPorApellidoKeyReleased
+    public String matriculaSeleccionTabla = null;    
+    private void jTableBusquedaUserMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableBusquedaUserMouseClicked
+        // TODO add your handling code here:
+        int row = jTableBusquedaUser.getSelectedRow();
+        matriculaSeleccionTabla = jTableBusquedaUser.getValueAt(row, 0).toString();
+        System.out.println(matricula);
+    }//GEN-LAST:event_jTableBusquedaUserMouseClicked
 
     /**
      * @param args the command line arguments
@@ -2152,7 +2171,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldPorApellido;
     private javax.swing.JTextField jTextFieldPorMatricula;
     private javax.swing.JTextField jTextFieldPorNombre;
-    private javax.swing.JTextField jTextFieldTelCasa;
+    private javax.swing.JTextField jTextFieldTelCasaLada;
     private javax.swing.JTextField jTextFieldTelMovill;
     private javax.swing.JLabel labuser;
     // End of variables declaration//GEN-END:variables
