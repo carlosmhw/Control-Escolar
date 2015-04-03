@@ -25,6 +25,7 @@ public class Calificaciones extends javax.swing.JDialog {
     
     
     public Calificaciones(String tipoUsuario, String matriculaAL){
+        
         initComponents();
         this.matricula=matriculaAL;
         String query = "select idmateria,semestre, M.nombre, parcial1,parcial2,parcial3,promedio " + 

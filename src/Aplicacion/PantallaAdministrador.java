@@ -3,6 +3,7 @@ import Database.OracleBD;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
+import java.awt.Dialog;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URI;
@@ -1844,6 +1845,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void btncalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalificacionesActionPerformed
         // TODO add your handling code here:
         Calificaciones pantCalif = new Calificaciones("Administrador", matriculaSeleccionTabla);
+        pantCalif.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         //this.setEnabled(false);
         pantCalif.setVisible(true);
         //pantCalif.setAlwaysOnTop(true);
