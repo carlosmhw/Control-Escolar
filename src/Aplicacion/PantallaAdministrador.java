@@ -43,9 +43,19 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         //grupo = (String) jComboBoxGrupo.getSelectedItem();
     }
     
-    public void disableBusqueda(){
+    public void disablejComboBoxBusqueda(){
         jComboBoxPorCarrera.setEnabled(false);
         jComboBoxPorGrupo.setEnabled(false);
+        jComboBoxPorSemestre.setEnabled(false);
+    }
+    public void enablejComboBoxBusqueda(){
+        jComboBoxPorCarrera.setEnabled(true);
+        jComboBoxPorGrupo.setEnabled(true);
+        jComboBoxPorSemestre.setEnabled(true);
+    }
+    
+    public void disableBusqueda(){
+        //jComboBoxTipoUser.setEnabled(false);
         jTextFieldPorMatricula.setEnabled(false);
         jTextFieldPorApellido.setEnabled(false);
         jTextFieldPorNombre.setEnabled(false);
@@ -94,6 +104,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxCarrera.setEnabled(true);
             jComboBoxSemestre.setEnabled(true);
             jComboBoxGrupo.setEnabled(true);  
+           
             //btnActualizar.setEnabled(true);
     }
     public void Limpiar(){
@@ -134,39 +145,35 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public PantallaAdministrador() {
         initComponents();
-        llenarjComboBoxPorCarrera();
-        btnCancelarLimpiar.setEnabled(false);
+        
+    }
+     //Inicia constructor 
+    public PantallaAdministrador(String matriculaAdm){
+        initComponents();
+        setLocationRelativeTo(null);
+        disablejComboBoxBusqueda();
         jTextFieldMatricula.requestFocusInWindow();
-        //jTableBusquedaUser.setEnabled(false);
-        jTableBusquedaUser.getTableHeader().setReorderingAllowed(false);
         btnCancelar.setEnabled(false);
         btnhecho.setEnabled(false);
         btnActualizar.setEnabled(false);
         Deshabilitar();     
         disableBusqueda();
         disableButtons();
-        
-    }
-     //Inicia constructor 
-    public PantallaAdministrador(String matriculaAdm){
-        initComponents();
         llenarjComboBoxPorCarrera();
         jTableBusquedaUser.getTableHeader().setReorderingAllowed(false);
         btnCancelarLimpiar.setEnabled(false);
-        jTextFieldNombre.requestFocusInWindow();
-        //jTableBusquedaUser.setEnabled(false);
-        btnCancelar.setEnabled(false);
-        btnhecho.setEnabled(false);
-        Deshabilitar();    
-        btnActualizar.setEnabled(false);
-        disableBusqueda();
-        disableButtons();
+        //jTextFieldNombre.requestFocusInWindow();
+        //jTableBusquedaUser.setEnabled(false);  
         jLabelMatriculaEmpTop.setText(matriculaAdm);
+        
+        
         String nombreAdm = null;
         String apellidoPaterno = null;
         String apellidoMaterno = null;
+        jComboBoxTipoUser.setEnabled(true);
         jComboBoxCarrera.removeAllItems();
         jComboBoxPorCarrera.removeAllItems();
+        jComboBoxSemestre.removeAllItems();
         OracleBD OracleConection = new OracleBD();
                
                 try{
@@ -293,7 +300,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setText("Usuario:");
 
-        jComboBoxTipoUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Administrador", "Profesor", "Alumno" }));
+        jComboBoxTipoUser.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "ADMINISTRADOR", "PROFESOR", "ALUMNO" }));
         jComboBoxTipoUser.setMinimumSize(new java.awt.Dimension(90, 20));
         jComboBoxTipoUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -302,15 +309,28 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         jTextFieldPorMatricula.setText(" ");
+        jTextFieldPorMatricula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPorMatriculaActionPerformed(evt);
+            }
+        });
         jTextFieldPorMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldPorMatriculaKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPorMatriculaKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldPorMatriculaKeyTyped(evt);
             }
         });
 
+        jTextFieldPorNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldPorNombreActionPerformed(evt);
+            }
+        });
         jTextFieldPorNombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldPorNombreKeyPressed(evt);
@@ -323,7 +343,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jTextFieldPorApellido.setText(" ");
         jTextFieldPorApellido.setNextFocusableComponent(jTextFieldPorMatricula);
         jTextFieldPorApellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -333,6 +352,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldPorApellido.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextFieldPorApellidoKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTextFieldPorApellidoKeyReleased(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 jTextFieldPorApellidoKeyTyped(evt);
@@ -1407,7 +1429,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public void llenarTableBorrar(String tabla, String user, String movimiento){
         DefaultTableModel modelo = new DefaultTableModel();        
-        if(tabla.equals("Administrador")||tabla.equals("Profesor")){
+        if(tabla.equals("ADMINISTRADOR")||tabla.equals("PROFESOR")){
             modelo.addColumn("Empleado");
             
         }else{
@@ -1423,14 +1445,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             OracleConnection.conectar();
             Connection conn = OracleConnection.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("SELECT "+user+ ", nombre, apellidoPaterno,"
-                    + "apellidoMaterno from "+tabla);  
+            ResultSet rset = stmt.executeQuery("SELECT "+user+", nombre, apellidoPaterno,"
+                    + "apellidoMaterno from "+tabla+" WHERE ROWNUM <=50 ORDER BY "+user);  
             while(rset.next()){
                 System.out.println(rset.getString(2));
                 Object[] fila = new Object[4];
                        for (int i = 0; i <= 3; i++){
-                           fila[i]=rset.getObject(i+1);
-                           
+                           fila[i]=rset.getObject(i+1);                           
                        }
                        modelo.addRow(fila);
             }
@@ -1449,36 +1470,36 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         
     }
     private void jComboBoxTipoUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoUserActionPerformed
-        // TODO add your handling code here:
-        
-        jTextFieldPorMatricula.requestFocusInWindow();
+
         btnCancelarLimpiar.setEnabled(true);
         String tipoUser;
         tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
-        if(tipoUser.equals("Administrador")){  
+        if(tipoUser.equals("ADMINISTRADOR")){  
             llenarTableBorrar(tipoUser, "matriculaAdm", "Llenar");
             jLabelPorMatriula.setText("Empleado");
             jTextFieldPorMatricula.setText("ADM");
-            
+            enablejComboBoxBusqueda();
+            disablejComboBoxBusqueda();
             enableBusqueda();
             disableButtons();
-        }else if(tipoUser.equals("Profesor")){
+        }else if(tipoUser.equals("PROFESOR")){
             llenarTableBorrar(tipoUser, "matriculaPr", "Llenar");
             jTextFieldPorMatricula.setText("PR");
             jLabelPorMatriula.setText("Empleado");
+            disablejComboBoxBusqueda();
             enableBusqueda();
             disableButtons();
             btnhorario.setEnabled(true);
             btnmaterias.setEnabled(true);
-        }else if(tipoUser.equals("Alumno")){
-            jComboBoxPorCarrera.setEnabled(true);
-            jComboBoxPorGrupo.setEnabled(true);
+        }else if(tipoUser.equals("ALUMNO")){
             llenarTableBorrar(tipoUser , "matriculaAl", "Llenar");
             jTextFieldPorMatricula.setText("AL");
             enableBusqueda();
+            enablejComboBoxBusqueda();
             jLabelPorMatriula.setText("Matricula");
             enableButtons();
         }else if(tipoUser.equals("")){
+            //jComboBoxTipoUser.setEnabled(true);
             llenarTableBorrar("", "", "Borrar");
             jLabelMatriculaEmp.setText("Matricula");
             jTextFieldPorMatricula.setText("");
@@ -1601,7 +1622,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldPorApellidoKeyTyped
 
     private void btnCancelarLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarLimpiarActionPerformed
-        // TODO add your handling code here:   
+        // TODO add your handling code here:  
+        disablejComboBoxBusqueda();
         llenarTableBorrar("", "", "Borrar");
         jTextFieldPorMatricula.setText("");
         jTextFieldPorNombre.setText("");
@@ -1633,7 +1655,97 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         if(jTextFieldPorNombre.getText().length() == 50){
             evt.consume();
         }
-        buscarNombre(jTextFieldPorNombre.getText().toUpperCase());
+        String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
+        String nombre = jTextFieldPorNombre.getText().toUpperCase();
+        if(tipoUser.equals("ADMINISTRADOR")){
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Empleado");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT matriculaAdm, nombre, apellidoPaterno,"
+                + "apellidoMaterno from Administrador WHERE nombre like '%"+nombre+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                    for (int i = 0; i <= 3; i++){
+                        fila[i]=rset.getObject(i+1);
+                    }
+                modelo.addRow(fila);
+            }
+            stmt.close();
+            OracleConnection.cerrar();
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }   
+        }else if(tipoUser.equals("PROFESOR")){
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Empleado");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT matriculaPr, nombre, apellidoPaterno,"
+                + "apellidoMaterno from Profesor WHERE nombre like '%"+nombre+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                    for (int i = 0; i <= 3; i++){
+                        fila[i]=rset.getObject(i+1);
+                    }
+                modelo.addRow(fila);
+            }
+            stmt.close();
+            OracleConnection.cerrar();
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            } 
+            
+        }else if(tipoUser.equals("ALUMNO")){
+            String carreraBusqueda = (String) jComboBoxPorCarrera.getSelectedItem();
+            String semestreBusqueda = (String) jComboBoxPorSemestre.getSelectedItem();
+            String grupoBusqueda = (String) jComboBoxPorGrupo.getSelectedItem();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Matricula");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT Alumno.matriculaAl, Alumno.nombre, Alumno.apellidoPaterno,"
+                    + "Alumno.apellidoMaterno from Alumno JOIN Grupo USING(idGrupo) "
+                    + "WHERE Grupo.idCarrera = '"+carreraBusqueda+"' "
+                    + "AND Grupo.semestre = "+semestreBusqueda+" AND Grupo.nombre = '"+grupoBusqueda+"' "
+                    + "AND Alumno.nombre like '%"+nombre+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                }
+                stmt.close();
+                OracleConnection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }            
+        }
 
 
     }//GEN-LAST:event_jTextFieldPorNombreKeyReleased
@@ -1691,9 +1803,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void jComboBoxPorSemestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPorSemestreActionPerformed
         // TODO add your handling code here: 
        if(jComboBoxPorSemestre.getItemCount()!=0){
-            String idCarrera = (String) jComboBoxCarrera.getSelectedItem();
-            String semestre = (String) jComboBoxSemestre.getSelectedItem();
-            jComboBoxGrupo.removeAllItems();
+            String idCarrera = (String) jComboBoxPorCarrera.getSelectedItem();
+            String semestre = (String) jComboBoxPorSemestre.getSelectedItem();
+            jComboBoxPorGrupo.removeAllItems();
             OracleBD OracleConnection = new OracleBD();
             try{
                     OracleConnection.conectar();
@@ -1701,7 +1813,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Statement stmt1 = conn.createStatement();
                     ResultSet rest1 = stmt1.executeQuery ("SELECT nombre from Grupo WHERE idCarrera = '"+idCarrera+"' AND Semestre = '"+semestre+"'");
                     while(rest1.next()){
-                        jComboBoxGrupo.addItem(rest1.getString("nombre"));
+                        jComboBoxPorGrupo.addItem(rest1.getString("nombre"));
                     } 
                     rest1.close();
                     OracleConnection.cerrar();
@@ -1722,6 +1834,217 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         //this.setVisible(false);
         pantCalif.setVisible(true);
     }//GEN-LAST:event_btncalificacionesActionPerformed
+
+    private void jTextFieldPorMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPorMatriculaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPorMatriculaActionPerformed
+
+    private void jTextFieldPorMatriculaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorMatriculaKeyReleased
+        // TODO add your handling code here:
+        String jComboTipoUser = null;
+        String matriculaBusqueda = null;
+        String carreraBusqueda = null;
+        String semestreBusqueda = null;
+        String grupoBusqueda = null;
+        jComboTipoUser = (String) jComboBoxTipoUser.getSelectedItem();
+        if(jComboTipoUser.equals("ADMINISTRADOR")){
+            //Busqueda de administradro 
+            matriculaBusqueda = jTextFieldPorMatricula.getText().toUpperCase();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Empleado");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT matriculaAdm, nombre, apellidoPaterno,"
+                    + "apellidoMaterno from Administrador WHERE matriculaAdm like '%"+matriculaBusqueda+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                }
+                stmt.close();
+                OracleConnection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+        }
+            
+        }else if(jComboTipoUser.equals("PROFESOR")){
+            //Busqueda de profesor
+            matriculaBusqueda = jTextFieldPorMatricula.getText().toUpperCase();            
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Empleado");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT matriculaPr, nombre, apellidoPaterno,"
+                    + "apellidoMaterno from Profesor WHERE matriculaPr like '%"+matriculaBusqueda+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                }
+                stmt.close();
+                OracleConnection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }
+            
+        }else if(jComboTipoUser.equals("ALUMNO")){
+            //Busdqueda de alumno 
+            matriculaBusqueda = jTextFieldPorMatricula.getText().toUpperCase();
+            carreraBusqueda = (String) jComboBoxPorCarrera.getSelectedItem();
+            semestreBusqueda = (String) jComboBoxPorSemestre.getSelectedItem();
+            grupoBusqueda = (String) jComboBoxPorGrupo.getSelectedItem();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Matricula");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT Alumno.matriculaAl, Alumno.nombre, Alumno.apellidoPaterno,"
+                    + "Alumno.apellidoMaterno from Alumno JOIN Grupo USING(idGrupo) "
+                    + "WHERE Grupo.idCarrera = '"+carreraBusqueda+"' "
+                    + "AND Grupo.semestre = "+semestreBusqueda+" AND Grupo.nombre = '"+grupoBusqueda+"' "
+                    + "AND Alumno.matriculaAl like '%"+matriculaBusqueda+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                }
+                stmt.close();
+                OracleConnection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }            
+        }
+    }//GEN-LAST:event_jTextFieldPorMatriculaKeyReleased
+
+    private void jTextFieldPorNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldPorNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldPorNombreActionPerformed
+
+    private void jTextFieldPorApellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldPorApellidoKeyReleased
+        // TODO add your handling code here:
+        String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
+        String apellido = jTextFieldPorApellido.getText().toUpperCase();
+        if(tipoUser.equals("ADMINISTRADOR")){
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Empleado");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT matriculaAdm, nombre, apellidoPaterno,"
+                + "apellidoMaterno from Administrador WHERE apellidoPaterno||' '||apellidoMaterno"
+                + " like '%"+apellido+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                    for (int i = 0; i <= 3; i++){
+                        fila[i]=rset.getObject(i+1);
+                    }
+                modelo.addRow(fila);
+            }
+            stmt.close();
+            OracleConnection.cerrar();
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }   
+        }else if(tipoUser.equals("PROFESOR")){
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Empleado");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT matriculaPr, nombre, apellidoPaterno,"
+                + "apellidoMaterno from Profesor WHERE apellidoPaterno||' '||apellidoMaterno like '%"+apellido+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                    for (int i = 0; i <= 3; i++){
+                        fila[i]=rset.getObject(i+1);
+                    }
+                modelo.addRow(fila);
+            }
+            stmt.close();
+            OracleConnection.cerrar();
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            } 
+            
+        }else if(tipoUser.equals("ALUMNO")){
+            String carreraBusqueda = (String) jComboBoxPorCarrera.getSelectedItem();
+            String semestreBusqueda = (String) jComboBoxPorSemestre.getSelectedItem();
+            String grupoBusqueda = (String) jComboBoxPorGrupo.getSelectedItem();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Matricula");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT Alumno.matriculaAl, Alumno.nombre, Alumno.apellidoPaterno,"
+                    + "Alumno.apellidoMaterno from Alumno JOIN Grupo USING(idGrupo) "
+                    + "WHERE Grupo.idCarrera = '"+carreraBusqueda+"' "
+                    + "AND Grupo.semestre = "+semestreBusqueda+" AND Grupo.nombre = '"+grupoBusqueda+"' "
+                    + "AND Alumno.apellidoPaterno||' '||Alumno.apellidoMaterno like '%"+apellido+"%'" );  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                }
+                stmt.close();
+                OracleConnection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }            
+        }
+        
+    }//GEN-LAST:event_jTextFieldPorApellidoKeyReleased
 
     /**
      * @param args the command line arguments
@@ -1833,7 +2156,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 
-    private void buscarNombre(String buscar) {
+    /*private void buscarNombre(String buscar) {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("Empleado");
         modelo.addColumn("Nombre");
@@ -1861,7 +2184,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             System.out.println("Error: " + ex.getMessage());
         }
         
-    }
+    }*/
 
     private void llenarjComboBoxPorCarrera() {
         //jComboBoxPorCarrera.removeAllItems();
