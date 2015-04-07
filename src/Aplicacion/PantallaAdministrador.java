@@ -817,6 +817,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         btnActualizar.setText("Actualizar");
+        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActualizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -1163,13 +1168,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btncerrarActionPerformed
 
-    public void btnListo(){
+    public void btnListoActualizar(){
         Limpiar();
         Deshabilitar();
         btnhecho.setEnabled(false);
         jComboBoxUsuarioNuevo.setSelectedIndex(0);
         jComboBoxUsuarioNuevo.setEnabled(false);
         jComboBoxTipoUser.setEnabled(true);
+        jComboBoxTipoUser.setSelectedIndex(0);
     }
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         // TODO add your handling code here:
@@ -1199,7 +1205,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 int n = pst.executeUpdate();
                 if(n>0){
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
-                    btnListo();
+                    btnListoActualizar();
                 }
                 pst.close();
                 OracleConnection.cerrar();
@@ -1231,7 +1237,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 int n = pst.executeUpdate();
                 if(n>0){
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
-                    btnListo();
+                    btnListoActualizar();
                 }    
                 pst.close();
                 OracleConnection.cerrar();
@@ -1268,7 +1274,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 int n = pst.executeUpdate();
                 if(n>0){
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
-                    btnListo();
+                    btnListoActualizar();
                 }   
                 pst.close();
                 OracleConnection.cerrar();
@@ -2264,18 +2270,83 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
         if(tipoUser.equals("ALUMNO")){
             Habilitar();
+            btnActualizar.setEnabled(true);
             btnCancelar.setEnabled(true);
             jTextFieldCorreoInstitucional.setEnabled(false);
             jComboBoxGrupo.setEnabled(true);
             jComboBoxSemestre.setEnabled(true);
         }else{
             Habilitar();
+            btnActualizar.setEnabled(true);
             btnCancelar.setEnabled(true);
             jTextFieldCorreoInstitucional.setEnabled(false);
             jComboBoxCarrera.setEnabled(false);
         }
+        
+        
+         
        
     }//GEN-LAST:event_btneditarActionPerformed
+
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+        // TODO add your handling code here:
+        String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
+        String matriculaUpdate = jTextFieldMatricula.getText();
+        //Inicia actualización 
+        
+        if(tipoUser.equals("ADMINISTRADOR")){
+            guardarTextFildVar();
+            String sQl = null;
+            sQl = "UPDATE Administrador "
+                    + "SET matriculaAdm = ?,"
+                    + "nombre = ?,"
+                    + "apellidoPaterno = ?,"
+                    + "apellidoMaterno = ?,"
+                    + "telefonoMovil = ?,"
+                    + "telefonoCasa = ?,"
+                    + "calle = ?,"
+                    + "colonia = ?,"
+                    + "numero = ?,"
+                    + "correoPersonal = ?,"
+                    + "correoInstitucional = ?,"
+                    + "contrasena = ? "
+                    + "WHERE matriculaAdm = '"+matriculaUpdate+"'";
+            OracleBD OracleConnection = new OracleBD();
+            try{
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                pst.setString(2,nombre);
+                pst.setString(3,apPaterno);
+                pst.setString(4,apMaterno);
+                pst.setString(5,telMovil);
+                pst.setString(6,telCasa);
+                pst.setString(7,calle);
+                pst.setString(8,colonia);
+                pst.setInt(9,numero);
+                pst.setString(10,corrPers);
+                pst.setString(11,corrInst);
+                pst.setString(12,contrasena);
+                int n = pst.executeUpdate();
+                if(n>0){
+                    JOptionPane.showMessageDialog(null, "Datos actualizados satifactoriamente");
+                    btnListoActualizar();
+                }
+                pst.close();
+                OracleConnection.cerrar();
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
+            
+        }else if(tipoUser.equals("PROFESOR")){
+            
+        }else if(tipoUser.equals("ALUMNO")){
+            
+        }
+        
+        //Termina actualización
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     /**
      * @param args the command line arguments
