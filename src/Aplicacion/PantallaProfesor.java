@@ -1,5 +1,6 @@
 package Aplicacion;
 import Database.OracleBD;
+import java.awt.Dialog;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -74,6 +75,11 @@ public class PantallaProfesor extends javax.swing.JFrame {
         labmatricula.setText("Matricula");
 
         jButton1.setText("Modificar calificacion de alumno");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -154,6 +160,13 @@ public class PantallaProfesor extends javax.swing.JFrame {
             System.out.println("JOptionPane closed");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        Faltas pantFaltas = new Faltas(labmatricula.getText());
+        pantFaltas.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        //this.setEnabled(false);
+        pantFaltas.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
