@@ -925,6 +925,7 @@
             <Property name="text" type="java.lang.String" value="Listo"/>
           </Properties>
           <Events>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnhechoMouseEntered"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnhechoActionPerformed"/>
           </Events>
         </Component>

@@ -8,6 +8,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -757,6 +758,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
         btnhecho.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnhecho.setText("Listo");
+        btnhecho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnhechoMouseEntered(evt);
+            }
+        });
         btnhecho.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnhechoActionPerformed(evt);
@@ -1258,9 +1264,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
         else if(jComboBoxUsuarioNuevo.getSelectedItem().equals("ALUMNO")){
             guardarTextFildVar();
+            String pIdKardex = null;
             String nombreGrupo = (String) jComboBoxGrupo.getSelectedItem();
             grupo = encontrarGrupo(nombreGrupo);
-            
             String sQl = null;
             sQl = "insert into alumno values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
             OracleBD OracleConnection = new OracleBD();
@@ -1284,6 +1290,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setString(14,grupo);
                 int n = pst.executeUpdate();
                 if(n>0){
+                    Statement stmt = conn.createStatement();
+                    ResultSet rset = stmt.executeQuery("SELECT FUN_OBTENER_IDKARDEX('"+jTextFieldMatricula.getText()+"') AS IDKARDEX FROM DUAL");
+                    while(rset.next()){
+                        pIdKardex = rset.getString("IDKARDEX");
+                        System.out.println(pIdKardex);
+                    }
+                    String sem = (String) jComboBoxSemestre.getSelectedItem();
+                    //Connection conn2 = OracleConnection.getConnection();
+                    CallableStatement cst = conn.prepareCall("CALL PRO_CAMBIAR_CURSANDO('"+pIdKardex+"', '"+sem+"')");
+                    cst.execute();
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
                     btnListoActualizar();
                 }   
@@ -1712,8 +1728,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Statement s1 = conn.createStatement();
                     ResultSet rs1 = s1.executeQuery ("select distinct semestre from materia where idCarrera ='"+idCarrera+"' order by semestre");
                     while(rs1.next()){                           
-                            jComboBoxSemestre.addItem(rs1.getString("semestre"));
-                                               
+                            jComboBoxSemestre.addItem(rs1.getString("semestre"));                                               
                     } 
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
@@ -2305,7 +2320,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldCorreoInstitucional.setEnabled(false);
             jComboBoxGrupo.setEnabled(true);
             jComboBoxSemestre.setEnabled(true);
-        }else{
+            }else{
             Habilitar();
             btnActualizar.setEnabled(true);
             btnCancelar.setEnabled(true);
@@ -2461,11 +2476,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 OracleConnection.cerrar();
             }catch(Exception ex){
                 System.out.println("Error: " + ex.getMessage());
-            }
-            
-            
-               
-            
+            }         
         }
         
         //Termina actualización
@@ -2503,6 +2514,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 jComboBoxGrupo.setEnabled(true);
             }
     }//GEN-LAST:event_jComboBoxCarreraItemStateChanged
+
+    private void btnhechoMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnhechoMouseEntered
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_btnhechoMouseEntered
 
     /**
      * @param args the command line arguments
