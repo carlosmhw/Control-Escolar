@@ -74,7 +74,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
         labmatricula.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labmatricula.setText("Matricula");
 
-        jButton1.setText("Modificar calificacion de alumno");
+        jButton1.setText("Modificar Faltas");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);

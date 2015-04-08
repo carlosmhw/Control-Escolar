@@ -15,6 +15,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -109,15 +110,11 @@ public class Faltas extends javax.swing.JDialog{
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel1 = new javax.swing.JLabel();
-        jTextFieldfecha = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        jTextFieldmateria = new javax.swing.JTextField();
-        btncancelar = new javax.swing.JButton();
         btnguardar = new javax.swing.JButton();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jComboBoxGrupo = new javax.swing.JComboBox();
         jComboBoxMateria = new javax.swing.JComboBox();
+        jCheckBoxTodo = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Faltas");
@@ -135,16 +132,6 @@ public class Faltas extends javax.swing.JDialog{
             }
         ));
         jScrollPane1.setViewportView(jTable1);
-
-        jLabel1.setText("Fecha");
-
-        jTextFieldfecha.setText(" ");
-
-        jLabel2.setText("Materia");
-
-        jTextFieldmateria.setText(" ");
-
-        btncancelar.setText("Cancelar");
 
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -179,62 +166,49 @@ public class Faltas extends javax.swing.JDialog{
             }
         });
 
+        jCheckBoxTodo.setText("Marcar Todo");
+        jCheckBoxTodo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jCheckBoxTodoMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(194, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(btncancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnguardar))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldfecha)
-                            .addComponent(jTextFieldmateria, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(306, 306, 306))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(192, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
+                            .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jCheckBoxTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(156, 156, 156))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnguardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(154, 154, 154))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(88, 88, 88)
+                .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(121, 121, 121)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldfecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxTodo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextFieldmateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btncancelar)
-                    .addComponent(btnguardar))
-                .addGap(0, 116, Short.MAX_VALUE))
+                .addComponent(btnguardar)
+                .addGap(30, 30, 30))
         );
 
         pack();
@@ -296,9 +270,10 @@ public class Faltas extends javax.swing.JDialog{
             OracleConnection.conectar();
             Connection conn = OracleConnection.getConnection();
             Statement s1 = conn.createStatement();
-            ResultSet rs1 = s1.executeQuery ("SELECT matriculaAL, nombre, apellidoPaterno, apellidoMaterno "
-                    + "FROM ALUMNO JOIN RELPROFESORMATERIA USING(IDGRUPO) "
-                    + "WHERE MATRICULAPR='"+matricula+"'");
+            ResultSet rs1 = s1.executeQuery ("SELECT matriculaAL, A.nombre, apellidoPaterno, apellidoMaterno "
+                    + "FROM ALUMNO A JOIN RELPROFESORMATERIA USING(IDGRUPO) "
+                    + "JOIN GRUPO G USING(idGrupo) "
+                    + "WHERE MATRICULAPR='"+matricula+"' AND G.nombre='"+jComboBoxGrupo.getSelectedItem()+"'");
             while(rs1.next()){
                     System.out.println(rs1.getString(2));
                     Object[] fila = new Object[3];
@@ -316,22 +291,49 @@ public class Faltas extends javax.swing.JDialog{
         
         //Poner el color de los checkbox
         ((JComponent) jTable1.getDefaultRenderer(Boolean.class)).setOpaque(true);
-        
+        jCheckBoxTodo.setSelected(false);
     }//GEN-LAST:event_jComboBoxMateriaActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         String matAlumno;
+        String materia = (String) jComboBoxMateria.getSelectedItem();
         int filas = jTable1.getRowCount();
         
         for (int i=0; i < filas; i++){
             if( (Boolean) jTable1.getValueAt(i, 4) ){
                 matAlumno = (String) jTable1.getValueAt(i, 0);
-                System.out.println(matAlumno);
+                System.out.println(matAlumno+" "+fecha);
+                OracleBD OracleConnection = new OracleBD();
+                try{
+                    OracleConnection.conectar();
+                    Connection conn = OracleConnection.getConnection();
+                    Statement s1 = conn.createStatement();
+                    s1.executeQuery ("INSERT INTO FALTAS VALUES "
+                            + "('',to_date('"+fecha+"','DD/MM/YYYY'),0,'"+matAlumno+"', "
+                            + "(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND "
+                            + "MATRICULAPR='"+matricula+"'),(SELECT IDRELPROFESORMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
+                            + "WHERE MATERIA.NOMBRE='"+materia+"' AND "
+                            + "MATRICULAPR='"+matricula+"'))");
+                    
+                }catch(Exception ex){
+                    System.out.println("Error: " + ex.getMessage());
+                }
             }
-            
         }
-        
+        JOptionPane.showMessageDialog(null, "Faltas ingresados para la fecha "+fecha);
+        jCheckBoxTodo.setSelected(false);
+        for (int i=0; i < filas; i++){
+            jTable1.setValueAt(jCheckBoxTodo.isSelected(), i, 4);
+        } 
     }//GEN-LAST:event_btnguardarActionPerformed
+
+    private void jCheckBoxTodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxTodoMouseClicked
+        int filas = jTable1.getRowCount();
+        for (int i=0; i < filas; i++){
+            jTable1.setValueAt(jCheckBoxTodo.isSelected(), i, 4);
+        }
+
+    }//GEN-LAST:event_jCheckBoxTodoMouseClicked
 
     /**
      * @param args the command line arguments
@@ -369,16 +371,12 @@ public class Faltas extends javax.swing.JDialog{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btncancelar;
     private javax.swing.JButton btnguardar;
+    private javax.swing.JCheckBox jCheckBoxTodo;
     private javax.swing.JComboBox jComboBoxGrupo;
     private javax.swing.JComboBox jComboBoxMateria;
     private com.toedter.calendar.JDateChooser jDateChooser1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextFieldfecha;
-    private javax.swing.JTextField jTextFieldmateria;
     // End of variables declaration//GEN-END:variables
 }
