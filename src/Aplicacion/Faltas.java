@@ -10,9 +10,12 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JComponent;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -32,8 +35,7 @@ public class Faltas extends javax.swing.JDialog{
         initComponents();
         jDateChooser1.getJCalendar().setMaxSelectableDate(new Date());
         jDateChooser1.getDateEditor().setEnabled(false);
-        
-        
+        jDateChooser1.setMaxSelectableDate(new Date());
         
         
         
@@ -56,6 +58,9 @@ public class Faltas extends javax.swing.JDialog{
     public Faltas(String matriculaPR) {
         matricula=matriculaPR;
         initComponents();
+        jDateChooser1.getJCalendar().setMaxSelectableDate(new Date());
+        jDateChooser1.getDateEditor().setEnabled(false);
+        jDateChooser1.setMaxSelectableDate(new Date());
         
         jComboBoxGrupo.removeAllItems();
         OracleBD OracleConnection = new OracleBD();
@@ -142,6 +147,11 @@ public class Faltas extends javax.swing.JDialog{
         btncancelar.setText("Cancelar");
 
         btnguardar.setText("Guardar");
+        btnguardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardarActionPerformed(evt);
+            }
+        });
 
         jDateChooser1.setDateFormatString("dd/MM/yyyy");
         jDateChooser1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,20 +269,26 @@ public class Faltas extends javax.swing.JDialog{
     private void jComboBoxMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMateriaActionPerformed
         DefaultTableModel modelo = new DefaultTableModel(){
         
+            
             Class[] types = new Class[]{
-                    java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                    java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
                 };
 
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+            
             @Override
             public boolean isCellEditable(int row, int col) {
-                return (col == 3); 
+                return (col == 4); 
             }
             
         };
-        
-        
-        
-        
+        modelo.addColumn("Matricula");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Ap. Paterno");
+        modelo.addColumn("Ap. Materno");
+        modelo.addColumn("Falta");
         jTable1.setModel(modelo);
         
         OracleBD OracleConnection = new OracleBD();
@@ -280,15 +296,42 @@ public class Faltas extends javax.swing.JDialog{
             OracleConnection.conectar();
             Connection conn = OracleConnection.getConnection();
             Statement s1 = conn.createStatement();
-            ResultSet rs1 = s1.executeQuery ("SSELECT nombre, apellidoPaterno, apellidoMaterno FROM ALUMNO JOIN RELPROFESORMATERIA USING(IDGRUPO) "
+            ResultSet rs1 = s1.executeQuery ("SELECT matriculaAL, nombre, apellidoPaterno, apellidoMaterno "
+                    + "FROM ALUMNO JOIN RELPROFESORMATERIA USING(IDGRUPO) "
                     + "WHERE MATRICULAPR='"+matricula+"'");
             while(rs1.next()){
-                jComboBoxMateria.addItem(rs1.getString("MATERIA"));
-            } 
+                    System.out.println(rs1.getString(2));
+                    Object[] fila = new Object[3];
+                       for (int i = 0; i <= 2; i++){
+                           fila[i]=rs1.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                       modelo.setValueAt(false, modelo.getRowCount()-1, 4);
+                }
+            rs1.close();
+            OracleConnection.cerrar();
         }catch(Exception ex){
-            System.out.println("Error: " + ex.getMessage()+" pendejo!");
+            System.out.println("Error: " + ex.getMessage());
         }
+        
+        //Poner el color de los checkbox
+        ((JComponent) jTable1.getDefaultRenderer(Boolean.class)).setOpaque(true);
+        
     }//GEN-LAST:event_jComboBoxMateriaActionPerformed
+
+    private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
+        String matAlumno;
+        int filas = jTable1.getRowCount();
+        
+        for (int i=0; i < filas; i++){
+            if( (Boolean) jTable1.getValueAt(i, 4) ){
+                matAlumno = (String) jTable1.getValueAt(i, 0);
+                System.out.println(matAlumno);
+            }
+            
+        }
+        
+    }//GEN-LAST:event_btnguardarActionPerformed
 
     /**
      * @param args the command line arguments
