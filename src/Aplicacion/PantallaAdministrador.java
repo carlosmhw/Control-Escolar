@@ -801,6 +801,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Carrera:");
 
+        jComboBoxCarrera.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxCarreraItemStateChanged(evt);
+            }
+        });
         jComboBoxCarrera.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxCarreraActionPerformed(evt);
@@ -1172,10 +1177,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         Limpiar();
         Deshabilitar();
         btnhecho.setEnabled(false);
+        btnCancelar.setEnabled(false);
         jComboBoxUsuarioNuevo.setSelectedIndex(0);
         jComboBoxUsuarioNuevo.setEnabled(false);
         jComboBoxTipoUser.setEnabled(true);
         jComboBoxTipoUser.setSelectedIndex(0);
+        btneditar.setEnabled(false);
+        btneliminar.setEnabled(false);
     }
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         // TODO add your handling code here:
@@ -1557,6 +1565,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldPorMatricula.setText("");
             disableBusqueda();
             disableButtons();
+            jComboBoxPorCarrera.setEnabled(false);
+            jComboBoxPorGrupo.setEnabled(false);
+            jComboBoxPorSemestre.setEnabled(false);
             //jTableBusquedaUser.setEnabled(false);
             btnCancelarLimpiar.setEnabled(false);
             
@@ -1879,6 +1890,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jComboBoxPorGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxPorGrupoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_jComboBoxPorGrupoActionPerformed
 
     private void btncalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalificacionesActionPerformed
@@ -2105,6 +2117,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         btneditar.setEnabled(true);
         btneliminar.setEnabled(true);
+        btnCancelar.setEnabled(false);
         int row = jTableBusquedaUser.getSelectedRow();
         matriculaSeleccionTabla = jTableBusquedaUser.getValueAt(row, 0).toString();
         //System.out.println(matriculaSeleccionTabla);
@@ -2340,13 +2353,88 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
             
         }else if(tipoUser.equals("PROFESOR")){
+            guardarTextFildVar();
+            String sQl = null;
+            sQl = "UPDATE Profesor "
+                    + "SET matriculaPr = ?,"
+                    + "nombre = ?,"
+                    + "apellidoPaterno = ?,"
+                    + "apellidoMaterno = ?,"
+                    + "telefonoMovil = ?,"
+                    + "telefonoCasa = ?,"
+                    + "calle = ?,"
+                    + "colonia = ?,"
+                    + "numero = ?,"
+                    + "correoPersonal = ?,"
+                    + "correoInstitucional = ?,"
+                    + "contrasena = ? "
+                    + "WHERE matriculaPr = '"+matriculaUpdate+"'";
+            OracleBD OracleConnection = new OracleBD();
+            try{
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                pst.setString(1,matricula);// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                pst.setString(2,nombre);
+                pst.setString(3,apPaterno);
+                pst.setString(4,apMaterno);
+                pst.setString(5,telMovil);
+                pst.setString(6,telCasa);
+                pst.setString(7,calle);
+                pst.setString(8,colonia);
+                pst.setInt(9,numero);
+                pst.setString(10,corrPers);
+                pst.setString(11,corrInst);
+                pst.setString(12,contrasena);
+                int n = pst.executeUpdate();
+                if(n>0){
+                    JOptionPane.showMessageDialog(null, "Datos actualizados satifactoriamente");
+                    btnListoActualizar();
+                }
+                pst.close();
+                OracleConnection.cerrar();
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
             
         }else if(tipoUser.equals("ALUMNO")){
+            String matriculaAlm = jTextFieldMatricula.getText();
+            String carreraActual = null;
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT idCarrera FROM Alumno WHERE matriculaAL = '"+matriculaAlm+"'");
+                while(rset.next()){
+                    carreraActual = rset.getString("idCarrera");
+                } 
+                stmt.close();
+                OracleConnection.cerrar();                
+            } catch (SQLException ex) {
+                System.out.println("Error: " +ex.getMessage());
+            }
+            String carreraComparar = (String) jComboBoxCarrera.getSelectedItem();
+            //Saver si el usuario cambio de carrera 
+            //System.out.println("CarreraCompar: " + carreraComparar);
+            //System.out.println("CarreraActual: "+ carreraActual);
+            if(!carreraComparar.equals(carreraActual)){
+                //ejecuta la actualizacion de carrera 
+                
+            }
+            
+            
+               
             
         }
         
         //Termina actualización
     }//GEN-LAST:event_btnActualizarActionPerformed
+
+    private void jComboBoxCarreraItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxCarreraItemStateChanged
+        // TODO add your handling code here:
+        System.out.println("Cambio");
+    }//GEN-LAST:event_jComboBoxCarreraItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -2520,5 +2608,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             System.out.println("Error: " + ex.getMessage());
         }
      return idGrupo;
+    }
+
+    private int FunComparar(String carreraComparar, String carreraActual) {
+        if(carreraComparar == carreraActual){
+            return 1;
+        }else{
+            return 0;
+        }
+        
     }
 }

@@ -293,7 +293,7 @@ public class Calificaciones extends javax.swing.JDialog {
                     "where matriculaAL='"+matriculaAL+"' AND "
                     + "idMateria ='"+materia
                     + "') set "+parcial+" = "+calificacion);
-                ResultSet rset = stmt.executeQuery(
+                    ResultSet rset = stmt.executeQuery(
                     "select idmateria,semestre, M.nombre, parcial1,parcial2,parcial3,promedio,status "
                     + "from alumno\n" +
                     "join kardex K using(matriculaAL)\n" +
