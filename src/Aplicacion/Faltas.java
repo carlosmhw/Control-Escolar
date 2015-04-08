@@ -14,10 +14,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -34,13 +37,9 @@ public class Faltas extends javax.swing.JDialog{
      */
     public Faltas() {
         initComponents();
-        jDateChooser1.getJCalendar().setMaxSelectableDate(new Date());
         jDateChooser1.getDateEditor().setEnabled(false);
-        jDateChooser1.setMaxSelectableDate(new Date());
-        
-        
-        
-        jDateChooser1.setDate(new Date());
+        ponerFechas();
+     
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         fecha =  String.valueOf(sdf.format(jDateChooser1.getDate()));
         jDateChooser1.getDateEditor().addPropertyChangeListener(
@@ -59,9 +58,12 @@ public class Faltas extends javax.swing.JDialog{
     public Faltas(String matriculaPR) {
         matricula=matriculaPR;
         initComponents();
-        jDateChooser1.getJCalendar().setMaxSelectableDate(new Date());
         jDateChooser1.getDateEditor().setEnabled(false);
-        jDateChooser1.setMaxSelectableDate(new Date());
+        ponerFechas();
+        
+        btnguardar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        
         
         jComboBoxGrupo.removeAllItems();
         OracleBD OracleConnection = new OracleBD();
@@ -70,7 +72,8 @@ public class Faltas extends javax.swing.JDialog{
                     Connection conn = OracleConnection.getConnection();
                     Statement s1 = conn.createStatement();
                     ResultSet rs1 = s1.executeQuery ("SELECT DISTINCT nombre FROM GRUPO JOIN RELPROFESORMATERIA USING(IDGRUPO) "
-                            + "WHERE MATRICULAPR='"+matriculaPR+"'");
+                            + "WHERE MATRICULAPR='"+matriculaPR+"' "
+                            + "ORDER BY nombre");
                     while(rs1.next()){
                         jComboBoxGrupo.addItem(rs1.getString("nombre"));
                     } 
@@ -78,11 +81,7 @@ public class Faltas extends javax.swing.JDialog{
                     System.out.println("Error: " + ex.getMessage());
                 }
         
-        
-        
-        
         jDateChooser1.getDateEditor().setEnabled(false);
-        jDateChooser1.setDate(new Date());
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         fecha =  String.valueOf(sdf.format(jDateChooser1.getDate()));
         jDateChooser1.getDateEditor().addPropertyChangeListener(
@@ -108,6 +107,7 @@ public class Faltas extends javax.swing.JDialog{
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         btnguardar = new javax.swing.JButton();
@@ -115,10 +115,13 @@ public class Faltas extends javax.swing.JDialog{
         jComboBoxGrupo = new javax.swing.JComboBox();
         jComboBoxMateria = new javax.swing.JComboBox();
         jCheckBoxTodo = new javax.swing.JCheckBox();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Faltas");
         setResizable(false);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faltas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,42 +176,71 @@ public class Faltas extends javax.swing.JDialog{
             }
         });
 
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jCheckBoxTodo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDateChooser1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jCheckBoxTodo))
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnguardar)
+                    .addComponent(btnCancelar))
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(194, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jCheckBoxTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(btnguardar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(154, 154, 154))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBoxTodo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 442, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnguardar)
-                .addGap(30, 30, 30))
+                .addContainerGap()
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -231,7 +263,8 @@ public class Faltas extends javax.swing.JDialog{
                     Statement s1 = conn.createStatement();
                     ResultSet rs1 = s1.executeQuery ("SELECT nombre MATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
                             + "WHERE MATRICULAPR='"+matricula+"' "
-                            + "AND IDGRUPO=(SELECT IDGRUPO FROM GRUPO WHERE NOMBRE='"+(String) jComboBoxGrupo.getSelectedItem()+"')");
+                            + "AND IDGRUPO=(SELECT IDGRUPO FROM GRUPO WHERE NOMBRE='"+(String) jComboBoxGrupo.getSelectedItem()+"') "
+                            + "Order BY nombre");
                     while(rs1.next()){
                         jComboBoxMateria.addItem(rs1.getString("MATERIA"));
                     } 
@@ -264,6 +297,8 @@ public class Faltas extends javax.swing.JDialog{
         modelo.addColumn("Ap. Materno");
         modelo.addColumn("Falta");
         jTable1.setModel(modelo);
+        TableRowSorter elQueOrdena = new TableRowSorter(modelo);//Permite ordenar las filas seleccionando la cabezera
+        jTable1.setRowSorter(elQueOrdena);
         
         OracleBD OracleConnection = new OracleBD();
         try{
@@ -273,15 +308,18 @@ public class Faltas extends javax.swing.JDialog{
             ResultSet rs1 = s1.executeQuery ("SELECT matriculaAL, A.nombre, apellidoPaterno, apellidoMaterno "
                     + "FROM ALUMNO A JOIN RELPROFESORMATERIA USING(IDGRUPO) "
                     + "JOIN GRUPO G USING(idGrupo) "
-                    + "WHERE MATRICULAPR='"+matricula+"' AND G.nombre='"+jComboBoxGrupo.getSelectedItem()+"'");
+                    + "WHERE MATRICULAPR='"+matricula+"' AND G.nombre='"+jComboBoxGrupo.getSelectedItem()+"' "
+                    + "ORDER BY apellidoPaterno,apellidoMaterno,A.nombre");
             while(rs1.next()){
                     System.out.println(rs1.getString(2));
-                    Object[] fila = new Object[3];
-                       for (int i = 0; i <= 2; i++){
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
                            fila[i]=rs1.getObject(i+1);
                        }
                        modelo.addRow(fila);
                        modelo.setValueAt(false, modelo.getRowCount()-1, 4);
+                    btnguardar.setEnabled(true);
+                    btnCancelar.setEnabled(true);
                 }
             rs1.close();
             OracleConnection.cerrar();
@@ -308,13 +346,22 @@ public class Faltas extends javax.swing.JDialog{
                     OracleConnection.conectar();
                     Connection conn = OracleConnection.getConnection();
                     Statement s1 = conn.createStatement();
-                    s1.executeQuery ("INSERT INTO FALTAS VALUES "
+                    ResultSet rs1 = s1.executeQuery ("SELECT COUNT(*) CUENTA FROM FALTAS WHERE "
+                            + "matriculaAL='"+matAlumno+"' AND idMateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA "
+                            + "USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND "
+                            + "MATRICULAPR='"+matricula+"') AND FECHA='"+fecha+"'");
+                    int k=-1;
+                    rs1.next();
+                    k= (rs1.getInt("CUENTA"));
+                    System.out.println(k);
+                    if (k==0){
+                        s1.executeQuery ("INSERT INTO FALTAS VALUES "
                             + "('',to_date('"+fecha+"','DD/MM/YYYY'),0,'"+matAlumno+"', "
                             + "(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND "
                             + "MATRICULAPR='"+matricula+"'),(SELECT IDRELPROFESORMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
                             + "WHERE MATERIA.NOMBRE='"+materia+"' AND "
                             + "MATRICULAPR='"+matricula+"'))");
-                    
+                    }
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());
                 }
@@ -334,6 +381,10 @@ public class Faltas extends javax.swing.JDialog{
         }
 
     }//GEN-LAST:event_jCheckBoxTodoMouseClicked
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -371,12 +422,46 @@ public class Faltas extends javax.swing.JDialog{
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JCheckBox jCheckBoxTodo;
     private javax.swing.JComboBox jComboBoxGrupo;
     private javax.swing.JComboBox jComboBoxMateria;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void ponerFechas() {
+        Date inicio, hoy, fin;
+        OracleBD OracleConnection = new OracleBD();
+                try{
+                    OracleConnection.conectar();
+                    Connection conn = OracleConnection.getConnection();
+                    Statement s1 = conn.createStatement();
+                    ResultSet rs1 = s1.executeQuery ("SELECT (select sysdate from dual) hoy, "
+                            + "fechainicioclases inicio, fechafinclases fin FROM contador");
+                    while(rs1.next()){
+                        hoy = rs1.getDate("hoy");
+                        jDateChooser1.setDate(hoy);
+
+                        inicio = rs1.getDate("inicio");
+                        jDateChooser1.getJCalendar().setMinSelectableDate(inicio);
+                        
+
+                        fin = rs1.getDate("fin");
+                        
+                        if (fin.before(hoy)){
+                            jDateChooser1.getJCalendar().setMaxSelectableDate(fin);
+                        }
+                        else{
+                            jDateChooser1.getJCalendar().setMaxSelectableDate(hoy);
+                        } 
+                        
+                    }   
+                }catch (SQLException ex) {
+                    Logger.getLogger(Faltas.class.getName()).log(Level.SEVERE, null, ex);
+                }
+    }
 }
