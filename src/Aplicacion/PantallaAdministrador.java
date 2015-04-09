@@ -2313,6 +2313,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         flagEditar = true;
         String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
         if(tipoUser.equals("ALUMNO")){
+            String axu = (String) jComboBoxSemestre.getSelectedItem();
+            int aux2 = Integer.parseInt(axu);
+            jComboBoxSemestre.removeAllItems();
+            jComboBoxSemestre.addItem(""+aux2);
+            jComboBoxSemestre.addItem(""+(aux2+1));
             Habilitar();
             btnhecho.setEnabled(false);
             btnActualizar.setEnabled(true);
@@ -2320,6 +2325,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jTextFieldCorreoInstitucional.setEnabled(false);
             jComboBoxGrupo.setEnabled(true);
             jComboBoxSemestre.setEnabled(true);
+            //jComboBoxCarrera.setEnabled(false);
             }else{
             Habilitar();
             btnActualizar.setEnabled(true);
@@ -2421,7 +2427,17 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setString(12,contrasena);
                 int n = pst.executeUpdate();
                 if(n>0){
-                    JOptionPane.showMessageDialog(null, "Datos actualizados satifactoriamente");
+                    String pIdKardex = null;
+                    Statement stmt = conn.createStatement();
+                    ResultSet rset = stmt.executeQuery("SELECT FUN_OBTENER_IDKARDEX('"+jTextFieldMatricula.getText()+"') AS IDKARDEX FROM DUAL");
+                    while(rset.next()){
+                        pIdKardex = rset.getString("IDKARDEX");
+                        System.out.println(pIdKardex);
+                    }
+                    String sem = (String) jComboBoxSemestre.getSelectedItem();
+                    CallableStatement cst = conn.prepareCall("CALL PRO_ACTUALIZAR_SEMESTRE('"+pIdKardex+"', '"+sem+"')");
+                    cst.execute();
+                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
                     btnListoActualizar();
                 }
                 pst.close();
@@ -2432,6 +2448,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             
         }else if(tipoUser.equals("ALUMNO")){
             String carraraUpdate2 = (String) jComboBoxCarrera.getSelectedItem();
+            String buscarGru = (String) jComboBoxGrupo.getSelectedItem();
+            //buscar grupo que corresponada a ese nombre 
+            String nuevoGrupo = encontrarGrupo(buscarGru);
             guardarTextFildVar();
             String sQl = null;
             sQl = "UPDATE Alumno "
@@ -2447,7 +2466,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     + "correoPersonal = ?,"
                     + "correoInstitucional = ?,"
                     + "contrasena = ?,"
-                    + "idCarrera = ?"
+                    + "idCarrera = ?,"
+                    + "idGrupo = ?"
                     + "WHERE matriculaAl = '"+matriculaUpdate+"'";
             OracleBD OracleConnection = new OracleBD();
             try{
@@ -2467,11 +2487,24 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setString(11,corrInst);
                 pst.setString(12,contrasena);
                 pst.setString(13,carraraUpdate2);
+                pst.setString(14, nuevoGrupo);
                 int n = pst.executeUpdate();
                 if(n>0){
-                    JOptionPane.showMessageDialog(null, "Datos actualizados satifactoriamente");
+                    String pIdKardex = null;
+                    Statement stmt = conn.createStatement();
+                    ResultSet rset = stmt.executeQuery("SELECT FUN_OBTENER_IDKARDEX('"+jTextFieldMatricula.getText()+"') AS IDKARDEX FROM DUAL");
+                    while(rset.next()){
+                        pIdKardex = rset.getString("IDKARDEX");
+                        System.out.println(pIdKardex);
+                    }
+                    String semestre = (String) jComboBoxSemestre.getSelectedItem();
+                    int semInt = Integer.parseInt(semestre);
+                    //Connection conn2 = OracleConnection.getConnection();
+                    CallableStatement cst = conn.prepareCall("CALL PRO_ACTUALIZAR_SEMESTRE('"+pIdKardex+"', "+semInt+")");
+                    cst.execute();
+                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
                     btnListoActualizar();
-                }
+                }   
                 pst.close();
                 OracleConnection.cerrar();
             }catch(Exception ex){
@@ -2503,8 +2536,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             String carreraComparar = (String) jComboBoxCarrera.getSelectedItem();
             //Saver si el usuario cambio de carrera 
             //System.out.println("CarreraCompar: " + carreraComparar);
-            //System.out.println("CarreraActual: "+ carreraActual);
-            
+            //System.out.println("CarreraActual: "+ carreraActual);            
             
             if(!carreraComparar.equals(carreraActual) && flagEditar == true){
                 jComboBoxSemestre.setEnabled(false);
@@ -2512,6 +2544,26 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }else if(carreraComparar.equals(carreraActual) && flagEditar == true){
                 jComboBoxSemestre.setEnabled(true);
                 jComboBoxGrupo.setEnabled(true);
+            }
+            if(flagEditar == true){
+                int mensajeConfirmacion;
+                mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "Esta operacion es delicada, ¿Esta completamente seguro de realizarla?", "Confirmación", 
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+                if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
+                    Limpiar();
+                    Deshabilitar();
+                    llenarTableBorrar("", "", "Borrar");
+                    jComboBoxTipoUser.setSelectedIndex(0);
+                    flagEditar = false;
+                } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
+                    jComboBoxCarrera.setEnabled(false);
+                    flagEditar = false;
+                    String carreraMovimiento = null;
+                    carreraMovimiento = (String) jComboBoxCarrera.getSelectedItem();                           
+                    JOptionPane.showMessageDialog(null, "El alumno sera inscrito en: " + carreraMovimiento);
+
+                } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
+                }
             }
     }//GEN-LAST:event_jComboBoxCarreraItemStateChanged
 
@@ -2702,4 +2754,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
         
     }
+
+   
 }
