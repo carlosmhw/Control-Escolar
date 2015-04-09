@@ -296,16 +296,17 @@ public class Faltas extends javax.swing.JDialog{
         modelo.addColumn("Ap. Paterno");
         modelo.addColumn("Ap. Materno");
         modelo.addColumn("Falta");
-        jTable1.setModel(modelo);
+        
         TableRowSorter elQueOrdena = new TableRowSorter(modelo);//Permite ordenar las filas seleccionando la cabezera
         jTable1.setRowSorter(elQueOrdena);
+        jTable1.setModel(modelo);
         
         OracleBD OracleConnection = new OracleBD();
         try{
             OracleConnection.conectar();
             Connection conn = OracleConnection.getConnection();
             Statement s1 = conn.createStatement();
-            ResultSet rs1 = s1.executeQuery ("SELECT matriculaAL, A.nombre, apellidoPaterno, apellidoMaterno "
+            ResultSet rs1 = s1.executeQuery ("SELECT DISTINCT matriculaAL, A.nombre, apellidoPaterno, apellidoMaterno "
                     + "FROM ALUMNO A JOIN RELPROFESORMATERIA USING(IDGRUPO) "
                     + "JOIN GRUPO G USING(idGrupo) "
                     + "WHERE MATRICULAPR='"+matricula+"' AND G.nombre='"+jComboBoxGrupo.getSelectedItem()+"' "
@@ -326,7 +327,6 @@ public class Faltas extends javax.swing.JDialog{
         }catch(Exception ex){
             System.out.println("Error: " + ex.getMessage());
         }
-        
         //Poner el color de los checkbox
         ((JComponent) jTable1.getDefaultRenderer(Boolean.class)).setOpaque(true);
         jCheckBoxTodo.setSelected(false);
