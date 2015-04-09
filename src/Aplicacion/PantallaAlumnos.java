@@ -7,6 +7,7 @@ package Aplicacion;
 
 
 import Database.OracleBD;
+import java.awt.Dialog;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -77,7 +78,6 @@ public class PantallaAlumnos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Escolar");
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jTableHorario.setModel(new javax.swing.table.DefaultTableModel(
@@ -195,6 +195,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
 
     private void btncalificacionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncalificacionesActionPerformed
         Calificaciones calif = new Calificaciones("ALUMNO",labMatricula.getText());
+        calif.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         calif.setVisible(true);
     }//GEN-LAST:event_btncalificacionesActionPerformed
 
@@ -217,7 +218,9 @@ public class PantallaAlumnos extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnfaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfaltasActionPerformed
-        // TODO add your handling code here:
+        FaltasAlumno pantFaltasAl = new FaltasAlumno(labMatricula.getText());
+        pantFaltasAl.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        pantFaltasAl.setVisible(true);
     }//GEN-LAST:event_btnfaltasActionPerformed
 
     /**
