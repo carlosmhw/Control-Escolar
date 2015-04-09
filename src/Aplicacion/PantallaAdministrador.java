@@ -20,7 +20,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javafx.scene.web.PromptData;
 import javax.swing.BorderFactory;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.xswingx.PromptSupport;
 public final class PantallaAdministrador extends javax.swing.JFrame {
@@ -1160,6 +1162,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxTipoUser.setEnabled(true);
             //btneditar.setEnabled(true);
             //btneliminar.setEnabled(true);
+            jComboBoxSemestre.removeAllItems();
+            jComboBoxSemestre.addItem(""+1);
+            //jComboBoxSemestre.setSelectedIndex(0);
                     
         } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
@@ -2555,14 +2560,50 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     llenarTableBorrar("", "", "Borrar");
                     jComboBoxTipoUser.setSelectedIndex(0);
                     flagEditar = false;
+                    JOptionPane.showMessageDialog(null, "No se realizo ningun cambio.","Información" , JOptionPane.WARNING_MESSAGE);
                 } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
                     jComboBoxCarrera.setEnabled(false);
                     flagEditar = false;
                     String carreraMovimiento = null;
                     carreraMovimiento = (String) jComboBoxCarrera.getSelectedItem();                           
-                    JOptionPane.showMessageDialog(null, "El alumno sera inscrito en: " + carreraMovimiento);
-
-                } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
+                    JPasswordField pwd = new JPasswordField(10);
+                    int action = JOptionPane.showConfirmDialog(null,pwd, "Ingrese su contraseña",JOptionPane.OK_CANCEL_OPTION);
+                    if(action == JOptionPane.YES_OPTION){
+                        //validar contraseña y si es correcta realizar cambio de carrera 
+                        String passwordInput = pwd.getText();
+                        OracleBD OracleValidar = new OracleBD();
+                        String matriculaValidar2 = jLabelMatriculaEmpTop.getText();
+                        String passwordBD = null;
+                        try {
+                            OracleValidar.conectar();
+                            Connection conn2 = OracleValidar.getConnection();
+                            Statement stmt2 = conn2.createStatement();
+                            ResultSet rset2= stmt2.executeQuery("SELECT contrasena FROM Administrador where matriculaAdm ='"+matriculaValidar2+"'");
+                            while(rset2.next()){
+                                passwordBD = rset2.getString("contrasena");
+                            }
+                            stmt2.close();
+                            OracleValidar.cerrar();
+                        } catch (SQLException ex) {
+                            System.out.println("Error: " + ex.getMessage());
+                        }
+                        if(passwordBD.equals(passwordInput)){
+                            System.out.println("OK");
+                        }else{
+                            System.out.println("Error");
+                        }
+                           
+                    }else if(action == JOptionPane.CANCEL_OPTION){
+                        Limpiar();
+                        Deshabilitar();
+                        llenarTableBorrar("", "", "Borrar");
+                        jComboBoxTipoUser.setSelectedIndex(0);
+                        JOptionPane.showMessageDialog(null, "No se realizo ningun cambio.","Información" , JOptionPane.WARNING_MESSAGE);
+                    }else if(action == JOptionPane.CLOSED_OPTION){
+                        
+                    }
+                }else if(mensajeConfirmacion == JOptionPane.CLOSED_OPTION){
+                    //lo mismo que no opcion
                 }
             }
     }//GEN-LAST:event_jComboBoxCarreraItemStateChanged
