@@ -206,7 +206,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     while(rs.next()){
                         rs.getString("idCarrera");
                         jComboBoxCarrera.addItem(rs.getString("idCarrera"));
-                        jComboBoxPorCarrera.addItem(rs.getString("idCarrera"));
+                        //jComboBoxPorCarrera.addItem(rs.getString("idCarrera"));
                     } 
                     
                     stmt.close();
@@ -304,11 +304,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel26 = new javax.swing.JLabel();
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
-        jTextFieldIdGrupo = new javax.swing.JTextField();
-        jTextFieldNombreGrupo = new javax.swing.JTextField();
-        jTextFieldIdSalon = new javax.swing.JTextField();
-        jTextFieldIdNumeroSalon = new javax.swing.JTextField();
-        jTextFieldEdificio = new javax.swing.JTextField();
+        jTextFieldAdmIdGrupo = new javax.swing.JTextField();
+        jTextFieldAdmNombreGrupo = new javax.swing.JTextField();
+        jTextFieldAdmIdSalon = new javax.swing.JTextField();
+        jTextFieldAdmIdNumeroSalon = new javax.swing.JTextField();
+        jTextFieldAdmEdificio = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador Principal");
@@ -335,8 +335,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabelMatriculaEmpTop.setText("Empleado");
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-        jTabbedPane1.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
-        jTabbedPane1.setToolTipText("");
+        jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jTabbedPane1MouseClicked(evt);
@@ -582,6 +581,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
         btneliminar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btneliminar.setText("Eliminar");
+        btneliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btneliminarActionPerformed(evt);
+            }
+        });
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Usuario:");
@@ -919,6 +923,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Grupo:");
 
+        jComboBoxPorGrupo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxPorGrupoItemStateChanged(evt);
+            }
+        });
         jComboBoxPorGrupo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxPorGrupoActionPerformed(evt);
@@ -1027,9 +1036,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1039,10 +1048,21 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(105, Short.MAX_VALUE))
+                .addContainerGap(146, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administrar usuarios", jPanel2);
+
+        jComboBoxAdmGrupo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxAdmGrupoItemStateChanged(evt);
+            }
+        });
+        jComboBoxAdmGrupo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxAdmGrupoActionPerformed(evt);
+            }
+        });
 
         jComboBoxAdmSemestre.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1115,15 +1135,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel28.setText("Edificio:");
 
-        jTextFieldIdGrupo.setEnabled(false);
+        jTextFieldAdmIdGrupo.setEnabled(false);
 
-        jTextFieldNombreGrupo.setEnabled(false);
+        jTextFieldAdmNombreGrupo.setEnabled(false);
 
-        jTextFieldIdSalon.setEnabled(false);
+        jTextFieldAdmIdSalon.setEnabled(false);
 
-        jTextFieldIdNumeroSalon.setEnabled(false);
+        jTextFieldAdmIdNumeroSalon.setEnabled(false);
 
-        jTextFieldEdificio.setEnabled(false);
+        jTextFieldAdmEdificio.setEnabled(false);
 
         javax.swing.GroupLayout jPanelInfoGrupoLayout = new javax.swing.GroupLayout(jPanelInfoGrupo);
         jPanelInfoGrupo.setLayout(jPanelInfoGrupoLayout);
@@ -1131,49 +1151,47 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInfoGrupoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel24)
                     .addGroup(jPanelInfoGrupoLayout.createSequentialGroup()
-                        .addComponent(jLabel24)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel25)
                             .addComponent(jLabel26)
                             .addComponent(jLabel27)
-                            .addComponent(jLabel28)))
-                    .addComponent(jLabel23))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextFieldIdGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
-                    .addComponent(jTextFieldNombreGrupo)
-                    .addComponent(jTextFieldIdSalon)
-                    .addComponent(jTextFieldIdNumeroSalon)
-                    .addComponent(jTextFieldEdificio))
+                            .addComponent(jLabel28)
+                            .addComponent(jLabel23))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldAdmIdGrupo)
+                            .addComponent(jTextFieldAdmNombreGrupo)
+                            .addComponent(jTextFieldAdmIdSalon)
+                            .addComponent(jTextFieldAdmIdNumeroSalon)
+                            .addComponent(jTextFieldAdmEdificio, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanelInfoGrupoLayout.setVerticalGroup(
             jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelInfoGrupoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel23)
-                    .addComponent(jTextFieldIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTextFieldAdmIdGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(9, 9, 9)
                 .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
-                    .addComponent(jTextFieldNombreGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel26)
-                    .addComponent(jTextFieldIdSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldAdmNombreGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel26)
+                    .addComponent(jTextFieldAdmIdSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(8, 8, 8)
+                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel27)
-                    .addComponent(jTextFieldIdNumeroSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldAdmIdNumeroSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel28)
-                    .addComponent(jTextFieldEdificio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jTextFieldAdmEdificio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addComponent(jLabel24))
         );
 
@@ -1183,10 +1201,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(441, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(439, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1195,7 +1213,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(417, Short.MAX_VALUE))
+                .addContainerGap(423, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administrar grupos", jPanel3);
@@ -1209,14 +1227,18 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabelMatriculaEmpTop))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btncerrar)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabelMatriculaEmpTop))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btncerrar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -1224,20 +1246,19 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(labuser)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabelMatriculaEmpTop))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addContainerGap()
                         .addComponent(btncerrar)
-                        .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(4, 4, 4)
+                        .addComponent(labuser))
+                    .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabelMatriculaEmpTop)
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 692, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1326,6 +1347,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         /*Prueba*/
+        btnNuevo.setEnabled(false);
         jComboBoxTipoUser.setEnabled(false);
         disablejComboBoxBusqueda();
         llenarTableBorrar("", "", "Borrar");
@@ -1373,6 +1395,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxSemestre.removeAllItems();
             jComboBoxSemestre.addItem(""+1);
             //jComboBoxSemestre.setSelectedIndex(0);
+            btneditar.setEnabled(false);
+            btnNuevo.setEnabled(true);
                     
         } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
             System.out.println("JOptionPane closed");
@@ -1398,6 +1422,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     public void btnListoActualizar(){
         Limpiar();
         Deshabilitar();
+        btnNuevo.setEnabled(true);
         btnhecho.setEnabled(false);
         btnCancelar.setEnabled(false);
         jComboBoxUsuarioNuevo.setSelectedIndex(0);
@@ -1409,6 +1434,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         // TODO add your handling code here:
+        
         
         guardarTextFildVar();  
         if(jComboBoxUsuarioNuevo.getSelectedItem().equals("ADMINISTRADOR")){
@@ -1782,12 +1808,30 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }else if(tipoUser.equals("ALUMNO")){
             Limpiar();
             Deshabilitar();
-            llenarTableBorrar(tipoUser , "matriculaAl", "Llenar");
+            //llenarTableBorrar(tipoUser , "matriculaAl", "Llenar");
+            //llenarTableBorrar("", "", "Borrar");
             jTextFieldPorMatricula.setText("AL");
             enableBusqueda();
             enablejComboBoxBusqueda();
             jLabelPorMatriula.setText("Matricula");
             enableButtons();
+            OracleBD OracleConection = new OracleBD();
+               
+                try{
+                    OracleConection.conectar();                
+                    Connection conn = OracleConection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    ResultSet rs = stmt.executeQuery ("SELECT idCarrera FROM CARRERA");
+                    jComboBoxPorCarrera.removeAllItems();
+                    while(rs.next()){
+                        rs.getString("idCarrera");
+                        jComboBoxPorCarrera.addItem(rs.getString("idCarrera"));
+                    }                     
+                    stmt.close();
+                    OracleConection.cerrar();
+                }catch(Exception ex){
+                    System.out.println("Error: " + ex.getMessage());
+                }
         }else if(tipoUser.equals("")){
             Limpiar();
             Deshabilitar();
@@ -1928,6 +1972,12 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldPorNombre.setText("");
         jTextFieldPorApellido.setText("");
         jComboBoxTipoUser.setSelectedIndex(0);
+        jComboBoxPorCarrera.removeAllItems();
+        jComboBoxPorGrupo.removeAllItems();
+        jComboBoxPorSemestre.removeAllItems();
+        btnNuevo.setEnabled(true);
+        btneditar.setEnabled(false);
+        btneliminar.setEnabled(false);
     }//GEN-LAST:event_btnCancelarLimpiarActionPerformed
 
     private void jComboBoxCarreraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxCarreraActionPerformed
@@ -1970,7 +2020,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 Connection conn = OracleConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rset = stmt.executeQuery("SELECT matriculaAdm, nombre, apellidoPaterno,"
-                + "apellidoMaterno from Administrador WHERE nombre like '%"+nombre+"%'" );  
+                + "apellidoMaterno from Administrador WHERE nombre like '%"+nombre+"%' AND rownum < 100 " );  
                 while(rset.next()){
                     System.out.println(rset.getString(2));
                     Object[] fila = new Object[4];
@@ -1997,7 +2047,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 Connection conn = OracleConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rset = stmt.executeQuery("SELECT matriculaPr, nombre, apellidoPaterno,"
-                + "apellidoMaterno from Profesor WHERE nombre like '%"+nombre+"%'" );  
+                + "apellidoMaterno from Profesor WHERE nombre like '%"+nombre+"%' AND rownum < 100 " );  
                 while(rset.next()){
                     System.out.println(rset.getString(2));
                     Object[] fila = new Object[4];
@@ -2055,6 +2105,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         String idCarrera = (String) jComboBoxPorCarrera.getSelectedItem();
         jComboBoxPorSemestre.removeAllItems();
         OracleBD OracleConnection = new OracleBD();
+        llenarTableBorrar("", "", "Borrar");
         try{
                     OracleConnection.conectar();
                     Connection conn = OracleConnection.getConnection();
@@ -2358,6 +2409,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btneditar.setEnabled(true);
         btneliminar.setEnabled(true);
         btnCancelar.setEnabled(false);
+        btnNuevo.setEnabled(false);
         int row = jTableBusquedaUser.getSelectedRow();
         matriculaSeleccionTabla = jTableBusquedaUser.getValueAt(row, 0).toString();
         //System.out.println(matriculaSeleccionTabla);
@@ -2523,7 +2575,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void btneditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneditarActionPerformed
         // TODO add your handling code here:
+        btneditar.setEnabled(false);
         flagEditar = true;
+        btnNuevo.setEnabled(false);
+        btneliminar.setEnabled(false);
         String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
         if(tipoUser.equals("ALUMNO")){
             String axu = (String) jComboBoxSemestre.getSelectedItem();
@@ -2532,6 +2587,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxSemestre.addItem(""+aux2);
             jComboBoxSemestre.addItem(""+(aux2+1));
             Habilitar();
+            jComboBoxUsuarioNuevo.setEnabled(false);
             btnhecho.setEnabled(false);
             btnActualizar.setEnabled(true);
             btnCancelar.setEnabled(true);
@@ -2541,6 +2597,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             //jComboBoxCarrera.setEnabled(false);
             }else{
             Habilitar();
+            jComboBoxUsuarioNuevo.setEnabled(false);
             btnActualizar.setEnabled(true);
             btnCancelar.setEnabled(true);
             jTextFieldCorreoInstitucional.setEnabled(false);
@@ -2760,7 +2817,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
             if(flagEditar == true){
                 int mensajeConfirmacion;
-                mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "Esta operacion es delicada, ¿Esta completamente seguro de realizarla?", "Confirmación", 
+                mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta completamente seguro de realizar este movimiento?", "Confirmación", 
                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
                 if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
                     Limpiar();
@@ -2769,6 +2826,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     jComboBoxTipoUser.setSelectedIndex(0);
                     flagEditar = false;
                     JOptionPane.showMessageDialog(null, "No se realizo ningun cambio.","Información" , JOptionPane.WARNING_MESSAGE);
+                    btneditar.setEnabled(false);
+                    btnCancelar.setEnabled(false);
+                    btnNuevo.setEnabled(true);
                 } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
                     jComboBoxCarrera.setEnabled(false);
                     flagEditar = false;
@@ -2796,9 +2856,17 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                             System.out.println("Error: " + ex.getMessage());
                         }
                         if(passwordBD.equals(passwordInput)){
-                            System.out.println("OK");
+                            btnCancelar.setEnabled(false);
+                            JOptionPane.showMessageDialog(null, "Para finalizar da clic en Actualizar","Información" , JOptionPane.WARNING_MESSAGE);
                         }else{
-                            System.out.println("Error");
+                            JOptionPane.showMessageDialog(null, "Contraseña incorrecta.","Información" , JOptionPane.WARNING_MESSAGE);
+                            Limpiar();
+                            Deshabilitar();
+                            llenarTableBorrar("", "", "Borrar");
+                            jComboBoxTipoUser.setSelectedIndex(0);
+                            btneditar.setEnabled(false);
+                            btnCancelar.setEnabled(false);
+                            JOptionPane.showMessageDialog(null, "No se realizo ningun cambio.","Información" , JOptionPane.WARNING_MESSAGE);
                         }
                            
                     }else if(action == JOptionPane.CANCEL_OPTION){
@@ -2806,8 +2874,22 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                         Deshabilitar();
                         llenarTableBorrar("", "", "Borrar");
                         jComboBoxTipoUser.setSelectedIndex(0);
+                        btneditar.setEnabled(false);
+                        btnCancelar.setEnabled(false);
+                        btnNuevo.setEnabled(true);
                         JOptionPane.showMessageDialog(null, "No se realizo ningun cambio.","Información" , JOptionPane.WARNING_MESSAGE);
+                        //no realizar cambio 
+                        
+                        
                     }else if(action == JOptionPane.CLOSED_OPTION){
+                        Limpiar();
+                        Deshabilitar();
+                        llenarTableBorrar("", "", "Borrar");
+                        jComboBoxTipoUser.setSelectedIndex(0);
+                        btneditar.setEnabled(false);
+                        btnCancelar.setEnabled(false);
+                        btnNuevo.setEnabled(true);
+                        JOptionPane.showMessageDialog(null, "No se realizo ningun cambio.","Información" , JOptionPane.WARNING_MESSAGE);
                         
                     }
                 }else if(mensajeConfirmacion == JOptionPane.CLOSED_OPTION){
@@ -2825,12 +2907,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         OracleBD oracleConnection = new OracleBD();
-        jComboBoxAdmCarrera.removeAllItems();
         try {
             oracleConnection.conectar();
             Connection conn = oracleConnection.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rset = stmt.executeQuery("SELECT idCarrera FROM CARRERA");
+            jComboBoxAdmCarrera.removeAllItems();
+            jComboBoxAdmSemestre.removeAllItems();
+            jComboBoxAdmGrupo.removeAllItems();
             while(rset.next()){
                 jComboBoxAdmCarrera.addItem(rset.getString("idCarrera"));
             }
@@ -2847,12 +2931,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         // TODO add your handling code here:
         OracleBD oracleConnection = new OracleBD();
         String idCarr = (String) jComboBoxAdmCarrera.getSelectedItem();
-        jComboBoxAdmSemestre.removeAllItems();
         try {
             oracleConnection.conectar();
             Connection conn = oracleConnection.getConnection();
             Statement stmt = conn.createStatement();
             ResultSet rset = stmt.executeQuery("SELECT semestre FROM grupo WHERE idCarrera = '"+idCarr+"'");
+            jComboBoxAdmSemestre.removeAllItems();
+            //jComboBoxAdmGrupo.removeAllItems();
             while(rset.next()){
                 jComboBoxAdmSemestre.addItem(rset.getString("semestre"));
             }
@@ -2865,7 +2950,155 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jComboBoxAdmSemestreItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAdmSemestreItemStateChanged
         // TODO add your handling code here:
+        OracleBD oracleConnection = new OracleBD();
+        String idCarreraQuery = (String) jComboBoxAdmCarrera.getSelectedItem();
+        String semestreQuery = (String) jComboBoxAdmSemestre.getSelectedItem();
+        try {
+            oracleConnection.conectar();
+            Connection conn = oracleConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("SELECT nombre FROM grupo WHERE semestre = '"+semestreQuery+"' AND idCarrera = '"+idCarreraQuery+"'");
+            jComboBoxAdmGrupo.removeAllItems();
+            while(rset.next()){
+                jComboBoxAdmGrupo.addItem(rset.getString("nombre"));
+            }
+            stmt.close();
+            oracleConnection.cerrar();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }//GEN-LAST:event_jComboBoxAdmSemestreItemStateChanged
+
+    private void jComboBoxAdmGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAdmGrupoItemStateChanged
+        // TODO add your handling code here:
+        OracleBD oracleConnection = new OracleBD();
+        String idGrupoQuery = encontrarGrupo((String) jComboBoxAdmGrupo.getSelectedItem());
+        //jComboBoxAdmGrupo.removeAllItems();
+        try {
+            oracleConnection.conectar();
+            Connection conn = oracleConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rset = stmt.executeQuery("SELECT g.idgrupo, g.nombre, g.idSalon, s.numerosalon, s.edificio FROM grupo g "
+            + "join salon s ON g.idSalon = s.idSalon where idGrupo = '"+idGrupoQuery+"'");
+            while(rset.next()){
+                jTextFieldAdmIdGrupo.setText(rset.getString("idGrupo"));
+                jTextFieldAdmNombreGrupo.setText(rset.getString("nombre"));
+                jTextFieldAdmIdSalon.setText(rset.getString("idSalon"));
+                jTextFieldAdmIdNumeroSalon.setText(rset.getString("numeroSalon"));
+                jTextFieldAdmEdificio.setText(rset.getString("edificio"));
+            }
+            stmt.close();
+            oracleConnection.cerrar();
+        } catch (SQLException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }//GEN-LAST:event_jComboBoxAdmGrupoItemStateChanged
+
+    private void jComboBoxAdmGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxAdmGrupoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBoxAdmGrupoActionPerformed
+
+    private void jComboBoxPorGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxPorGrupoItemStateChanged
+        // TODO add your handling code here:
+            String carreraBusquedaItem = (String) jComboBoxPorCarrera.getSelectedItem();
+            String semestreBusquedaItem = (String) jComboBoxPorSemestre.getSelectedItem();
+            String grupoBusquedaItem = (String) jComboBoxPorGrupo.getSelectedItem();
+            DefaultTableModel modelo = new DefaultTableModel();
+            modelo.addColumn("Matricula");
+            modelo.addColumn("Nombre");
+            modelo.addColumn("Apellido Paterno");
+            modelo.addColumn("Apellido Materno");
+            jTableBusquedaUser.setModel(modelo);
+            OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT Alumno.matriculaAl, Alumno.nombre, Alumno.apellidoPaterno,"
+                    + "Alumno.apellidoMaterno from Alumno JOIN Grupo USING(idGrupo) "
+                    + "WHERE Grupo.idCarrera = '"+carreraBusquedaItem+"' "
+                    + "AND Grupo.semestre = "+semestreBusquedaItem+" AND Grupo.nombre = '"+grupoBusquedaItem+"' AND rownum < 100 ");  
+                while(rset.next()){
+                    System.out.println(rset.getString(2));
+                    Object[] fila = new Object[4];
+                       for (int i = 0; i <= 3; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modelo.addRow(fila);
+                }
+                stmt.close();
+                OracleConnection.cerrar();
+                } catch (SQLException ex) {
+                    System.out.println("Error: " + ex.getMessage());
+                }
+        
+        
+    }//GEN-LAST:event_jComboBoxPorGrupoItemStateChanged
+
+    private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
+        // TODO add your handling code here:
+        String usuarioEliminar = (String) jComboBoxTipoUser.getSelectedItem();
+        int mensajeConfirmacion;
+        mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar", "Confirmación", 
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
+            System.out.println("No button clicked");
+        } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
+            
+            if(usuarioEliminar.equals("ADMINISTRADOR")){
+                OracleBD OracleConnection = new OracleBD();
+                try {
+                    OracleConnection.conectar();
+                    Connection conn = OracleConnection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    int borrar = stmt.executeUpdate("DELETE FROM Administrador WHERE matriculaAdm = '"+jTextFieldMatricula.getText()+"'");
+                        if(borrar > 0){
+                            JOptionPane.showMessageDialog(null, "Datos eliminados satifactoriamente");
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println("Error: " + ex.getMessage());
+                    }
+            }else if(usuarioEliminar.equals("PROFESOR")){
+                OracleBD OracleConnection = new OracleBD();
+                try {
+                    OracleConnection.conectar();
+                    Connection conn = OracleConnection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    int borrar = stmt.executeUpdate("DELETE FROM Profesor WHERE matriculaPr = '"+jTextFieldMatricula.getText()+"'");
+                        if(borrar > 0){
+                            JOptionPane.showMessageDialog(null, "Datos eliminados satifactoriamente");
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println("Error: " + ex.getMessage());
+                    }
+            }else if(usuarioEliminar.equals("ALUMNO")){
+                /*OracleBD OracleConnection = new OracleBD();
+                try {
+                    OracleConnection.conectar();
+                    Connection conn = OracleConnection.getConnection();
+                    Statement stmt = conn.createStatement();
+                    int borrar = stmt.executeUpdate("DELETE FROM Alumno WHERE matriculaAl = '"+jTextFieldMatricula.getText()+"'");
+                        if(borrar > 0){
+                            JOptionPane.showMessageDialog(null, "Datos eliminados satifactoriamente");
+                        }
+                    } catch (SQLException ex) {
+                        System.out.println("Error: " + ex.getMessage());
+                    }*/
+                JOptionPane.showMessageDialog(null, "En construcción");
+            
+        }
+            
+            
+            
+            
+        } else if (mensajeConfirmacion == JOptionPane.CLOSED_OPTION) {
+            System.out.println("JOptionPane closed");
+        }
+        
+        
+        
+        
+    }//GEN-LAST:event_btneliminarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -2976,6 +3209,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableBusquedaUser;
+    private javax.swing.JTextField jTextFieldAdmEdificio;
+    private javax.swing.JTextField jTextFieldAdmIdGrupo;
+    private javax.swing.JTextField jTextFieldAdmIdNumeroSalon;
+    private javax.swing.JTextField jTextFieldAdmIdSalon;
+    private javax.swing.JTextField jTextFieldAdmNombreGrupo;
     private javax.swing.JTextField jTextFieldApellidoMaterno;
     private javax.swing.JTextField jTextFieldApellidoPaterno;
     private javax.swing.JTextField jTextFieldCalle;
@@ -2983,13 +3221,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JTextField jTextFieldContrasena;
     private javax.swing.JTextField jTextFieldCorreoInstitucional;
     private javax.swing.JTextField jTextFieldCorreoPersonal;
-    private javax.swing.JTextField jTextFieldEdificio;
-    private javax.swing.JTextField jTextFieldIdGrupo;
-    private javax.swing.JTextField jTextFieldIdNumeroSalon;
-    private javax.swing.JTextField jTextFieldIdSalon;
     private javax.swing.JTextField jTextFieldMatricula;
     private javax.swing.JTextField jTextFieldNombre;
-    private javax.swing.JTextField jTextFieldNombreGrupo;
     private javax.swing.JTextField jTextFieldNumero;
     private javax.swing.JTextField jTextFieldPorApellido;
     private javax.swing.JTextField jTextFieldPorMatricula;
