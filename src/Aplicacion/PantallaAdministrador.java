@@ -3046,12 +3046,17 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
         // TODO add your handling code here:
+        btnNuevo.setEnabled(false);
+        btneditar.setEnabled(false);
+        btneliminar.setEnabled(false);
         String usuarioEliminar = (String) jComboBoxTipoUser.getSelectedItem();
         int mensajeConfirmacion;
         mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de eliminar", "Confirmación", 
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
         if (mensajeConfirmacion == JOptionPane.NO_OPTION) {
             System.out.println("No button clicked");
+            btneditar.setEnabled(true);
+            btneliminar.setEnabled(true);
         } else if (mensajeConfirmacion == JOptionPane.YES_OPTION) {
             
             if(usuarioEliminar.equals("ADMINISTRADOR")){
@@ -3062,7 +3067,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Statement stmt = conn.createStatement();
                     int borrar = stmt.executeUpdate("DELETE FROM Administrador WHERE matriculaAdm = '"+jTextFieldMatricula.getText()+"'");
                         if(borrar > 0){
+                            Limpiar();
+                            Deshabilitar();
+                            llenarTableBorrar("", "", "Borrar");
+                            btnNuevo.setEnabled(true);
+                            jComboBoxTipoUser.setSelectedIndex(0);
                             JOptionPane.showMessageDialog(null, "Datos eliminados satifactoriamente");
+                                    
                         }
                     } catch (SQLException ex) {
                         System.out.println("Error: " + ex.getMessage());
@@ -3075,25 +3086,35 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     Statement stmt = conn.createStatement();
                     int borrar = stmt.executeUpdate("DELETE FROM Profesor WHERE matriculaPr = '"+jTextFieldMatricula.getText()+"'");
                         if(borrar > 0){
+                            Limpiar();
+                            Deshabilitar();
+                            llenarTableBorrar("", "", "Borrar");
+                            btnNuevo.setEnabled(true);
+                            jComboBoxTipoUser.setSelectedIndex(0);
                             JOptionPane.showMessageDialog(null, "Datos eliminados satifactoriamente");
                         }
                     } catch (SQLException ex) {
                         System.out.println("Error: " + ex.getMessage());
                     }
             }else if(usuarioEliminar.equals("ALUMNO")){
-                /*OracleBD OracleConnection = new OracleBD();
+                OracleBD OracleConnection = new OracleBD();
                 try {
                     OracleConnection.conectar();
                     Connection conn = OracleConnection.getConnection();
                     Statement stmt = conn.createStatement();
                     int borrar = stmt.executeUpdate("DELETE FROM Alumno WHERE matriculaAl = '"+jTextFieldMatricula.getText()+"'");
                         if(borrar > 0){
+                            Limpiar();
+                            Deshabilitar();
+                            llenarTableBorrar("", "", "Borrar");
+                            jComboBoxTipoUser.setSelectedIndex(0);
+                            btnNuevo.setEnabled(true);
                             JOptionPane.showMessageDialog(null, "Datos eliminados satifactoriamente");
                         }
                     } catch (SQLException ex) {
                         System.out.println("Error: " + ex.getMessage());
-                    }*/
-                JOptionPane.showMessageDialog(null, "En construcción");
+                    }
+                //JOptionPane.showMessageDialog(null, "En construcción");
             
         }
             
