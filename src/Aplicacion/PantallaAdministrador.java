@@ -1738,7 +1738,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldMatriculaKeyPressed
 
     public void llenarTableBorrar(String tabla, String user, String movimiento){
-        DefaultTableModel modelo = new DefaultTableModel();        
+        DefaultTableModel modelo = new DefaultTableModel(){
+            /*public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }*/
+            
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return (false); 
+            }
+        };        
         if(tabla.equals("ADMINISTRADOR")||tabla.equals("PROFESOR")){
             modelo.addColumn("Empleado");
             

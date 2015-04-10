@@ -31,6 +31,11 @@ public class PantallaProfesor extends javax.swing.JFrame {
     
     public PantallaProfesor(String matriculaPR){
         initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
+        jTableCalif.getTableHeader().setReorderingAllowed(false);
+        jTableFaltas.getTableHeader().setReorderingAllowed(false);
+        jTableHorario.getTableHeader().setReorderingAllowed(false);
         //setUpSportColumn(jTablePrueba, jTablePrueba.getColumnModel().getColumn(3));
         matricula=matriculaPR;
         labmatricula.setText(matriculaPR);
@@ -52,7 +57,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
        ponerFechas();
         
         btnguardar.setEnabled(false);
-        btnCancelar.setEnabled(false);
+        //btnCancelar.setEnabled(false);
         
         
         jComboBoxGrupo.removeAllItems();
@@ -109,7 +114,6 @@ public class PantallaProfesor extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableHorario = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableFaltas = new javax.swing.JTable();
@@ -118,11 +122,10 @@ public class PantallaProfesor extends javax.swing.JFrame {
         jComboBoxGrupo = new javax.swing.JComboBox();
         jComboBoxMateria = new javax.swing.JComboBox();
         jCheckBoxTodo = new javax.swing.JCheckBox();
-        btnCancelar = new javax.swing.JButton();
         jScrollPane4 = new javax.swing.JScrollPane();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableCalif = new javax.swing.JTable();
         jComboBoxGrupoCalif = new javax.swing.JComboBox();
         btnGuardarCalif = new javax.swing.JButton();
         jComboBoxMateriaCalif = new javax.swing.JComboBox();
@@ -130,6 +133,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Institucion");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setMinimumSize(new java.awt.Dimension(950, 650));
         setPreferredSize(new java.awt.Dimension(950, 800));
 
         jButton2.setText("Cerrar Sesion");
@@ -158,32 +162,21 @@ public class PantallaProfesor extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableHorario);
 
-        jButton1.setText("Modificar Faltas");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
-                .addContainerGap(421, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(444, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1)
-                .addContainerGap(457, Short.MAX_VALUE))
+                .addContainerGap(491, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Horario", jPanel1);
@@ -243,13 +236,6 @@ public class PantallaProfesor extends javax.swing.JFrame {
             }
         });
 
-        btnCancelar.setText("Cancelar");
-        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCancelarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -270,11 +256,9 @@ public class PantallaProfesor extends javax.swing.JFrame {
                             .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addContainerGap(171, Short.MAX_VALUE))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(198, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -287,23 +271,23 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jCheckBoxTodo)
-                        .addGap(26, 26, 26)
-                        .addComponent(btnCancelar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnguardar)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnguardar)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Asignar Faltas", jPanel2);
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calificaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableCalif.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -314,7 +298,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane8.setViewportView(jTable1);
+        jScrollPane8.setViewportView(jTableCalif);
 
         jComboBoxGrupoCalif.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jComboBoxGrupoCalif.addActionListener(new java.awt.event.ActionListener() {
@@ -349,7 +333,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                     .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnGuardarCalif)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addContainerGap(281, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -381,19 +365,20 @@ public class PantallaProfesor extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(jLabel3))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labnombree)
                                     .addComponent(labmatricula))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 723, Short.MAX_VALUE)
                                 .addComponent(jButton2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jSeparator1)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator1))
                         .addContainerGap())))
         );
         layout.setVerticalGroup(
@@ -411,14 +396,11 @@ public class PantallaProfesor extends javax.swing.JFrame {
                                 .addComponent(labmatricula)))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(711, 711, 711)
-                        .addComponent(jLabel3)
-                        .addContainerGap(22, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 682, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel3)
+                .addContainerGap(19, Short.MAX_VALUE))
         );
 
         pack();
@@ -440,7 +422,13 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBoxMateriaCalifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxMateriaCalifActionPerformed
-        DefaultTableModel modelo3 = new DefaultTableModel();
+        DefaultTableModel modelo3 = new DefaultTableModel(){
+                     
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return (col >= 4); 
+            }
+        };
 
         JComboBox comboBox = new JComboBox();
         String a=null;
@@ -496,17 +484,17 @@ public class PantallaProfesor extends javax.swing.JFrame {
             System.out.println("Error: " + ex.getMessage());
         }
 
-        jTable1.setModel(modelo3);
-        TableColumn as = jTable1.getColumnModel().getColumn(4);
+        jTableCalif.setModel(modelo3);
+        TableColumn as = jTableCalif.getColumnModel().getColumn(4);
         as.setCellEditor(new DefaultCellEditor(comboBox));
-        as = jTable1.getColumnModel().getColumn(5);
+        as = jTableCalif.getColumnModel().getColumn(5);
         as.setCellEditor(new DefaultCellEditor(comboBox));
-        as = jTable1.getColumnModel().getColumn(6);
+        as = jTableCalif.getColumnModel().getColumn(6);
         as.setCellEditor(new DefaultCellEditor(comboBox));
     }//GEN-LAST:event_jComboBoxMateriaCalifActionPerformed
 
     private void btnGuardarCalifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarCalifActionPerformed
-        int filas = jTable1.getRowCount();
+        int filas = jTableCalif.getRowCount();
         int n=0;
         for (int i=0; i < filas; i++){
             String sQl = null;
@@ -514,7 +502,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 + "SET Parcial1 = ?,"
                 + "Parcial2 = ?,"
                 + "Parcial3 = ? "
-                + "WHERE idkardex=(select idkardex from kardex where matriculaal='"+(String ) jTable1.getValueAt(i, 0).toString()+"') "
+                + "WHERE idkardex=(select idkardex from kardex where matriculaal='"+(String ) jTableCalif.getValueAt(i, 0).toString()+"') "
                 + "and idmateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
                 + "WHERE MATERIA.NOMBRE='ALGEBRA SUPERIOR' "
                 + "AND MATRICULAPR='"+matricula+"' "
@@ -526,9 +514,9 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 OracleConnection.conectar();
                 Connection conn = OracleConnection.getConnection();
                 PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
-                pst.setString(1,(String ) jTable1.getValueAt(i, 4).toString());// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
-                pst.setString(2,(String ) jTable1.getValueAt(i, 5).toString());
-                pst.setString(3,(String ) jTable1.getValueAt(i, 6).toString());
+                pst.setString(1,(String ) jTableCalif.getValueAt(i, 4).toString());// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                pst.setString(2,(String ) jTableCalif.getValueAt(i, 5).toString());
+                pst.setString(3,(String ) jTableCalif.getValueAt(i, 6).toString());
                 n = pst.executeUpdate();
 
                 pst.close();
@@ -560,10 +548,6 @@ public class PantallaProfesor extends javax.swing.JFrame {
             System.out.println("Error: " + ex.getMessage());
         }
     }//GEN-LAST:event_jComboBoxGrupoCalifActionPerformed
-
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void jCheckBoxTodoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jCheckBoxTodoMouseClicked
         int filas = jTableFaltas.getRowCount();
@@ -618,7 +602,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 modelo2.addRow(fila);
                 modelo2.setValueAt(false, modelo2.getRowCount()-1, 4);
                 btnguardar.setEnabled(true);
-                btnCancelar.setEnabled(true);
+                //btnCancelar.setEnabled(true);
             }
             rs1.close();
             OracleConnection.cerrar();
@@ -698,13 +682,6 @@ public class PantallaProfesor extends javax.swing.JFrame {
             jTableFaltas.setValueAt(jCheckBoxTodo.isSelected(), i, 4);
         }
     }//GEN-LAST:event_btnguardarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        Faltas pantFaltas = new Faltas(labmatricula.getText());
-        pantFaltas.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        //this.setEnabled(false);
-        pantFaltas.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
     
     
     private void ponerFechas() {
@@ -781,11 +758,9 @@ public class PantallaProfesor extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnGuardarCalif;
     private javax.swing.JButton btnguardar;
     private Aplicacion.ComponenteAyuda componenteAyuda1;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBoxTodo;
     private javax.swing.JComboBox jComboBoxGrupo;
@@ -804,7 +779,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable jTableCalif;
     private javax.swing.JTable jTableFaltas;
     private javax.swing.JTable jTableHorario;
     private javax.swing.JLabel labmatricula;
