@@ -451,12 +451,13 @@ public class PantallaProfesor extends javax.swing.JFrame {
         modelo3.addColumn("Parcial 2");
         modelo3.addColumn("Parcial 3");
 
-        String query = ("select distinct matriculaAl, nombre, apellidoPaterno, apellidoMaterno, "
+        String query = ("select matriculaAl, nombre, apellidoPaterno, apellidoMaterno, "
             + "Parcial1, Parcial2, Parcial3 "
             + "from alumno join kardex using(matriculaAl) "
             + "join calificaciones c using(idkardex) "
             + "join RELPROFESORMATERIA r using(idgrupo) "
-            + "where c.idMateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
+            + "where c.idMateria=r.idMateria "
+            + "AND c.idMateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
             + "WHERE MATERIA.NOMBRE='"+ (String) jComboBoxMateriaCalif.getSelectedItem() +"' "
             + "AND MATRICULAPR='"+matricula+"' "
             + "AND IDGRUPO=( SELECT IDGRUPO FROM GRUPO WHERE NOMBRE ='"+(String) jComboBoxGrupoCalif.getSelectedItem()+"')) ORDER BY APELLIDOPATERNO");
@@ -712,7 +713,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                         
                     }   
                 }catch (SQLException ex) {
-                    Logger.getLogger(Faltas.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error: " + ex.getMessage());
                 }
     }
     
