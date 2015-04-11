@@ -48,7 +48,9 @@ public class PantallaAlumnos extends javax.swing.JFrame {
      public PantallaAlumnos (String matriculaAl) {
         initComponents();
         labMatricula.setText(matriculaAl);
-        
+        this.setExtendedState(MAXIMIZED_BOTH);
+        jTableCalifiAlumno.getTableHeader().setReorderingAllowed(false);
+        jTableFaltasAlumno.getTableHeader().setReorderingAllowed(false);
         
         modeloCalif.addColumn("ID");
         modeloCalif.addColumn("Semestre");
