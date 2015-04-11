@@ -180,8 +180,8 @@ public class Materias extends javax.swing.JFrame {
             System.out.println("Carrera: " + carrera + " mat: " + nombre + " clave: " + clave + " Sem: " + semestre);//Prueba
             
             //Confirmar 
-            ConfirmacionAdmin nuevo = new ConfirmacionAdmin();
-            nuevo.setVisible(true);
+            //ConfirmacionAdmin nuevo = new ConfirmacionAdmin();
+            //nuevo.setVisible(true);
             
             //Mandar datos a la base de datos
             //Hacer Update de Tabla
