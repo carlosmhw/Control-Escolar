@@ -1117,9 +1117,12 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="jPanelBusquedaGrupo" max="32767" attributes="0"/>
-                              <Component id="jPanelInfoGrupo" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jPanelBusquedaGrupo" max="32767" attributes="0"/>
+                                  <Component id="jPanelInfoGrupo" max="32767" attributes="0"/>
+                              </Group>
+                              <Component id="bntAsignar" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace pref="439" max="32767" attributes="0"/>
                       </Group>
@@ -1132,7 +1135,9 @@
                           <Component id="jPanelBusquedaGrupo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jPanelInfoGrupo" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace pref="423" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="bntAsignar" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace pref="394" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1378,6 +1383,14 @@
                     </Component>
                   </SubComponents>
                 </Container>
+                <Component class="javax.swing.JButton" name="bntAsignar">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Asignar horario"/>
+                  </Properties>
+                  <Events>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bntAsignarActionPerformed"/>
+                  </Events>
+                </Component>
               </SubComponents>
             </Container>
           </SubComponents>

@@ -309,6 +309,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldAdmIdSalon = new javax.swing.JTextField();
         jTextFieldAdmIdNumeroSalon = new javax.swing.JTextField();
         jTextFieldAdmEdificio = new javax.swing.JTextField();
+        bntAsignar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador Principal");
@@ -1195,15 +1196,24 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jLabel24))
         );
 
+        bntAsignar.setText("Asignar horario");
+        bntAsignar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bntAsignarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bntAsignar))
                 .addContainerGap(439, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -1213,7 +1223,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(423, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bntAsignar)
+                .addContainerGap(394, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administrar grupos", jPanel3);
@@ -3131,6 +3143,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btneliminarActionPerformed
 
+    private void bntAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAsignarActionPerformed
+        // TODO add your handling code here:
+        PantallaAsignarHorario PantAsig = new PantallaAsignarHorario(jTextFieldAdmIdGrupo.getText());
+        PantAsig.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        PantAsig.setVisible(true);
+        
+    }//GEN-LAST:event_bntAsignarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3172,6 +3192,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bntAsignar;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarLimpiar;
