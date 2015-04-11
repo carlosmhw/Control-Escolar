@@ -111,10 +111,10 @@ public class PantallaProfesor extends javax.swing.JFrame {
         jSeparator1 = new javax.swing.JSeparator();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTabbedPane1 = new javax.swing.JTabbedPane();
-        jPanel1 = new javax.swing.JPanel();
+        jPanelHorarioProfesor = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableHorario = new javax.swing.JTable();
-        jPanel2 = new javax.swing.JPanel();
+        jPanelFaltasProfesor = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTableFaltas = new javax.swing.JTable();
         btnguardar = new javax.swing.JButton();
@@ -123,7 +123,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
         jComboBoxMateria = new javax.swing.JComboBox();
         jCheckBoxTodo = new javax.swing.JCheckBox();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jPanel5 = new javax.swing.JPanel();
+        jPanelCalifProfesor = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         jTableCalif = new javax.swing.JTable();
         jComboBoxGrupoCalif = new javax.swing.JComboBox();
@@ -134,7 +134,6 @@ public class PantallaProfesor extends javax.swing.JFrame {
         setTitle("Institucion");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(950, 650));
-        setPreferredSize(new java.awt.Dimension(950, 800));
 
         jButton2.setText("Cerrar Sesion");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -162,26 +161,26 @@ public class PantallaProfesor extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(jTableHorario);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelHorarioProfesorLayout = new javax.swing.GroupLayout(jPanelHorarioProfesor);
+        jPanelHorarioProfesor.setLayout(jPanelHorarioProfesorLayout);
+        jPanelHorarioProfesorLayout.setHorizontalGroup(
+            jPanelHorarioProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelHorarioProfesorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(444, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        jPanelHorarioProfesorLayout.setVerticalGroup(
+            jPanelHorarioProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHorarioProfesorLayout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(491, Short.MAX_VALUE))
         );
 
-        jTabbedPane1.addTab("Horario", jPanel1);
+        jTabbedPane1.addTab("Horario", jPanelHorarioProfesor);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faltas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanelFaltasProfesor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Faltas", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jTableFaltas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -236,56 +235,56 @@ public class PantallaProfesor extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelFaltasProfesorLayout = new javax.swing.GroupLayout(jPanelFaltasProfesor);
+        jPanelFaltasProfesor.setLayout(jPanelFaltasProfesorLayout);
+        jPanelFaltasProfesorLayout.setHorizontalGroup(
+            jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
+                        .addGroup(jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                                 .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(224, 224, 224)
                                 .addComponent(jCheckBoxTodo, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
+                        .addGroup(jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(198, Short.MAX_VALUE))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        jPanelFaltasProfesorLayout.setVerticalGroup(
+            jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                 .addGap(5, 5, 5)
                 .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                         .addComponent(jCheckBoxTodo)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                         .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                                 .addComponent(btnguardar)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Asignar Faltas", jPanel2);
+        jTabbedPane1.addTab("Asignar Faltas", jPanelFaltasProfesor);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calificaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanelCalifProfesor.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calificaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jTableCalif.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -321,13 +320,13 @@ public class PantallaProfesor extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanelCalifProfesorLayout = new javax.swing.GroupLayout(jPanelCalifProfesor);
+        jPanelCalifProfesor.setLayout(jPanelCalifProfesorLayout);
+        jPanelCalifProfesorLayout.setHorizontalGroup(
+            jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jScrollPane8)
                     .addComponent(jComboBoxMateriaCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -335,21 +334,21 @@ public class PantallaProfesor extends javax.swing.JFrame {
                 .addComponent(btnGuardarCalif)
                 .addContainerGap(281, Short.MAX_VALUE))
         );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
+        jPanelCalifProfesorLayout.setVerticalGroup(
+            jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jComboBoxMateriaCalif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnGuardarCalif))
                 .addContainerGap(263, Short.MAX_VALUE))
         );
 
-        jScrollPane4.setViewportView(jPanel5);
+        jScrollPane4.setViewportView(jPanelCalifProfesor);
 
         jTabbedPane1.addTab("Asignar Calififcaciones", jScrollPane4);
 
@@ -451,12 +450,13 @@ public class PantallaProfesor extends javax.swing.JFrame {
         modelo3.addColumn("Parcial 2");
         modelo3.addColumn("Parcial 3");
 
-        String query = ("select distinct matriculaAl, nombre, apellidoPaterno, apellidoMaterno, "
+        String query = ("select matriculaAl, nombre, apellidoPaterno, apellidoMaterno, "
             + "Parcial1, Parcial2, Parcial3 "
             + "from alumno join kardex using(matriculaAl) "
             + "join calificaciones c using(idkardex) "
             + "join RELPROFESORMATERIA r using(idgrupo) "
-            + "where c.idMateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
+            + "where c.idMateria=r.idMateria "
+            + "AND c.idMateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
             + "WHERE MATERIA.NOMBRE='"+ (String) jComboBoxMateriaCalif.getSelectedItem() +"' "
             + "AND MATRICULAPR='"+matricula+"' "
             + "AND IDGRUPO=( SELECT IDGRUPO FROM GRUPO WHERE NOMBRE ='"+(String) jComboBoxGrupoCalif.getSelectedItem()+"')) ORDER BY APELLIDOPATERNO");
@@ -657,8 +657,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                     Statement s1 = conn.createStatement();
                     ResultSet rs1 = s1.executeQuery ("SELECT COUNT(*) CUENTA FROM FALTAS WHERE "
                         + "matriculaAL='"+matAlumno+"' AND idMateria=(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA "
-                        + "USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND "
-                        + "MATRICULAPR='"+matricula+"') AND FECHA='"+fecha+"'");
+                        + "USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND FECHA='"+fecha+"')");
                     int k=-1;
                     rs1.next();
                     k= (rs1.getInt("CUENTA"));
@@ -667,8 +666,6 @@ public class PantallaProfesor extends javax.swing.JFrame {
                         s1.executeQuery ("INSERT INTO FALTAS VALUES "
                             + "('',to_date('"+fecha+"','DD/MM/YYYY'),0,'"+matAlumno+"', "
                             + "(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND "
-                            + "MATRICULAPR='"+matricula+"'),(SELECT IDRELPROFESORMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) "
-                            + "WHERE MATERIA.NOMBRE='"+materia+"' AND "
                             + "MATRICULAPR='"+matricula+"'))");
                     }
                 }catch(Exception ex){
@@ -712,7 +709,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                         
                     }   
                 }catch (SQLException ex) {
-                    Logger.getLogger(Faltas.class.getName()).log(Level.SEVERE, null, ex);
+                    System.out.println("Error: " + ex.getMessage());
                 }
     }
     
@@ -769,9 +766,9 @@ public class PantallaProfesor extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxMateriaCalif;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanelCalifProfesor;
+    private javax.swing.JPanel jPanelFaltasProfesor;
+    private javax.swing.JPanel jPanelHorarioProfesor;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
