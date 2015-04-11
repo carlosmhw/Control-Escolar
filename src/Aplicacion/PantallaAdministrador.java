@@ -3114,6 +3114,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     } catch (SQLException ex) {
                         System.out.println("Error: " + ex.getMessage());
                     }
+              
                 //JOptionPane.showMessageDialog(null, "En construcción");
             
         }
