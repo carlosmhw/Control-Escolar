@@ -12,6 +12,7 @@ import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
@@ -32,7 +33,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     public boolean flagEditar = false;
     /*DefaultTableModel modelo1 = new DefaultTableModel(); //tabla sin representacion grafica
     DefaultTableModel modelo2 = new DefaultTableModel(); //tabla sin representacion grafica*/
-
+    
     public void guardarTextFildVar(){
         matricula = jTextFieldMatricula.getText();
         nombre = jTextFieldNombre.getText().toUpperCase();
@@ -158,6 +159,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
      //Inicia constructor 
     public PantallaAdministrador(String matriculaAdm){
         initComponents();
+        jTableHorarioGpo.getTableHeader().setReorderingAllowed(false);
+        
         this.setExtendedState(MAXIMIZED_BOTH);
         btneditar.setEnabled(false);
         btneliminar.setEnabled(false);
@@ -301,13 +304,11 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         jLabel24 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
-        jLabel27 = new javax.swing.JLabel();
-        jLabel28 = new javax.swing.JLabel();
         jTextFieldAdmIdGrupo = new javax.swing.JTextField();
         jTextFieldAdmNombreGrupo = new javax.swing.JTextField();
-        jTextFieldAdmIdNumeroSalon = new javax.swing.JTextField();
-        jTextFieldAdmEdificio = new javax.swing.JTextField();
-        bntAsignar = new javax.swing.JButton();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTableHorarioGpo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Administrador Principal");
@@ -772,7 +773,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     .addComponent(jLabel16)
                     .addComponent(jComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         jPanelBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Busqueda usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
@@ -1052,16 +1053,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(146, Short.MAX_VALUE))
         );
 
@@ -1140,19 +1139,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel25.setText("Nombre:");
 
-        jLabel27.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel27.setText("Numero de salon:");
-
-        jLabel28.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel28.setText("Edificio:");
-
         jTextFieldAdmIdGrupo.setEnabled(false);
 
         jTextFieldAdmNombreGrupo.setEnabled(false);
-
-        jTextFieldAdmIdNumeroSalon.setEnabled(false);
-
-        jTextFieldAdmEdificio.setEnabled(false);
 
         javax.swing.GroupLayout jPanelInfoGrupoLayout = new javax.swing.GroupLayout(jPanelInfoGrupo);
         jPanelInfoGrupo.setLayout(jPanelInfoGrupoLayout);
@@ -1163,18 +1152,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel24)
                     .addGroup(jPanelInfoGrupoLayout.createSequentialGroup()
+                        .addGap(26, 26, 26)
                         .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel25)
-                            .addComponent(jLabel27)
-                            .addComponent(jLabel28)
                             .addComponent(jLabel23))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldAdmIdGrupo)
-                            .addComponent(jTextFieldAdmNombreGrupo)
-                            .addComponent(jTextFieldAdmIdNumeroSalon)
-                            .addComponent(jTextFieldAdmEdificio, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jTextFieldAdmIdGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, 115, Short.MAX_VALUE)
+                            .addComponent(jTextFieldAdmNombreGrupo))))
+                .addContainerGap(53, Short.MAX_VALUE))
         );
         jPanelInfoGrupoLayout.setVerticalGroup(
             jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1186,24 +1172,41 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
                     .addComponent(jTextFieldAdmNombreGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34)
-                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel27)
-                    .addComponent(jTextFieldAdmIdNumeroSalon, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanelInfoGrupoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel28)
-                    .addComponent(jTextFieldAdmEdificio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel24))
         );
 
-        bntAsignar.setText("Asignar horario");
-        bntAsignar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bntAsignarActionPerformed(evt);
+        jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Horario Del Grupo", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
+
+        jTableHorarioGpo.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        });
+        ));
+        jScrollPane3.setViewportView(jTableHorarioGpo);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 186, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1212,11 +1215,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addComponent(bntAsignar))
-                .addContainerGap(439, Short.MAX_VALUE))
+                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1225,9 +1230,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelBusquedaGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(bntAsignar)
-                .addContainerGap(394, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(294, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administrar grupos", jPanel3);
@@ -2994,6 +2999,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jComboBoxAdmGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxAdmGrupoItemStateChanged
         // TODO add your handling code here:
+        DefaultTableModel modeloHorarioGpo = new DefaultTableModel(){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               //all cells false
+               return false;
+            }
+        };
+        
         OracleBD oracleConnection = new OracleBD();
         String idGrupoQuery = encontrarGrupo((String) jComboBoxAdmGrupo.getSelectedItem());
         //jComboBoxAdmGrupo.removeAllItems();
@@ -3001,18 +3015,50 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             oracleConnection.conectar();
             Connection conn = oracleConnection.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("SELECT g.idgrupo, g.nombre, s.numerosalon, s.edificio FROM grupo g "
-            + "join salon s ON g.idSalon = s.idSalon where idGrupo = '"+idGrupoQuery+"'");
+            ResultSet rset = stmt.executeQuery("SELECT g.idgrupo, g.nombre FROM grupo g "
+            + " where idGrupo = '"+idGrupoQuery+"'");
             while(rset.next()){
                 jTextFieldAdmIdGrupo.setText(rset.getString("idGrupo"));
                 jTextFieldAdmNombreGrupo.setText(rset.getString("nombre"));
-                jTextFieldAdmIdNumeroSalon.setText(rset.getString("numeroSalon"));
-                jTextFieldAdmEdificio.setText(rset.getString("edificio"));
             }
             stmt.close();
             oracleConnection.cerrar();
         } catch (SQLException ex) {
             System.out.println("Error: " + ex.getMessage());
+        }
+        try{
+            oracleConnection.conectar();                
+            Connection conn = oracleConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery ("SELECT M.NOMBRE MATERIA, "
+                + "H.LUNES||'  '||H.SALLUN LUNES, "
+                + "H.MARTE||'  '||H.SALMAR MARTES, "
+                + "H.MIERC||'  '||H.SALMIE MIERCOLES, "
+                + "H.JUEVE||'  '||H.SALJUE JUEVES, "
+                + "H.VIERN||'  '||H.SALVIE VIERNES, "
+                + "H.SABAD||'  '||H.SALSAB SABADO "
+                + "FROM HORARIO2 H JOIN MATERIA M USING(IDMATERIA)"
+                + "WHERE idGrupo='"+jTextFieldAdmIdGrupo.getText()+"'");
+            ResultSetMetaData metaData = rs.getMetaData();
+            int count = metaData.getColumnCount(); //number of column
+
+            for (int i = 1; i <= count; i++)
+            {
+               modeloHorarioGpo.addColumn(metaData.getColumnLabel(i));
+            }
+                    
+            while(rs.next()){
+                Object[] fila = new Object[count];
+                       for (int i = 0; i <= count-1; i++){
+                           fila[i]=rs.getObject(i+1);
+                       }
+                       modeloHorarioGpo.addRow(fila);
+            }
+            jTableHorarioGpo.setModel(modeloHorarioGpo);
+            stmt.close();
+            oracleConnection.cerrar();
+        }catch(Exception ex){
+            System.out.println("Error : " + ex.getMessage());
         }
     }//GEN-LAST:event_jComboBoxAdmGrupoItemStateChanged
 
@@ -3151,20 +3197,14 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private void btnhorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhorarioActionPerformed
         String Usuario = null;
         Usuario = jComboBoxTipoUser.getSelectedItem().toString();
-        
+        HorarioAdm VentHorario = new HorarioAdm(Usuario,matriculaSeleccionTabla);
+        VentHorario.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        VentHorario.setVisible(true);
     }//GEN-LAST:event_btnhorarioActionPerformed
 
     private void btnfaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfaltasActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnfaltasActionPerformed
-
-    private void bntAsignarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bntAsignarActionPerformed
-        // TODO add your handling code here:
-        PantallaAsignarHorario PantAsig = new PantallaAsignarHorario(jTextFieldAdmIdGrupo.getText());
-        PantAsig.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
-        PantAsig.setVisible(true);
-
-    }//GEN-LAST:event_bntAsignarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -3207,7 +3247,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton bntAsignar;
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnCancelarLimpiar;
@@ -3250,8 +3289,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
-    private javax.swing.JLabel jLabel27;
-    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -3267,17 +3304,18 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanelBusqueda;
     private javax.swing.JPanel jPanelBusquedaGrupo;
     private javax.swing.JPanel jPanelInfoGrupo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTableBusquedaUser;
-    private javax.swing.JTextField jTextFieldAdmEdificio;
+    private javax.swing.JTable jTableHorarioGpo;
     private javax.swing.JTextField jTextFieldAdmIdGrupo;
-    private javax.swing.JTextField jTextFieldAdmIdNumeroSalon;
     private javax.swing.JTextField jTextFieldAdmNombreGrupo;
     private javax.swing.JTextField jTextFieldApellidoMaterno;
     private javax.swing.JTextField jTextFieldApellidoPaterno;
