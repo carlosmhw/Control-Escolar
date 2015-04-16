@@ -3203,7 +3203,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     }//GEN-LAST:event_btnhorarioActionPerformed
 
     private void btnfaltasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnfaltasActionPerformed
-        // TODO add your handling code here:
+        FaltasAlumno VentFaltas = new FaltasAlumno(matriculaSeleccionTabla);
+        VentFaltas.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
+        VentFaltas.setVisible(true);
     }//GEN-LAST:event_btnfaltasActionPerformed
 
     /**
