@@ -22,7 +22,7 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
      * Creates new form PantallaAsignarHorario
      */
     DefaultTableModel modelo1 = new DefaultTableModel();
-     DefaultTableModel modelo2 = new DefaultTableModel();
+    DefaultTableModel modelo2 = new DefaultTableModel();
     
     
     
@@ -40,29 +40,24 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
                 return (false); 
             }
         };
-        modelo.addColumn("IDCARRERA");
         modelo.addColumn("IDMATERIA");
-        modelo.addColumn("NOMBRE");
-        modelo.addColumn("SEMESTRE");
-        modelo.addColumn("IDGRUPO");
-        modelo.addColumn("NOMBRE GRUPO");
-        modelo.addColumn("SEMESTRE");        
+        modelo.addColumn("NOMBRE");   
         OracleBD OracleConnection = new OracleBD();
             try {
                 OracleConnection.conectar();
                 Connection conn = OracleConnection.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rset = stmt.executeQuery("SELECT * FROM materia m JOIN grupo g USING(idCarrera) "
+                ResultSet rset = stmt.executeQuery("SELECT m.idmateria , m.nombre FROM materia m JOIN grupo g USING(idCarrera) "
                         + "WHERE m.semestre =  g.semestre AND idGrupo = 'GRU0002'"); 
                 while(rset.next()){
-                    Object[] fila = new Object[7];
-                           for (int i = 0; i <= 6; i++){
+                    Object[] fila = new Object[2];
+                           for (int i = 0; i <= 1; i++){
                                fila[i]=rset.getObject(i+1);
                            }
                            modelo.addRow(fila);
                 }
-                jTable2.setModel(modelo);
-                jTable2.getTableHeader().setReorderingAllowed(false);
+                jTableMterias.setModel(modelo);
+                jTableMterias.getTableHeader().setReorderingAllowed(false);
                 stmt.close();
                 OracleConnection.cerrar();
             } catch (SQLException ex) {
@@ -73,18 +68,66 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
         String[] fila = new String[5];
         for (int j = 0; j < 7; j++){
             for (int i = 0; i <= 4; i++){
-                fila[i]="0";                           
+                fila[i]=" ";                           
             }
             modelo1.addRow(fila);
         }
         
-        jTable1.setModel(modelo1);
+        jTableHorario.setModel(modelo1);
         
         
         
     }
     public PantallaAsignarHorario(String idGrupo){
         initComponents();
+        modelo1.addColumn("Lunes");
+        modelo1.addColumn("Martes");
+        modelo1.addColumn("Miercoles");
+        modelo1.addColumn("Jueves");
+        modelo1.addColumn("Viernes");
+        
+        DefaultTableModel modelo = new DefaultTableModel(){
+            @Override
+            public boolean isCellEditable(int row, int col) {
+                return (false); 
+            }
+        };
+        modelo.addColumn("IDMATERIA");
+        modelo.addColumn("NOMBRE");   
+        OracleBD OracleConnection = new OracleBD();
+            try {
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rset = stmt.executeQuery("SELECT m.idmateria , m.nombre FROM materia m JOIN grupo g USING(idCarrera) "
+                        + "WHERE m.semestre =  g.semestre AND idGrupo = 'GRU0002'"); 
+                while(rset.next()){
+                    Object[] fila = new Object[2];
+                           for (int i = 0; i <= 1; i++){
+                               fila[i]=rset.getObject(i+1);
+                           }
+                           modelo.addRow(fila);
+                }
+                jTableMterias.setModel(modelo);
+                jTableMterias.getTableHeader().setReorderingAllowed(false);
+                stmt.close();
+                OracleConnection.cerrar();
+            } catch (SQLException ex) {
+                System.out.println("Error: " + ex.getMessage());
+            }
+        
+        
+        String[] fila = new String[5];
+        for (int j = 0; j < 14; j++){
+            for (int i = 0; i <= 4; i++){
+                fila[i]=" ";                           
+            }
+            modelo1.addRow(fila);
+        }
+        
+        jTableHorario.setModel(modelo1);
+        
+        
         
     }
 
@@ -99,7 +142,7 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
 
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jTableHorario = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -109,13 +152,13 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jTableMterias = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Asignar horario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Asignar Horario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTableHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -126,7 +169,7 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
                 "Materia", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTableHorario);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Columna (dia)");
@@ -141,14 +184,14 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4" }));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "07:00", "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00" }));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
             }
         });
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0", "1", "2", "3", "4", "5", "6", "7" }));
+        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "08:00", "09:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00" }));
         jComboBox3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox3ActionPerformed(evt);
@@ -235,7 +278,7 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        jTableMterias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -246,7 +289,7 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(jTableMterias);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -277,18 +320,18 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         int fhilaInicio,kolumna, filaFin;
         int fila;
-        fila= jTable2.getSelectedRow();
+        fila= jTableMterias.getSelectedRow();
         String valor = null;
         
-        valor = (String) jTable2.getValueAt(fila, 1);
+        valor = (String) jTableMterias.getValueAt(fila, 1);
         
-        fhilaInicio= Integer.parseInt(jComboBox2.getSelectedItem().toString());
-        filaFin= Integer.parseInt(jComboBox3.getSelectedItem().toString());
+        fhilaInicio= jComboBox2.getSelectedIndex();
+        filaFin= jComboBox2.getSelectedIndex();
         
         kolumna= jComboBox1.getSelectedIndex();
         
         for(int k=fhilaInicio; k <filaFin ; k++ ){
-            jTable1.setValueAt(valor, k, kolumna);
+            jTableHorario.setValueAt(valor, k, kolumna);
             //System.out.println(k);
         }
         
@@ -356,7 +399,7 @@ public class PantallaAsignarHorario extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable jTableHorario;
+    private javax.swing.JTable jTableMterias;
     // End of variables declaration//GEN-END:variables
 }

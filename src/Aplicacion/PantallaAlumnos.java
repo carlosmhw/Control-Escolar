@@ -24,6 +24,15 @@ public class PantallaAlumnos extends javax.swing.JFrame {
     String nombre, paterno, materno, carrera;
     int semestre;
     
+    public DefaultTableModel modeloHorario = new DefaultTableModel(){
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+           //all cells false
+           return false;
+        }
+    };;
+    
     public DefaultTableModel modeloCalif = new DefaultTableModel(){
 
         @Override
@@ -51,6 +60,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         jTableCalifiAlumno.getTableHeader().setReorderingAllowed(false);
         jTableFaltasAlumno.getTableHeader().setReorderingAllowed(false);
+        jTableHorario.getTableHeader().setReorderingAllowed(false);
         
         modeloCalif.addColumn("ID");
         modeloCalif.addColumn("Semestre");
@@ -65,8 +75,49 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         modeloFaltas.addColumn("FALTAS");
         
         
-        
         OracleBD OracleConection = new OracleBD();
+        
+        try{
+            OracleConection.conectar();                
+            Connection conn = OracleConection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery ("SELECT M.NOMBRE MATERIA, "
+                + "H.LUNES||'  '||H.SALLUN LUNES, "
+                + "H.MARTE||'  '||H.SALMAR MARTES, "
+                + "H.MIERC||'  '||H.SALMIE MIERCOLES, "
+                + "H.JUEVE||'  '||H.SALJUE JUEVES, "
+                + "H.VIERN||'  '||H.SALVIE VIERNES, "
+                + "H.SABAD||'  '||H.SALSAB SABADO "
+                + "FROM HORARIO2 H JOIN ALUMNO USING(IDGRUPO) JOIN MATERIA M USING(IDMATERIA) "
+                + "WHERE MATRICULAAL='"+matriculaAl+"'");
+            ResultSetMetaData metaData = rs.getMetaData();
+            int count = metaData.getColumnCount(); //number of column
+
+            for (int i = 1; i <= count; i++)
+            {
+               modeloHorario.addColumn(metaData.getColumnLabel(i));
+            }
+                    
+            while(rs.next()){
+                Object[] fila = new Object[count];
+                       for (int i = 0; i <= count-1; i++){
+                           fila[i]=rs.getObject(i+1);
+                       }
+                       modeloHorario.addRow(fila);
+            }
+            jTableHorario.setModel(modeloHorario);
+            stmt.close();
+            OracleConection.cerrar();
+        }catch(Exception ex){
+            System.out.println("Error Pendejo: " + ex.getMessage());
+        }
+        
+        
+        
+        
+        
+        
+        
                
                 try{
                     OracleConection.conectar();                
@@ -178,7 +229,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Control Escolar");
-        setResizable(false);
+        setMinimumSize(new java.awt.Dimension(300, 200));
 
         labnombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labnombre.setText("Nombre");
@@ -215,22 +266,22 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         jPanelHorarioAlumno.setLayout(jPanelHorarioAlumnoLayout);
         jPanelHorarioAlumnoLayout.setHorizontalGroup(
             jPanelHorarioAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHorarioAlumnoLayout.createSequentialGroup()
-                .addContainerGap(220, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(299, 299, 299))
+            .addGroup(jPanelHorarioAlumnoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelHorarioAlumnoLayout.setVerticalGroup(
             jPanelHorarioAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHorarioAlumnoLayout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(272, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(354, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Horario", jPanelHorarioAlumno);
 
-        jPanelCalifAlumno.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calififcaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanelCalifAlumno.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Calificaciones", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jTableCalifiAlumno.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,7 +308,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
             jPanelCalifAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCalifAlumnoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+                .addComponent(jScrollPane6, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelCalifAlumnoLayout.setVerticalGroup(
@@ -291,7 +342,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
             jPanelFaltasAlumnoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelFaltasAlumnoLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 951, Short.MAX_VALUE)
+                .addComponent(jScrollPane10, javax.swing.GroupLayout.DEFAULT_SIZE, 893, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanelFaltasAlumnoLayout.setVerticalGroup(

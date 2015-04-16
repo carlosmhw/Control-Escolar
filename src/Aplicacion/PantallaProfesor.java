@@ -6,6 +6,7 @@ import java.beans.PropertyChangeListener;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
@@ -28,6 +29,19 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }
     
     String matricula, fecha;
+    
+    
+    public DefaultTableModel modeloHorario = new DefaultTableModel(){
+
+        @Override
+        public boolean isCellEditable(int row, int column) {
+           //all cells false
+           return false;
+        }
+    };;
+    
+    
+    
     
     public PantallaProfesor(String matriculaPR){
         initComponents();
@@ -58,6 +72,47 @@ public class PantallaProfesor extends javax.swing.JFrame {
         
         btnguardar.setEnabled(false);
         //btnCancelar.setEnabled(false);
+        
+        
+        
+        
+        
+        try{
+            OracleConnection.conectar();                
+            Connection conn = OracleConnection.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery ("SELECT M.NOMBRE, "
+                    + "H.LUNES||H.SALLUN LUNES, "
+                    + "H.MARTE||H.SALMAR MARTES, "
+                    + "H.MIERC||H.SALMIE MIERCOLES, "
+                    + "H.JUEVE||H.SALJUE JUEVES, "
+                    + "H.VIERN||H.SALVIE VIERNES, "
+                    + "H.SABAD||H.SALSAB SABADO "
+                    + "FROM HORARIO2 H JOIN RELPROFESORMATERIA R USING(IDMATERIA) "
+                    + "JOIN MATERIA M USING(IDMATERIA) WHERE MATRICULAPR='"+matriculaPR+"'");
+            ResultSetMetaData metaData = rs.getMetaData();
+            int count = metaData.getColumnCount(); //number of column
+
+            for (int i = 1; i <= count; i++)
+            {
+               modeloHorario.addColumn(metaData.getColumnLabel(i));
+            }
+                    
+            while(rs.next()){
+                Object[] fila = new Object[count];
+                       for (int i = 0; i <= count-1; i++){
+                           fila[i]=rs.getObject(i+1);
+                       }
+                       modeloHorario.addRow(fila);
+            }
+            jTableHorario.setModel(modeloHorario);
+            stmt.close();
+            OracleConnection.cerrar();
+        }catch(Exception ex){
+            System.out.println("Error: " + ex.getMessage());
+        }
+        
+        
         
         
         jComboBoxGrupo.removeAllItems();
@@ -129,6 +184,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
         jComboBoxGrupoCalif = new javax.swing.JComboBox();
         btnGuardarCalif = new javax.swing.JButton();
         jComboBoxMateriaCalif = new javax.swing.JComboBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Institucion");
@@ -167,15 +224,15 @@ public class PantallaProfesor extends javax.swing.JFrame {
             jPanelHorarioProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelHorarioProfesorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(444, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 886, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanelHorarioProfesorLayout.setVerticalGroup(
             jPanelHorarioProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelHorarioProfesorLayout.createSequentialGroup()
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(491, Short.MAX_VALUE))
+            .addGroup(jPanelHorarioProfesorLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(436, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Horario", jPanelHorarioProfesor);
@@ -275,7 +332,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                         .addComponent(jComboBoxMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(jPanelFaltasProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 619, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
                             .addGroup(jPanelFaltasProfesorLayout.createSequentialGroup()
                                 .addComponent(btnguardar)
                                 .addGap(0, 0, Short.MAX_VALUE)))))
@@ -320,27 +377,42 @@ public class PantallaProfesor extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("Grupo :");
+
+        jLabel2.setText("Materia: ");
+
         javax.swing.GroupLayout jPanelCalifProfesorLayout = new javax.swing.GroupLayout(jPanelCalifProfesor);
         jPanelCalifProfesor.setLayout(jPanelCalifProfesorLayout);
         jPanelCalifProfesorLayout.setHorizontalGroup(
             jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane8)
-                    .addComponent(jComboBoxMateriaCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 452, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnGuardarCalif)
+                .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
+                        .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGuardarCalif))
+                    .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxMateriaCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(281, Short.MAX_VALUE))
         );
         jPanelCalifProfesorLayout.setVerticalGroup(
             jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanelCalifProfesorLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jComboBoxMateriaCalif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(21, 21, 21)
+                .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBoxGrupoCalif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(11, 11, 11)
+                .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jComboBoxMateriaCalif, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanelCalifProfesorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -765,6 +837,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
     private javax.swing.JComboBox jComboBoxMateria;
     private javax.swing.JComboBox jComboBoxMateriaCalif;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanelCalifProfesor;
     private javax.swing.JPanel jPanelFaltasProfesor;
