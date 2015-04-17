@@ -140,7 +140,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btncalificaciones.setEnabled(false);
         btnhorario.setEnabled(false);
         btnfaltas.setEnabled(false);
-        btnmaterias.setEnabled(false);
+        //btnmaterias.setEnabled(false);
         
     }
     public void enableButtons(){
@@ -148,7 +148,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btncalificaciones.setEnabled(true);
         btnhorario.setEnabled(true);
         btnfaltas.setEnabled(true);
-        btnmaterias.setEnabled(true);
+        //btnmaterias.setEnabled(true);
         
     }
 
@@ -284,7 +284,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btnfaltas = new javax.swing.JButton();
         btncalificaciones = new javax.swing.JButton();
         btnhorario = new javax.swing.JButton();
-        btnmaterias = new javax.swing.JButton();
         btnCancelarLimpiar = new javax.swing.JButton();
         jComboBoxPorCarrera = new javax.swing.JComboBox();
         jLabel1 = new javax.swing.JLabel();
@@ -906,14 +905,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        btnmaterias.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btnmaterias.setText("Materias");
-        btnmaterias.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnmateriasActionPerformed(evt);
-            }
-        });
-
         btnCancelarLimpiar.setText("Cancelar");
         btnCancelarLimpiar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1001,8 +992,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                         .addComponent(btnhorario, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnfaltas, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnmaterias, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(99, 99, 99)))
                 .addContainerGap())
         );
         jPanelBusquedaLayout.setVerticalGroup(
@@ -1039,8 +1029,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addGroup(jPanelBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btncalificaciones)
                     .addComponent(btnhorario)
-                    .addComponent(btnfaltas)
-                    .addComponent(btnmaterias))
+                    .addComponent(btnfaltas))
                 .addContainerGap(104, Short.MAX_VALUE))
         );
 
@@ -1832,7 +1821,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             enableBusqueda();
             disableButtons();
             btnhorario.setEnabled(true);
-            btnmaterias.setEnabled(true);
+            //btnmaterias.setEnabled(true);
         }else if(tipoUser.equals("ALUMNO")){
             Limpiar();
             Deshabilitar();
@@ -3190,10 +3179,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btneliminarActionPerformed
 
-    private void btnmateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmateriasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnmateriasActionPerformed
-
     private void btnhorarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhorarioActionPerformed
         String Usuario = null;
         Usuario = jComboBoxTipoUser.getSelectedItem().toString();
@@ -3260,7 +3245,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JButton btnfaltas;
     private javax.swing.JButton btnhecho;
     private javax.swing.JButton btnhorario;
-    private javax.swing.JButton btnmaterias;
     private Aplicacion.ComponenteAyuda componenteAyuda1;
     private javax.swing.JComboBox jComboBoxAdmCarrera;
     private javax.swing.JComboBox jComboBoxAdmGrupo;

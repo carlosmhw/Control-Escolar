@@ -7,10 +7,12 @@ package Aplicacion;
 
 import Database.OracleBD;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,15 +37,18 @@ public class FaltasAlumno extends javax.swing.JDialog {
         }
     };;
     
+    String matricula;
     public FaltasAlumno(String matriculaAL) {
         initComponents();
+        matricula = matriculaAL;
+        jTableFaltas.getTableHeader().setReorderingAllowed(false);
         jTextField1.setText(matriculaAL);
         OracleBD OracleConection = new OracleBD();
         try{
             OracleConection.conectar();                
             Connection conn = OracleConection.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery ("SELECT IDMATERIA, NOMBRE, FECHA, JUSTIFICADA "
+            ResultSet rs = stmt.executeQuery ("SELECT IDMATERIA, NOMBRE, TO_CHAR(FECHA,'DD/MM/YYYY') FECHA, JUSTIFICADA "
                     + "FROM FALTAS JOIN MATERIA USING(IDMATERIA) WHERE MATRICULAAL='"+matriculaAL+"'");
             ResultSetMetaData metaData = rs.getMetaData();
             int count = metaData.getColumnCount(); //number of column
@@ -84,10 +89,11 @@ public class FaltasAlumno extends javax.swing.JDialog {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableFaltas = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        btnJustificar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -104,12 +110,13 @@ public class FaltasAlumno extends javax.swing.JDialog {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableFaltas.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(jTableFaltas);
 
-        jButton1.setText("Justificar Falta");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnJustificar.setText("Justificar Falta");
+        btnJustificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnJustificarActionPerformed(evt);
             }
         });
 
@@ -141,6 +148,13 @@ public class FaltasAlumno extends javax.swing.JDialog {
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -150,8 +164,9 @@ public class FaltasAlumno extends javax.swing.JDialog {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 588, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnJustificar, javax.swing.GroupLayout.DEFAULT_SIZE, 154, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -162,7 +177,9 @@ public class FaltasAlumno extends javax.swing.JDialog {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnJustificar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnGuardar)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -187,12 +204,45 @@ public class FaltasAlumno extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnJustificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustificarActionPerformed
         int fila = jTableFaltas.getSelectedRow();
         jTableFaltas.setValueAt("1", fila, 3);
-        
-        
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnJustificarActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        int n =0;
+        int filas = jTableFaltas.getRowCount();
+        for (int i=0; i < filas; i++){
+            //int justi = Integer.parseInt(jTableFaltas.getValueAt(i, 3).toString());
+            String fecha = jTableFaltas.getValueAt(i, 2).toString();
+            String materia = jTableFaltas.getValueAt(i, 0).toString();
+            System.out.println(materia+fecha+matricula+jTableFaltas.getValueAt(i, 3).toString());
+            String sQl = null;
+            sQl = ("UPDATE FALTAS "
+                + "SET JUSTIFICADA = ? "
+                + "WHERE IDMATERIA='"+materia+"' "
+                + "AND FECHA='"+fecha+"' "
+                + "AND MATRICULAAL='"+matricula+"' ");
+            OracleBD OracleConnection = new OracleBD();
+            try{
+
+                OracleConnection.conectar();
+                Connection conn = OracleConnection.getConnection();
+                PreparedStatement pst = conn.prepareStatement(sQl);// Envia la sentencia SQL en la variavle sSQL ha SQL para ejecutar acciones en la base de datos.
+                pst.setInt(1,Integer.parseInt(jTableFaltas.getValueAt(i, 3).toString()));// Con el metodo setString se envian los valores a la base de datos colocando primero la pocicion del dato y luego la variable que contiene este mismo.
+                
+                n = pst.executeUpdate();
+
+                pst.close();
+                OracleConnection.cerrar();
+            }catch(Exception ex){
+                System.out.println("Error: " + ex.getMessage());
+            }
+        }
+        if(n>0){
+            JOptionPane.showMessageDialog(null, "Faltas Guardadas");
+        }
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -230,7 +280,8 @@ public class FaltasAlumno extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnJustificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;

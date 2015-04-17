@@ -7,6 +7,8 @@ package Aplicacion;
 
 
 import Database.OracleBD;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dialog;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -14,6 +16,8 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,7 +45,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
            return false;
         }
     };;
-    
+   
     public DefaultTableModel modeloFaltas = new DefaultTableModel(){
 
         @Override
@@ -51,11 +55,46 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         }
     };;
     
+    class FormatoTabla extends DefaultTableCellRenderer
+{ 
+    @Override
+    public Component getTableCellRendererComponent(JTable jTable1,Object value,boolean selected, boolean focused, int row, int column)
+    {
+        super.getTableCellRendererComponent(jTable1, value, selected, focused, row, column);
+        int k = Integer.parseInt(jTableFaltasAlumno.getValueAt(row,2).toString());
+        
+        if (k >= 10)
+        {
+            this.setOpaque(true);
+            this.setBackground(Color.RED);
+            this.setForeground(Color.BLACK);
+        }else if(k >= 8){
+            this.setOpaque(true);
+            this.setBackground(Color.ORANGE);
+            this.setForeground(Color.BLACK);
+        }else if(k >= 5){
+            this.setOpaque(true);
+            this.setBackground(Color.YELLOW);
+            this.setForeground(Color.BLACK);
+        }else{
+            this.setBackground(jTableHorario.getBackground());
+        }
+        
+        return this;
+    }
+    }
+    
+    
+    
     public PantallaAlumnos() {
         initComponents();
     }
      public PantallaAlumnos (String matriculaAl) {
         initComponents();
+        
+        jTableFaltasAlumno.setDefaultRenderer (Object.class, new FormatoTabla());
+        
+        
         labMatricula.setText(matriculaAl);
         this.setExtendedState(MAXIMIZED_BOTH);
         jTableCalifiAlumno.getTableHeader().setReorderingAllowed(false);
@@ -70,10 +109,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         modeloCalif.addColumn("Parcial 3");
         modeloCalif.addColumn("Promedio");
         
-        modeloFaltas.addColumn("IDMATERIA");
-        modeloFaltas.addColumn("MATERIA");
-        modeloFaltas.addColumn("FALTAS");
-        
+               
         
         OracleBD OracleConection = new OracleBD();
         
@@ -109,7 +145,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
             stmt.close();
             OracleConection.cerrar();
         }catch(Exception ex){
-            System.out.println("Error Pendejo: " + ex.getMessage());
+            System.out.println("Error : " + ex.getMessage());
         }
         
         
@@ -175,25 +211,41 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                 OracleConnection.conectar();
                 Connection conn = OracleConnection.getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rset = stmt.executeQuery("SELECT IDMATERIA, M.NOMBRE, FUN_CONTADOR_FALTAS('"+matriculaAl+"',IDMATERIA) FALTAS "
+                ResultSet rset = stmt.executeQuery("SELECT IDMATERIA, M.NOMBRE, "
+                        + "FUN_CONTADOR_FALTAS('"+matriculaAl+"',IDMATERIA,0) FALTAS, "
+                        + "FUN_CONTADOR_FALTAS('"+matriculaAl+"',IDMATERIA,1) JUSTIFICADAS "
                         + "FROM MATERIA M JOIN GRUPO USING(IDCARRERA) "
                         + "WHERE IDGRUPO=(SELECT IDGRUPO FROM ALUMNO WHERE MATRICULAAL='"+matriculaAl+"') "
                         + "AND M.SEMESTRE=GRUPO.SEMESTRE"); 
                 //System.out.println("Query ejecutado");
-                while(rset.next()){
-                    //System.out.println("kjhk");
-                    Object[] fila = new Object[3];
-                           for (int i = 0; i <= 2; i++){
-                               fila[i]=rset.getObject(i+1);
-                           }
-                           modeloFaltas.addRow(fila);
-                }
-                jTableFaltasAlumno.setModel(modeloFaltas);
-                stmt.close();
-                OracleConnection.cerrar();
+                ResultSetMetaData metaData = rset.getMetaData();
+            int count = metaData.getColumnCount(); //number of column
+
+            for (int i = 1; i <= count; i++)
+            {
+               modeloFaltas.addColumn(metaData.getColumnLabel(i));
+            }
+                    
+            while(rset.next()){
+                Object[] fila = new Object[count];
+                       for (int i = 0; i <= count-1; i++){
+                           fila[i]=rset.getObject(i+1);
+                       }
+                       modeloFaltas.addRow(fila);
+            }
+            jTableFaltasAlumno.setModel(modeloFaltas);
+            stmt.close();
+            OracleConection.cerrar();
             } catch (SQLException ex) {
                 System.out.println("Error: " + ex.getMessage());
             }   
+            /*int filas = jTableFaltasAlumno.getRowCount();
+            for (int i=0; i < filas; i++){
+                int k = Integer.parseInt(jTableFaltasAlumno.getValueAt(i, 2).toString());
+                if (k > 1){
+                    jTableFaltasAlumno.setf
+                }
+            }*/
             
             //jtable
 
