@@ -41,7 +41,7 @@ public class Login extends javax.swing.JFrame {
         jPasswordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Institución - Inicio sesión");
+        setTitle("Institución - inicio sesión");
         setIconImages(null);
         setResizable(false);
 
