@@ -1864,6 +1864,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxPorSemestre.setEnabled(false);
             //jTableBusquedaUser.setEnabled(false);
             btnCancelarLimpiar.setEnabled(false);
+            btnNuevo.setEnabled(true);
+            btneditar.setEnabled(false);
+            btneliminar.setEnabled(false);
             
             
         }
