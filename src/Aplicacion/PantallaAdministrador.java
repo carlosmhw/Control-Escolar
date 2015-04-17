@@ -323,7 +323,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         labuser.setText("Nombre de usuario ");
 
         btncerrar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        btncerrar.setText("Cerrar Sesion");
+        btncerrar.setText("Cerrar sesión");
         btncerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btncerrarActionPerformed(evt);
@@ -332,6 +332,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
         jLabelMatriculaEmpTop.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelMatriculaEmpTop.setText("Empleado");
+
+        componenteAyuda1.setUrl("www.google.com");
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

@@ -292,12 +292,14 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         labCarrera.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labCarrera.setText("Grupo");
 
-        jButton1.setText("Cerrar Sesion");
+        jButton1.setText("Cerrar sesión");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
+
+        componenteAyuda1.setUrl("www.google.com.mx");
 
         jPanelHorarioAlumno.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Horario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 

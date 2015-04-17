@@ -95,7 +95,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton2">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Cerrar Sesion"/>
+        <Property name="text" type="java.lang.String" value="Cerrar sesi&#xf3;n"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
@@ -118,6 +118,9 @@
       </Properties>
     </Component>
     <Component class="Aplicacion.ComponenteAyuda" name="componenteAyuda1">
+      <Properties>
+        <Property name="url" type="java.lang.String" value="www.google.com"/>
+      </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">
     </Component>

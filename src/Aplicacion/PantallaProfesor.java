@@ -192,7 +192,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         setMinimumSize(new java.awt.Dimension(950, 650));
 
-        jButton2.setText("Cerrar Sesion");
+        jButton2.setText("Cerrar sesión");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -204,6 +204,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
 
         labmatricula.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labmatricula.setText("Matricula");
+
+        componenteAyuda1.setUrl("www.google.com");
 
         jTableHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
