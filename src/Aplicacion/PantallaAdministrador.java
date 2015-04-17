@@ -2725,7 +2725,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     String sem = (String) jComboBoxSemestre.getSelectedItem();
                     CallableStatement cst = conn.prepareCall("CALL PRO_ACTUALIZAR_SEMESTRE('"+pIdKardex+"', '"+sem+"')");
                     cst.execute();
-                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
+                    JOptionPane.showMessageDialog(null, "Datos actualizados satifactoriamente");
                     btnListoActualizar();
                 }
                 pst.close();
@@ -2790,7 +2790,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     //Connection conn2 = OracleConnection.getConnection();
                     CallableStatement cst = conn.prepareCall("CALL PRO_ACTUALIZAR_SEMESTRE('"+pIdKardex+"', "+semInt+")");
                     cst.execute();
-                    JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
+                    JOptionPane.showMessageDialog(null, "Datos actualizados satifactoriamente");
                     btnListoActualizar();
                 }   
                 pst.close();

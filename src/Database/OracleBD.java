@@ -20,7 +20,7 @@ public class OracleBD {
     //se indica que esta en localhost
     //PUBLICA 189.244.130.55
     //LOCAL 192.168.1.10
-    private final String HOST = "189.155.45.192";
+    private final String HOST = "192.168.1.10";
     //El puerto 1521 es el estandar para este tipo de instalaciones a menos que
     //se indicque lo contrario
     private final int PUERTO = 1521;
