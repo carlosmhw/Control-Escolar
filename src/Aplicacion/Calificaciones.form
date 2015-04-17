@@ -212,7 +212,7 @@
         </Container>
         <Component class="javax.swing.JLabel" name="jLabelMatriculaYNombre">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Matricula y Nombre del Alumno"/>
+            <Property name="text" type="java.lang.String" value="Matr&#xed;cula y nombre del alumno"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnguardar">
@@ -304,12 +304,18 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lbParcial">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="1"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Parcial: "/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblCalif">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Calificacion:"/>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Tahoma" size="12" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Calificaci&#xf3;n:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btncancelar">

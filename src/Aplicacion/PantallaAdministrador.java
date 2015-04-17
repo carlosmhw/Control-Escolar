@@ -310,7 +310,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTableHorarioGpo = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Administrador Principal");
+        setTitle("Institución - administrador");
         setMinimumSize(new java.awt.Dimension(950, 650));
         setPreferredSize(new java.awt.Dimension(950, 800));
         addKeyListener(new java.awt.event.KeyAdapter() {
@@ -342,7 +342,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         jLabelMatriculaEmp.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabelMatriculaEmp.setText("Matricula:");
+        jLabelMatriculaEmp.setText("Matrícula:");
 
         jTextFieldMatricula.setNextFocusableComponent(jTextFieldNombre);
         jTextFieldMatricula.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -440,7 +440,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("Numero:");
+        jLabel6.setText("Número:");
 
         jTextFieldNumero.setNextFocusableComponent(jTextFieldTelCasaLada);
         jTextFieldNumero.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -479,7 +479,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setText("Correo Institucional:");
+        jLabel14.setText("Correo institucional:");
 
         jTextFieldCorreoInstitucional.setNextFocusableComponent(jTextFieldCorreoPersonal);
         jTextFieldCorreoInstitucional.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -775,7 +775,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addContainerGap(77, Short.MAX_VALUE))
         );
 
-        jPanelBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Busqueda usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
+        jPanelBusqueda.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Búsqueda usuario", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.ABOVE_TOP, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
         jLabel22.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel22.setText("Usuario:");
@@ -1042,7 +1042,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(53, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1123,7 +1123,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jPanelInfoGrupo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Información del grupo", javax.swing.border.TitledBorder.LEFT, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 12))); // NOI18N
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel23.setText("Id del Grupo:");
+        jLabel23.setText("Id del grupo:");
 
         jLabel25.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel25.setText("Nombre:");
@@ -1235,17 +1235,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 930, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabelMatriculaEmpTop))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabelMatriculaEmpTop)
+                                .addGap(0, 804, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btncerrar)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -1255,18 +1254,18 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(btncerrar)
-                        .addGap(4, 4, 4)
-                        .addComponent(labuser))
-                    .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabelMatriculaEmpTop)
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btncerrar)
+                            .addComponent(labuser))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabelMatriculaEmpTop)))
+                .addGap(39, 39, 39)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 677, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
                 .addContainerGap())
         );
 

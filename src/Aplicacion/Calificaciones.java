@@ -145,7 +145,7 @@ public class Calificaciones extends javax.swing.JDialog {
             jTableCalificaciones.getColumnModel().getColumn(3).setCellEditor(new javax.swing.DefaultCellEditor(jComboBoxCalificacion));
         }
 
-        jLabelMatriculaYNombre.setText("Matricula y Nombre del Alumno");
+        jLabelMatriculaYNombre.setText("Matrícula y nombre del alumno");
 
         btnguardar.setText("Guardar");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
@@ -183,9 +183,11 @@ public class Calificaciones extends javax.swing.JDialog {
             }
         });
 
+        lbParcial.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbParcial.setText("Parcial: ");
 
-        lblCalif.setText("Calificacion:");
+        lblCalif.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lblCalif.setText("Calificación:");
 
         btncancelar.setText("Cancelar");
         btncancelar.addActionListener(new java.awt.event.ActionListener() {

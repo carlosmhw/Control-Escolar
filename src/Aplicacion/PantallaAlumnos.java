@@ -280,7 +280,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         jTableFaltasAlumno = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Control Escolar");
+        setTitle("Institución - alumno");
         setMinimumSize(new java.awt.Dimension(300, 200));
 
         labnombre.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
