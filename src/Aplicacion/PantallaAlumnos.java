@@ -96,7 +96,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
         
         
         labMatricula.setText(matriculaAl);
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
         jTableCalifiAlumno.getTableHeader().setReorderingAllowed(false);
         jTableFaltasAlumno.getTableHeader().setReorderingAllowed(false);
         jTableHorario.getTableHeader().setReorderingAllowed(false);

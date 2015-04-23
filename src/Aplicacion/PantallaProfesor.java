@@ -45,7 +45,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
     
     public PantallaProfesor(String matriculaPR){
         initComponents();
-        this.setExtendedState(MAXIMIZED_BOTH);
+        //this.setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         jTableCalif.getTableHeader().setReorderingAllowed(false);
         jTableFaltas.getTableHeader().setReorderingAllowed(false);
