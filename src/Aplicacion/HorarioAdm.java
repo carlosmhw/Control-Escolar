@@ -6,6 +6,8 @@
 package Aplicacion;
 
 import Database.OracleBD;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -32,10 +34,14 @@ public class HorarioAdm extends javax.swing.JDialog {
     
     public HorarioAdm() {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
     }
     
     public HorarioAdm(String Usuario, String matricula) {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         
         jTextFieldMatricula.setText(matricula);
         

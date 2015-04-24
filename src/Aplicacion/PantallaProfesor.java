@@ -1,6 +1,8 @@
 package Aplicacion;
 import Database.OracleBD;
 import java.awt.Dialog;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.sql.Connection;
@@ -26,6 +28,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
 
     public PantallaProfesor() {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
     }
     
     String matricula, fecha;
@@ -45,6 +49,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
     
     public PantallaProfesor(String matriculaPR){
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         //this.setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         jTableCalif.getTableHeader().setReorderingAllowed(false);

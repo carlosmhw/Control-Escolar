@@ -4,6 +4,8 @@
 package Aplicacion;
 
 import Database.OracleBD;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,6 +29,8 @@ public class Calificaciones extends javax.swing.JDialog {
     public Calificaciones(String tipoUsuario, String matriculaAL){
         
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         this.matricula=matriculaAL;
         String query = "select idmateria,semestre, M.nombre, parcial1,parcial2,parcial3,promedio " + 
                     " from alumno\n" +
@@ -93,6 +97,8 @@ public class Calificaciones extends javax.swing.JDialog {
     }
     public Calificaciones() {
         initComponents(); 
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         habilitarBotones(flag_habilitar);
         habilitarCampos(flag_habilitar);
         

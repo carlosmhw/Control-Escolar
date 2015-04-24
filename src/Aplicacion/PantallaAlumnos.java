@@ -10,6 +10,8 @@ import Database.OracleBD;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dialog;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -93,9 +95,13 @@ public class PantallaAlumnos extends javax.swing.JFrame {
     
     public PantallaAlumnos() {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
     }
      public PantallaAlumnos (String matriculaAl) {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         
         jTableFaltasAlumno.setDefaultRenderer (Object.class, new FormatoTabla());
         

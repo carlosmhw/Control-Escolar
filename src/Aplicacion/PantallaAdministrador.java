@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.Dialog;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URI;
@@ -156,11 +158,15 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public PantallaAdministrador() {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         //jTextFieldTelCasaLada.setToolTipText("Ingresa el numero de casa");
     }
      //Inicia constructor 
     public PantallaAdministrador(String matriculaAdm){
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         jTableHorarioGpo.getTableHeader().setReorderingAllowed(false);
         
         //this.setExtendedState(MAXIMIZED_BOTH);

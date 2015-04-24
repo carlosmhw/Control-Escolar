@@ -6,6 +6,8 @@
 package Aplicacion;
 
 import Database.OracleBD;
+import java.awt.Image;
+import java.awt.Toolkit;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,6 +28,8 @@ public class FaltasAlumno extends javax.swing.JDialog {
      */
     public FaltasAlumno() {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
     }
     
     public DefaultTableModel modeloFaltas = new DefaultTableModel(){
@@ -40,6 +44,8 @@ public class FaltasAlumno extends javax.swing.JDialog {
     String matricula;
     public FaltasAlumno(String matriculaAL) {
         initComponents();
+        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);
         matricula = matriculaAL;
         jTableFaltas.getTableHeader().setReorderingAllowed(false);
         jTextField1.setText(matriculaAL);
