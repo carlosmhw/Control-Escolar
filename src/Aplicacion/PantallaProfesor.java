@@ -715,8 +715,9 @@ public class PantallaProfesor extends javax.swing.JFrame {
     }//GEN-LAST:event_jDateChooser1MouseClicked
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-        String matAlumno;
+        String matAlumno, nombreGrupo;
         String materia = (String) jComboBoxMateria.getSelectedItem();
+        nombreGrupo = (String) jComboBoxGrupo.getSelectedItem();
         int filas = jTableFaltas.getRowCount();
         System.out.println("sfsdfsdfsdfsdfsdf");
         for (int i=0; i < filas; i++){
@@ -739,7 +740,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
                         s1.executeQuery ("INSERT INTO FALTAS VALUES "
                             + "('',to_date('"+fecha+"','DD/MM/YYYY'),0,'"+matAlumno+"', "
                             + "(SELECT IDMATERIA FROM MATERIA JOIN RELPROFESORMATERIA USING(IDMATERIA) WHERE MATERIA.NOMBRE='"+materia+"' AND "
-                            + "MATRICULAPR='"+matricula+"'))");
+                            + "MATRICULAPR='"+matricula+"' AND "
+                            + "IDGRUPO=(SELECT IDGRUPO FROM GRUPO WHERE NOMBRE='"+nombreGrupo+"')))");
                     }
                 }catch(Exception ex){
                     System.out.println("Error: " + ex.getMessage());

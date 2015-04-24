@@ -257,11 +257,38 @@ public class Login extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    public  boolean CarEsp(Character c) {
+        int x=0;
+        char Alfab[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z',
+        'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+        'á','é','í','ó','ú','Á','É','Í','Ó','Ú','ü','Ü','.','1','2','3','4','5','6','7','8','9','0'};
+        int longitud = Alfab.length;
+        System.out.println("longitud" + longitud);
+        for (int i = 0; i <longitud; i++) {
+            if(c!=(Alfab[i])){ /*aqui evaluo si elcaratér tipeado es distinto a los caracteres válidos*/
+                x++;
+            }
+        }
+        System.out.println("X " + x);
+        if(x == longitud){            
+            return true;
+        }
+        /*si la cantidad de x es igual a la longitud del array, es especial
+        por que es distinto a todos los caracteres válidos, si concuerda con
+        almenos uno entonces si es caracter valido
+        */
+        return false;
+    }
+    
+    
     private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
         // TODO add your handling code here:
-        if(jTextField1.getText().length() == 7){
+        char kc = (char) evt.getKeyChar();        
+        if(CarEsp(kc)== true || jTextField1.getText().length()==7){
             evt.consume();
         }
+
+        
     }//GEN-LAST:event_jTextField1KeyTyped
 
     private void jPasswordField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jPasswordField1KeyTyped

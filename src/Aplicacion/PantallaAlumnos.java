@@ -76,7 +76,12 @@ public class PantallaAlumnos extends javax.swing.JFrame {
             this.setOpaque(true);
             this.setBackground(Color.YELLOW);
             this.setForeground(Color.BLACK);
-        }else{
+        }else if(k >= 0){
+            this.setOpaque(true);
+            this.setBackground(Color.decode("#A9F5A9"));
+            this.setForeground(Color.BLACK);
+        }
+        else{
             this.setBackground(jTableHorario.getBackground());
         }
         
@@ -416,6 +421,9 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 930, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jTabbedPane1)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
@@ -426,9 +434,6 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                                 .addComponent(labnombre)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(jSeparator1)
-                                .addGap(47, 47, 47))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(labCarrera)
                                 .addGap(0, 0, Short.MAX_VALUE)))
@@ -449,7 +454,7 @@ public class PantallaAlumnos extends javax.swing.JFrame {
                             .addComponent(jButton1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(labCarrera)))
-                .addGap(9, 9, 9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 7, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jTabbedPane1)

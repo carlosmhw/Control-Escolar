@@ -621,6 +621,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
 
+        btnActualizar.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1225,7 +1226,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelInfoGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addContainerGap(377, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Administrar grupos", jPanel3);
@@ -1444,12 +1445,20 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btneliminar.setEnabled(false);
     }
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
-        // TODO add your handling code here:
-        
-        
-        guardarTextFildVar();  
-        if(jComboBoxUsuarioNuevo.getSelectedItem().equals("ADMINISTRADOR")){
-            guardarTextFildVar();
+        if(jTextFieldNumero.getText().trim().length() == 0){
+            jTextFieldNumero.setText("0");
+        }
+        String numValidar;
+        ValidarPantallaAdmin validar = new ValidarPantallaAdmin();
+        numValidar = Integer.toString(numero);
+        guardarTextFildVar();
+        if(validar.validarLlenarTodo(nombre, apPaterno, apMaterno, calle, 
+            colonia, telCasa, telMovil, corrPers, contrasena, numValidar, carrera)){
+                JOptionPane.showMessageDialog(null, "Faltan datos en el formulario, verifícalo.");
+        }else{
+            
+            if(jComboBoxUsuarioNuevo.getSelectedItem().equals("ADMINISTRADOR")){
+            guardarTextFildVar();           
             String sQl = null;
             sQl = "insert into administrador values (?,?,?,?,?,?,?,?,?,?,?,?)";
             OracleBD OracleConnection = new OracleBD();
@@ -1558,7 +1567,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }catch(Exception ex){
                 JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
+            }
         }
+            
     }//GEN-LAST:event_btnhechoActionPerformed
 
     private void jTextFieldContrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaFocusGained
