@@ -24,9 +24,9 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
         setIconImage(icon);
-        //setVisible(true);
+        setVisible(true);*/
     }
 
     @SuppressWarnings("unchecked")

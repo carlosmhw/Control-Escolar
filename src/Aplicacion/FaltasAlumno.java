@@ -28,8 +28,8 @@ public class FaltasAlumno extends javax.swing.JDialog {
      */
     public FaltasAlumno() {
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
     }
     
     public DefaultTableModel modeloFaltas = new DefaultTableModel(){
@@ -44,8 +44,8 @@ public class FaltasAlumno extends javax.swing.JDialog {
     String matricula;
     public FaltasAlumno(String matriculaAL) {
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
         matricula = matriculaAL;
         jTableFaltas.getTableHeader().setReorderingAllowed(false);
         jTextField1.setText(matriculaAL);

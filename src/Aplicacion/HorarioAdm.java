@@ -34,14 +34,14 @@ public class HorarioAdm extends javax.swing.JDialog {
     
     public HorarioAdm() {
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
     }
     
     public HorarioAdm(String Usuario, String matricula) {
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
         
         jTextFieldMatricula.setText(matricula);
         

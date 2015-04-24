@@ -94,14 +94,14 @@ public class PantallaAlumnos extends javax.swing.JFrame {
     
     
     public PantallaAlumnos() {
-        initComponents();
+        /*initComponents();
         Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        setIconImage(icon);*/
     }
      public PantallaAlumnos (String matriculaAl) {
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
         
         jTableFaltasAlumno.setDefaultRenderer (Object.class, new FormatoTabla());
         

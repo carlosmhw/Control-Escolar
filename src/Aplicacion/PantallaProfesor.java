@@ -28,8 +28,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
 
     public PantallaProfesor() {
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
     }
     
     String matricula, fecha;
@@ -49,8 +49,8 @@ public class PantallaProfesor extends javax.swing.JFrame {
     
     public PantallaProfesor(String matriculaPR){
         initComponents();
-        Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
-        setIconImage(icon);
+        /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
+        setIconImage(icon);*/
         //this.setExtendedState(MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         jTableCalif.getTableHeader().setReorderingAllowed(false);
