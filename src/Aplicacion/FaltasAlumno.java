@@ -208,6 +208,8 @@ public class FaltasAlumno extends javax.swing.JDialog {
     private void btnJustificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnJustificarActionPerformed
         int fila = jTableFaltas.getSelectedRow();
         jTableFaltas.setValueAt("1", fila, 3);
+        OracleBD  OracleConnection = new OracleBD();
+        
     }//GEN-LAST:event_btnJustificarActionPerformed
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed

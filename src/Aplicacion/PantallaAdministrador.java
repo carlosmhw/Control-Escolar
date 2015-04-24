@@ -24,6 +24,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import org.jdesktop.xswingx.PromptSupport;
 public final class PantallaAdministrador extends javax.swing.JFrame {
@@ -130,8 +131,9 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldContrasena.setText("");     
     }
     public void descoloriarCorreo(){
-        jTextFieldCorreoPersonal.setBorder(BorderFactory.createEmptyBorder());
-        jTextFieldCorreoInstitucional.setBorder(BorderFactory.createEmptyBorder());
+        Border border = jTextFieldMatricula.getBorder();
+        jTextFieldCorreoPersonal.setBorder(border);
+        jTextFieldCorreoInstitucional.setBorder(border);
     }
     
     // Desabilitar botones debajo de tabla
@@ -311,8 +313,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Institución - administrador");
-        setMinimumSize(new java.awt.Dimension(950, 650));
-        setPreferredSize(new java.awt.Dimension(950, 800));
+        setMinimumSize(new java.awt.Dimension(1000, 700));
+        setPreferredSize(new java.awt.Dimension(1000, 850));
         addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 formKeyTyped(evt);
@@ -455,7 +457,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel11.setText("Telefono casa:");
+        jLabel11.setText("Teléfono casa:");
 
         jTextFieldTelCasaLada.setNextFocusableComponent(jTextFieldTelMovill);
         jTextFieldTelCasaLada.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -468,7 +470,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel12.setText("Telefono celular:");
+        jLabel12.setText("Teléfono celular:");
 
         jTextFieldTelMovill.setNextFocusableComponent(jTextFieldCorreoPersonal);
         jTextFieldTelMovill.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -592,6 +594,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabel2.setText("Usuario:");
 
         jComboBoxUsuarioNuevo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "ADMINISTRADOR", "PROFESOR", "ALUMNO" }));
+        jComboBoxUsuarioNuevo.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                jComboBoxUsuarioNuevoItemStateChanged(evt);
+            }
+        });
+        jComboBoxUsuarioNuevo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBoxUsuarioNuevoMouseClicked(evt);
+            }
+        });
         jComboBoxUsuarioNuevo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBoxUsuarioNuevoActionPerformed(evt);
@@ -1045,7 +1057,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addComponent(jPanelBusqueda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1191,7 +1203,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 879, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 900, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -1240,13 +1252,13 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 908, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addComponent(jSeparator1)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabelMatriculaEmpTop)
-                                .addGap(0, 804, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(labuser, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -1270,7 +1282,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)
                 .addGap(61, 61, 61))
         );
 
@@ -1317,7 +1329,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jTextFieldCalleKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldCalleKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldCalle.getText().length() == 50){
+        char kc = (char) evt.getKeyChar();
+        if(CarEspCalle(kc)== true || jTextFieldCalle.getText().length() == 50){
             evt.consume();
         }
         
@@ -1379,6 +1392,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
+        descoloriarCorreo();
         flagEditar = false;
         int mensajeConfirmacion;
         mensajeConfirmacion = JOptionPane.showConfirmDialog(null, "¿Esta seguro de cancelar?", "Confirmación", 
@@ -1444,6 +1458,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btneditar.setEnabled(false);
         btneliminar.setEnabled(false);
     }
+    
     private void btnhechoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnhechoActionPerformed
         if(jTextFieldNumero.getText().trim().length() == 0){
             jTextFieldNumero.setText("0");
@@ -1456,7 +1471,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             colonia, telCasa, telMovil, corrPers, contrasena, numValidar, carrera)){
                 JOptionPane.showMessageDialog(null, "Faltan datos en el formulario, verifícalo.");
         }else{
-            
+            descoloriarCorreo();
             if(jComboBoxUsuarioNuevo.getSelectedItem().equals("ADMINISTRADOR")){
             guardarTextFildVar();           
             String sQl = null;
@@ -1574,7 +1589,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jTextFieldContrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextFieldContrasenaFocusGained
         // TODO add your handling code here:
-        btnhecho.setEnabled(true);
+        //btnhecho.setEnabled(true);
     }//GEN-LAST:event_jTextFieldContrasenaFocusGained
 
     private void jTextFieldNumeroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNumeroKeyTyped
@@ -1645,9 +1660,97 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jComboBoxGrupoKeyPressed
 
+    public  boolean CarEsp(Character c) {
+        int x=0;
+        char Alfab[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z',
+        'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+        ' '};
+        int longitud = Alfab.length;
+        System.out.println("longitud" + longitud);
+        for (int i = 0; i <longitud; i++) {
+            if(c!=(Alfab[i])){ /*aqui evaluo si elcaratér tipeado es distinto a los caracteres válidos*/
+                x++;
+            }
+        }
+        System.out.println("X " + x);
+        if(x == longitud){            
+            return true;
+        }
+        /*si la cantidad de x es igual a la longitud del array, es especial
+        por que es distinto a todos los caracteres válidos, si concuerda con
+        almenos uno entonces si es caracter valido
+        */
+        return false;
+    }
+    public  boolean CarEspCalle(Character c) {
+        int x=0;
+        char Alfab[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z',
+        'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+        /*'á','é','í','ó','ú','Á','É','Í','Ó','Ú','ü','Ü',*/'.','1','2','3','4','5','6','7','8','9','0', ' ', '.'};
+        int longitud = Alfab.length;
+        System.out.println("longitud" + longitud);
+        for (int i = 0; i <longitud; i++) {
+            if(c!=(Alfab[i])){ /*aqui evaluo si elcaratér tipeado es distinto a los caracteres válidos*/
+                x++;
+            }
+        }
+        System.out.println("X " + x);
+        if(x == longitud){            
+            return true;
+        }
+        /*si la cantidad de x es igual a la longitud del array, es especial
+        por que es distinto a todos los caracteres válidos, si concuerda con
+        almenos uno entonces si es caracter valido
+        */
+        return false;
+    }
+    public  boolean CarEspCorreo(Character c) {
+        int x=0;
+        char Alfab[]={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z',
+        'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+        '.','1','2','3','4','5','6','7','8','9','0', ' ','@', '_'};
+        int longitud = Alfab.length;
+        System.out.println("longitud" + longitud);
+        for (int i = 0; i <longitud; i++) {
+            if(c!=(Alfab[i])){ /*aqui evaluo si elcaratér tipeado es distinto a los caracteres válidos*/
+                x++;
+            }
+        }
+        System.out.println("X " + x);
+        if(x == longitud){            
+            return true;
+        }
+        /*si la cantidad de x es igual a la longitud del array, es especial
+        por que es distinto a todos los caracteres válidos, si concuerda con
+        almenos uno entonces si es caracter valido
+        */
+        return false;
+    }
+    public  boolean CarEspTel(Character c) {
+        int x=0;
+        char Alfab[]={'1','2','3','4','5','6','7','8','9','0','(',')','-'};
+        int longitud = Alfab.length;
+        System.out.println("longitud" + longitud);
+        for (int i = 0; i <longitud; i++) {
+            if(c!=(Alfab[i])){ /*aqui evaluo si elcaratér tipeado es distinto a los caracteres válidos*/
+                x++;
+            }
+        }
+        System.out.println("X " + x);
+        if(x == longitud){            
+            return true;
+        }
+        /*si la cantidad de x es igual a la longitud del array, es especial
+        por que es distinto a todos los caracteres válidos, si concuerda con
+        almenos uno entonces si es caracter valido
+        */
+        return false;
+    }
+    
     private void jTextFieldNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldNombre.getText().length() == 50){
+        char kc = (char) evt.getKeyChar();
+        if(CarEsp(kc)== true ||jTextFieldNombre.getText().length() == 50){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldNombreKeyTyped
@@ -1661,35 +1764,40 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     private void jTextFieldApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoPaternoKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldApellidoPaterno.getText().length() == 50){
+        char kc = (char) evt.getKeyChar();
+        if(CarEsp(kc)== true || jTextFieldApellidoPaterno.getText().length() == 50){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldApellidoPaternoKeyTyped
 
     private void jTextFieldApellidoMaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoMaternoKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldApellidoMaterno.getText().length() == 50){
+        char kc = (char) evt.getKeyChar();
+        if(CarEsp(kc)== true || jTextFieldApellidoMaterno.getText().length() == 50){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldApellidoMaternoKeyTyped
 
     private void jTextFieldColoniaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldColoniaKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldColonia.getText().length() == 50){
+        char kc = (char) evt.getKeyChar();
+        if(CarEspCalle(kc)== true || jTextFieldColonia.getText().length() == 50){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldColoniaKeyTyped
 
     private void jTextFieldTelCasaLadaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelCasaLadaKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldTelCasaLada.getText().length() == 15){
+        char kc = (char) evt.getKeyChar();
+        if(CarEspTel(kc)== true ||jTextFieldTelCasaLada.getText().length() == 15){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldTelCasaLadaKeyTyped
 
     private void jTextFieldTelMovillKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldTelMovillKeyTyped
         // TODO add your handling code here:
-        if(jTextFieldTelMovill.getText().length() == 15){
+        char kc = (char) evt.getKeyChar();
+        if(CarEspTel(kc)== true || jTextFieldTelMovill.getText().length() == 15){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldTelMovillKeyTyped
@@ -1706,7 +1814,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         if (resultado.find() == true){  
             jTextFieldCorreoInstitucional.setBorder(BorderFactory.createLineBorder(Color.green));
         }else{
-            jTextFieldCorreoInstitucional.setBorder(BorderFactory.createLineBorder(Color.yellow));
+            jTextFieldCorreoInstitucional.setBorder(BorderFactory.createLineBorder(Color.red));
         }  
         if(jTextFieldCorreoInstitucional.getText().length() == 50){     
             evt.consume();        
@@ -1729,10 +1837,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         if (resultado.find() == true){  
             jTextFieldCorreoPersonal.setBorder(BorderFactory.createLineBorder(Color.green));
         }else{
-            jTextFieldCorreoPersonal.setBorder(BorderFactory.createLineBorder(Color.yellow));
+            jTextFieldCorreoPersonal.setBorder(BorderFactory.createLineBorder(Color.red));
         }
-        
-        if(jTextFieldCorreoPersonal.getText().length() == 50){
+        char kc = (char) evt.getKeyChar();
+        if(CarEspCorreo(kc)== true ||jTextFieldCorreoPersonal.getText().length() == 50){
             evt.consume();
         }
     }//GEN-LAST:event_jTextFieldCorreoPersonalKeyTyped
@@ -1969,6 +2077,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }else if(tipoUser.equals("")){
             Deshabilitar();
             jComboBoxUsuarioNuevo.setEnabled(true);
+            btnhecho.setEnabled(false);
         }
     }//GEN-LAST:event_jComboBoxUsuarioNuevoActionPerformed
 
@@ -2456,6 +2565,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         if(tipoUserLlenar.equals("ADMINISTRADOR")){
             jComboBoxUsuarioNuevo.setSelectedIndex(1);
             Deshabilitar();
+            btnhecho.setEnabled(false);
             OracleBD OracleConnection = new OracleBD();
             try {
                 OracleConnection.conectar();
@@ -2499,6 +2609,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }else if(tipoUserLlenar.equals("PROFESOR")){
             jComboBoxUsuarioNuevo.setSelectedIndex(2);
             Deshabilitar();
+            btnhecho.setEnabled(false);
             OracleBD OracleConnection = new OracleBD();
             try {
                 OracleConnection.conectar();
@@ -2545,6 +2656,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             jComboBoxGrupo.setEnabled(false);
             jComboBoxUsuarioNuevo.setSelectedIndex(3);
             Deshabilitar();
+            btnhecho.setEnabled(false);
             OracleBD OracleConnection = new OracleBD();
             try {
                 OracleConnection.conectar();
@@ -2649,7 +2761,18 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         String tipoUser = (String) jComboBoxTipoUser.getSelectedItem();
         String matriculaUpdate = jTextFieldMatricula.getText();
         //Inicia actualización 
-        
+        if(jTextFieldNumero.getText().trim().length() == 0){
+            jTextFieldNumero.setText("0");
+        }
+        String numValidar;
+        ValidarPantallaAdmin validar = new ValidarPantallaAdmin();
+        numValidar = Integer.toString(numero);
+        guardarTextFildVar();
+        if(validar.validarLlenarTodo(nombre, apPaterno, apMaterno, calle, 
+            colonia, telCasa, telMovil, corrPers, contrasena, numValidar, carrera)){
+                JOptionPane.showMessageDialog(null, "Faltan datos en el formulario, verifícalo.");
+        }else{   
+        descoloriarCorreo();
         if(tipoUser.equals("ADMINISTRADOR")){
             guardarTextFildVar();
             String sQl = null;
@@ -2815,6 +2938,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 System.out.println("Error: " + ex.getMessage());
             }         
         }
+        }
         
         //Termina actualización
     }//GEN-LAST:event_btnActualizarActionPerformed
@@ -2969,7 +3093,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             oracleConnection.conectar();
             Connection conn = oracleConnection.getConnection();
             Statement stmt = conn.createStatement();
-            ResultSet rset = stmt.executeQuery("SELECT semestre FROM grupo WHERE idCarrera = '"+idCarr+"'");
+            ResultSet rset = stmt.executeQuery("SELECT semestre FROM grupo WHERE idCarrera = '"+idCarr+"' ORDER BY semestre");
             jComboBoxAdmSemestre.removeAllItems();
             //jComboBoxAdmGrupo.removeAllItems();
             while(rset.next()){
@@ -3209,6 +3333,16 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         VentFaltas.setModalityType(Dialog.ModalityType.APPLICATION_MODAL);
         VentFaltas.setVisible(true);
     }//GEN-LAST:event_btnfaltasActionPerformed
+
+    private void jComboBoxUsuarioNuevoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioNuevoMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jComboBoxUsuarioNuevoMouseClicked
+
+    private void jComboBoxUsuarioNuevoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBoxUsuarioNuevoItemStateChanged
+        // TODO add your handling code here:
+        btnhecho.setEnabled(true);
+    }//GEN-LAST:event_jComboBoxUsuarioNuevoItemStateChanged
 
     /**
      * @param args the command line arguments
