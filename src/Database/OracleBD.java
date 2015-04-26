@@ -13,14 +13,14 @@ public class OracleBD {
     //Usuario de la base de datos
     private final String USUARIO = "SYSTEM";
     //Contraseña del usuario de la base de datos
-    private final String PASS = "system";
+    private final String PASS = "SYSTEM4321d";
     //SID de la base de datos, este lo registramos en la instalacion
-    private final String SID = "xe";
+    private final String SID = "CONTROL";
     //Host donde se encuentra la base de datos, para nuesto caso como es local
     //se indica que esta en localhost
-    //PUBLICA 189.244.130.55
+    //PUBLICA 189.244.100.142
     //LOCAL 192.168.1.10
-    private final String HOST = "localhost";
+    private final String HOST = "189.244.100.142";
     //El puerto 1521 es el estandar para este tipo de instalaciones a menos que
     //se indicque lo contrario
     private final int PUERTO = 1521;
