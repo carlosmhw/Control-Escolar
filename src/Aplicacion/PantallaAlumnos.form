@@ -27,13 +27,9 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
-                      <Component id="jSeparator1" min="-2" pref="930" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Component id="jTabbedPane1" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -57,6 +53,7 @@
                   </Group>
               </Group>
           </Group>
+          <Component id="jSeparator1" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -121,7 +118,7 @@
     </Component>
     <Component class="Aplicacion.ComponenteAyuda" name="componenteAyuda1">
       <Properties>
-        <Property name="url" type="java.lang.String" value="www.google.com.mx"/>
+        <Property name="url" type="java.lang.String" value="http://www.soportecontrolescolar.16mb.com/"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">

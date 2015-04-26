@@ -211,7 +211,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
         labmatricula.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labmatricula.setText("Matricula");
 
-        componenteAyuda1.setUrl("www.google.com");
+        componenteAyuda1.setUrl("http://www.soportecontrolescolar.16mb.com/");
 
         jTableHorario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -449,7 +449,7 @@ public class PantallaProfesor extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(labnombree)
                                     .addComponent(labmatricula))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 723, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton2)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(componenteAyuda1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))

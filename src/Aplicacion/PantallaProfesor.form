@@ -119,7 +119,7 @@
     </Component>
     <Component class="Aplicacion.ComponenteAyuda" name="componenteAyuda1">
       <Properties>
-        <Property name="url" type="java.lang.String" value="www.google.com"/>
+        <Property name="url" type="java.lang.String" value="http://www.soportecontrolescolar.16mb.com/"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JSeparator" name="jSeparator1">

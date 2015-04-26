@@ -341,7 +341,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jLabelMatriculaEmpTop.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabelMatriculaEmpTop.setText("Empleado");
 
-        componenteAyuda1.setUrl("www.google.com");
+        componenteAyuda1.setUrl("http://www.soportecontrolescolar.16mb.com/");
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jTabbedPane1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));

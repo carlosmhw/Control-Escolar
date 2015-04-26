@@ -55,7 +55,7 @@ public class Login extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Institución Academica ");
 
-        componenteAyuda1.setUrl("www.google.com.mx");
+        componenteAyuda1.setUrl("http://www.soportecontrolescolar.16mb.com/");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
