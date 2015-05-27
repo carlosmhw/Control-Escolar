@@ -1509,6 +1509,17 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setString(12,contrasena);
                 int n = pst.executeUpdate();
                 if(n>0){
+                    String matriculaAdm; 
+                    Statement stmtMatAdm = conn.createStatement();
+                    ResultSet rsetMatAdm = stmtMatAdm.executeQuery("SELECT FUN_OBTENER_MATRICULAADM('"+nombre+"','"+apPaterno+"', '"+apMaterno+"') AS MATRICULAADM FROM DUAL");
+                    while(rsetMatAdm.next()){
+                        matriculaAdm = rsetMatAdm.getString("MATRICULAADM");
+                        //System.out.println("La matricula es: " + matriculaAlumno);
+                        JOptionPane.showMessageDialog(null, ("Se genero la siguente maticula para el administrador: "+matriculaAdm+""  ));
+                        break;
+                    }
+                    stmtMatAdm.close();
+                    rsetMatAdm.close();
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
                     btnListoActualizar();
                 }
@@ -1516,6 +1527,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 OracleConnection.cerrar();
             }catch(Exception ex){
                 System.out.println("Error: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error: "+ ex.getMessage());
             }
         }
         else if(jComboBoxUsuarioNuevo.getSelectedItem().equals("PROFESOR")){
@@ -1541,6 +1553,17 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 pst.setString(12,contrasena);
                 int n = pst.executeUpdate();
                 if(n>0){
+                    String matriculaPr; 
+                    Statement stmtMatPr = conn.createStatement();
+                    ResultSet rsetMatPr = stmtMatPr.executeQuery("SELECT FUN_OBTENER_MATRICULAPR('"+nombre+"','"+apPaterno+"', '"+apMaterno+"') AS MATRICULAPR FROM DUAL");
+                    while(rsetMatPr.next()){
+                        matriculaPr = rsetMatPr.getString("MATRICULAPR");
+                        //System.out.println("La matricula es: " + matriculaAlumno);
+                        JOptionPane.showMessageDialog(null, ("Se genero la siguente maticula para el profesor: "+matriculaPr+""));
+                        break;
+                    }
+                    stmtMatPr.close();
+                    rsetMatPr.close();
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
                     btnListoActualizar();
                 }    
@@ -1548,6 +1571,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                 OracleConnection.cerrar();
             }catch(Exception ex){
                 System.out.println("Error: " + ex.getMessage());
+                JOptionPane.showMessageDialog(null, "Error: " + ex.getMessage());
             }
         }
         else if(jComboBoxUsuarioNuevo.getSelectedItem().equals("ALUMNO")){
@@ -1584,10 +1608,24 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                         pIdKardex = rset.getString("IDKARDEX");
                         System.out.println(pIdKardex);
                     }
+                    stmt.close();
+                    rset.close();
+                    String matriculaAlumno; 
+                    Statement stmtMat = conn.createStatement();
+                    ResultSet rsetMat = stmtMat.executeQuery("SELECT FUN_OBTENER_MATRICULA('"+nombre+"','"+apPaterno+"', '"+apMaterno+"') AS MATRICULAAL FROM DUAL");
+                    while(rsetMat.next()){
+                        matriculaAlumno = rsetMat.getString("MATRICULAAL");
+                        //System.out.println("La matricula es: " + matriculaAlumno);
+                        JOptionPane.showMessageDialog(null, ("Se genero la siguente matRicula para el alumno: "+matriculaAlumno+""  ));
+                        break;
+                    }
+                    stmtMat.close();
+                    rsetMat.close();
+                    
                     String sem = (String) jComboBoxSemestre.getSelectedItem();
                     //Connection conn2 = OracleConnection.getConnection();
                     CallableStatement cst = conn.prepareCall("CALL PRO_CAMBIAR_CURSANDO('"+pIdKardex+"', '"+sem+"')");
-                    cst.execute();
+                    cst.execute();  
                     JOptionPane.showMessageDialog(null, "Datos ingresados satifactoriamente");
                     btnListoActualizar();
                 }   
