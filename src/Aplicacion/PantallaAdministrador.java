@@ -158,6 +158,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
 
     public PantallaAdministrador() {
         initComponents();
+        jLabelMatriculaEmp.setVisible(false);
+        jTextFieldMatricula.setVisible(false);
+        jLabelCorreroIns.setVisible(false);
+        jTextFieldCorreoInstitucional.setVisible(false);
         /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
         setIconImage(icon);*/
         //jTextFieldTelCasaLada.setToolTipText("Ingresa el numero de casa");
@@ -165,6 +169,10 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
      //Inicia constructor 
     public PantallaAdministrador(String matriculaAdm){
         initComponents();
+        jLabelMatriculaEmp.setVisible(false);
+        jTextFieldMatricula.setVisible(false);
+        jLabelCorreroIns.setVisible(false);
+        jTextFieldCorreoInstitucional.setVisible(false);
         /*Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("/aplicacion/image/icono.png"));
         setIconImage(icon);*/
         jTableHorarioGpo.getTableHeader().setReorderingAllowed(false);
@@ -258,7 +266,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         jTextFieldTelCasaLada = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
         jTextFieldTelMovill = new javax.swing.JTextField();
-        jLabel14 = new javax.swing.JLabel();
+        jLabelCorreroIns = new javax.swing.JLabel();
         jTextFieldCorreoInstitucional = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
         jTextFieldCorreoPersonal = new javax.swing.JTextField();
@@ -488,8 +496,8 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             }
         });
 
-        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel14.setText("Correo institucional:");
+        jLabelCorreroIns.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabelCorreroIns.setText("Correo institucional:");
 
         jTextFieldCorreoInstitucional.setNextFocusableComponent(jTextFieldCorreoPersonal);
         jTextFieldCorreoInstitucional.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -664,7 +672,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                            .addComponent(jLabel14)
+                                                            .addComponent(jLabelCorreroIns)
                                                             .addComponent(jLabel12, javax.swing.GroupLayout.Alignment.TRAILING))
                                                         .addComponent(jLabel11, javax.swing.GroupLayout.Alignment.TRAILING))
                                                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -768,7 +776,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
                     .addComponent(jTextFieldTelMovill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel14)
+                    .addComponent(jLabelCorreroIns)
                     .addComponent(jTextFieldCorreoInstitucional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -1761,13 +1769,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jTextFieldNombreKeyTyped
 
-    private void jTextFieldMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatriculaKeyTyped
-        // TODO add your handling code here:
-        if(jTextFieldMatricula.getText().length() == 7){
-            evt.consume();
-        }
-    }//GEN-LAST:event_jTextFieldMatriculaKeyTyped
-
     private void jTextFieldApellidoPaternoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldApellidoPaternoKeyTyped
         // TODO add your handling code here:
         char kc = (char) evt.getKeyChar();
@@ -1864,14 +1865,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
             evt.consume();
         }
     }//GEN-LAST:event_formKeyTyped
-
-    private void jTextFieldMatriculaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatriculaKeyPressed
-        // TODO add your handling code here:
-        if(evt.getKeyCode() == 10){
-            jTextFieldNombre.requestFocusInWindow();
-            
-        }
-    }//GEN-LAST:event_jTextFieldMatriculaKeyPressed
 
     public void llenarTableBorrar(String tabla, String user, String movimiento){
         DefaultTableModel modelo = new DefaultTableModel(){
@@ -3350,6 +3343,21 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
         btnhecho.setEnabled(true);
     }//GEN-LAST:event_jComboBoxUsuarioNuevoItemStateChanged
 
+    private void jTextFieldMatriculaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatriculaKeyTyped
+        // TODO add your handling code here:
+        if(jTextFieldMatricula.getText().length() == 7){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextFieldMatriculaKeyTyped
+
+    private void jTextFieldMatriculaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldMatriculaKeyPressed
+        // TODO add your handling code here:
+        if(evt.getKeyCode() == 10){
+            jTextFieldNombre.requestFocusInWindow();
+
+        }
+    }//GEN-LAST:event_jTextFieldMatriculaKeyPressed
+
     /**
      * @param args the command line arguments
      */
@@ -3419,7 +3427,6 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
@@ -3439,6 +3446,7 @@ public final class PantallaAdministrador extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabelCorreroIns;
     private javax.swing.JLabel jLabelMatriculaEmp;
     private javax.swing.JLabel jLabelMatriculaEmpTop;
     private javax.swing.JLabel jLabelPorApellido;
